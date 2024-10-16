@@ -1,14 +1,32 @@
+import { PREFIX } from "./prefix";
+
 export const ENDPOINT = {
   USERS: {
-    CREATE: "/users",
-    DETAIL: "/users/:id",
-    UPDATE: "/users/:id/update",
-    DELETE: "/users/:id/delete",
+    LIST: PREFIX.USERS,
+    CREATE: `${PREFIX.USERS}/create`,
+    DETAIL: `${PREFIX.USERS}/:id/detail`,
+    UPDATE: `${PREFIX.USERS}/:id/update`,
+    DELETE: `${PREFIX.USERS}/:id/delete`,
   },
   BOOKS: {
-    CREATE: "/books",
-    DETAIL: "/books/:id",
-    UPDATE: "/books/:id/update",
-    DELETE: "/books/:id/delete",
+    LIST: PREFIX.BOOKS,
+    CREATE: `${PREFIX.BOOKS}/create`,
+    DETAIL: `${PREFIX.BOOKS}/:id/detail`,
+    UPDATE: `${PREFIX.BOOKS}/:id/update`,
+    DELETE: `${PREFIX.BOOKS}/:id/delete`,
+  },
+  CATEGORIES: {
+    LIST: PREFIX.CATEGORIES,
+    CREATE: `${PREFIX.CATEGORIES}/create`,
+    DETAIL: `${PREFIX.CATEGORIES}/:id/detail`,
+    UPDATE: `${PREFIX.CATEGORIES}/:id/update`,
+    DELETE: `${PREFIX.CATEGORIES}/:id/delete`,
+  },
+  AUTHORS: {
+    LIST: PREFIX.AUTHORS,
+    CREATE: `${PREFIX.AUTHORS}/create`,
+    DETAIL: `${PREFIX.AUTHORS}/:id/detail`,
+    UPDATE: `${PREFIX.AUTHORS}/:id/update`,
+    DELETE: `${PREFIX.AUTHORS}/:id/delete`,
   },
 };

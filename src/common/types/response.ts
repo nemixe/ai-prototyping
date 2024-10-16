@@ -1,6 +1,10 @@
-import { TMeta } from "./meta";
+import { TMetaResponse } from "./meta";
 
-export type TResponse<T> = {
+export type TListResponse<T> = {
   data: T;
-  meta: TMeta;
+  meta: TMetaResponse;
+};
+
+export type TDetailResponse<T> = {
+  data: T;
 };
