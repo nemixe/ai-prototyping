@@ -11,22 +11,10 @@ export default defineConfig({
     },
   },
   build: {
-    chunkSizeWarningLimit: 700,
+    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (id.includes("react-router-dom") || id.includes("react-router")) {
-            return "@react-router";
-          }
-          if (id.includes("antd/es")) {
-            const match = id.match(/antd\/es\/([^/]+)/);
-            if (match) {
-              return `antd-${match[1]}`;
-            }
-          }
-          if (id.includes("antd")) {
-            return "antd";
-          }
           if (id.includes("@ant-design/icons/es")) {
             const match = id.match(/@ant-design\/icons\/es\/([^/]+)/);
             if (match) {
@@ -50,6 +38,9 @@ export default defineConfig({
           }
           if (id.includes("axios")) {
             return "axios";
+          }
+          if (id.includes("react-router-dom") || id.includes("react-router")) {
+            return "@react-router";
           }
         },
       },
