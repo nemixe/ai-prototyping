@@ -10,4 +10,49 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (id.includes("react-router-dom") || id.includes("react-router")) {
+            return "@react-router";
+          }
+          if (id.includes("antd/es")) {
+            const match = id.match(/antd\/es\/([^/]+)/);
+            if (match) {
+              return `antd-${match[1]}`;
+            }
+          }
+          if (id.includes("antd")) {
+            return "antd";
+          }
+          if (id.includes("@ant-design/icons/es")) {
+            const match = id.match(/@ant-design\/icons\/es\/([^/]+)/);
+            if (match) {
+              return `ant-design-icon-${match[1]}`;
+            }
+          }
+          if (id.includes("@ant-design/icons")) {
+            return "ant-design-icons";
+          }
+          if (id.includes("lodash-es")) {
+            const match = id.match(/lodash-es\/([^/]+)/);
+            if (match) {
+              return `lodash-${match[1]}`;
+            }
+          }
+          if (id.includes("lodash")) {
+            return "lodash";
+          }
+          if (id.includes("moment")) {
+            return "moment";
+          }
+          if (id.includes("axios")) {
+            return "axios";
+          }
+        },
+      },
+    },
+  },
 });

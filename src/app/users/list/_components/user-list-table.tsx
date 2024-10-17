@@ -1,6 +1,5 @@
-import { Fragment, type FC, type ReactElement } from "react";
+import { Fragment, Suspense, type FC, type ReactElement } from "react";
 import { Header } from "@/components/ui/header";
-import { DataTable } from "@/components/ui/data-table";
 import { BREADCRUMB_ITEMS } from "@/common/constants/breadcrumb";
 import { ROUTES } from "@/common/constants/routes";
 import { ColumnsType } from "antd/es/table";
@@ -8,6 +7,9 @@ import { TUserItem } from "@/api/users/type";
 import { Link } from "react-router-dom";
 import { Flex } from "antd";
 import { urlParser } from "@/utils/helper";
+import { lazily } from "react-lazily";
+
+const { DataTable } = lazily(() => import("@/components/ui/data-table"));
 
 export const UserListTable: FC = (): ReactElement => {
   const columns: ColumnsType<TUserItem> = [
@@ -97,7 +99,9 @@ export const UserListTable: FC = (): ReactElement => {
         title={"User Management"}
         add={{ text: "Add User +", link: ROUTES.USERS.CREATE }}
       />
+      <Suspense fallback={<div>Loading...</div>} />
       <DataTable columns={columns} data={data} loading={false} rowKey="id" />
+      <Suspense />
     </Fragment>
   );
 };
