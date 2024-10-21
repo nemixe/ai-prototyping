@@ -1,12 +1,17 @@
 import { api } from "@/libs/axios/api";
-import { TUserCreateRequest, TUserResponse } from "./type";
+import {
+  TUserCreateRequest,
+  TUserDetailResponse,
+  TUserListResponse,
+} from "./type";
 import { ENDPOINT } from "@/common/constants/endpoint";
 import { urlParser } from "@/utils/helper";
+import { TMetaRequest } from "@/common/types/meta";
 
 export const postCreateUser = async (
-  params: TUserCreateRequest,
-): Promise<TUserResponse> => {
-  const { data } = await api({
+  params: TUserCreateRequest
+): Promise<TUserListResponse> => {
+  const { data } = await api<TUserListResponse>({
     method: "POST",
     url: ENDPOINT.USERS.CREATE,
     data: params,
@@ -14,10 +19,44 @@ export const postCreateUser = async (
   return data;
 };
 
-export const getDetailUser = async (param: string): Promise<TUserResponse> => {
+export const getDetailUser = async (
+  param: string
+): Promise<TUserDetailResponse> => {
   const { data } = await api({
     method: "GET",
     url: urlParser(ENDPOINT.USERS.DETAIL, {
+      id: param,
+    }),
+  });
+  return data;
+};
+
+export const getListUser = async (
+  params: TMetaRequest
+): Promise<TUserListResponse> => {
+  const { data } = await api<TUserListResponse>({
+    method: "GET",
+    params,
+    url: ENDPOINT.USERS.LIST,
+  });
+  return data;
+};
+
+export const putUpdateUser = async (
+  params: TUserCreateRequest
+): Promise<string> => {
+  const { data } = await api<string>({
+    method: "PUT",
+    url: ENDPOINT.USERS.UPDATE,
+    data: params,
+  });
+  return data;
+};
+
+export const deleteDeleteUser = async (param: string): Promise<string> => {
+  const { data } = await api<string>({
+    method: "DELETE",
+    url: urlParser(ENDPOINT.USERS.DELETE, {
       id: param,
     }),
   });

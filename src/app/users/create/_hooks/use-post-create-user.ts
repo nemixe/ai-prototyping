@@ -1,16 +1,17 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { TErrorResponse } from "@/common/types/error";
-import { TUserCreateRequest, TUserResponse } from "@/api/users/type";
+import { TUserCreateRequest, TUserListResponse } from "@/api/users/type";
 import { postCreateUser } from "@/api/users/api";
+import { QUERY_KEY } from "@/common/constants/query-key";
 
 export const usePostCreateUser = (): UseMutationResult<
-  TUserResponse,
+  TUserListResponse,
   TErrorResponse,
   TUserCreateRequest,
   unknown
 > => {
   return useMutation({
-    mutationKey: ["create-user"],
+    mutationKey: [QUERY_KEY.USERS.LIST],
     mutationFn: async (params) => await postCreateUser(params),
   });
 };

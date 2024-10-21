@@ -1,4 +1,4 @@
-import { TResponse } from "@/common/types/response";
+import { TDetailResponse, TListResponse } from "@/common/types/response";
 
 export type TUserItem = {
   id: number;
@@ -6,16 +6,21 @@ export type TUserItem = {
   email: string;
   phone: string;
   address: string;
-  status: number;
-  created_at: string;
-  updated_at: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
-export type TUserResponse = TResponse<TUserItem[]>;
+export type TUserCreateRequest = Omit<
+  TUserItem,
+  "id" | "status" | "created_at" | "updated_at"
+>;
 
-export type TUserCreateRequest = {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-};
+export type TUserUpdateRequest = Omit<
+  TUserItem,
+  "status" | "created_at" | "updated_at"
+>;
+
+export type TUserListResponse = TListResponse<TUserItem[]>;
+
+export type TUserDetailResponse = TDetailResponse<TUserItem>;
