@@ -1,10 +1,10 @@
 "use client";
-import { type FC, type ReactElement } from "react";
+import type { FC, ReactElement } from "react";
 import { Layout } from "antd";
-import { Sidebar } from "@/components/ui/sidebar";
+import { Sidebar } from "./sidebar";
 import { Outlet } from "react-router-dom";
 
-export const GlobalLayout: FC = (): ReactElement => {
+export const ProtectedLayout: FC = (): ReactElement => {
   const { Content } = Layout;
   return (
     <Layout

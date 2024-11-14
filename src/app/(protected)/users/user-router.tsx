@@ -1,4 +1,4 @@
-import { ROUTES } from "@/common/constants/routes";
+import { ROUTES } from "@/commons/constants/routes";
 import { UsersCreatePage } from "./create/page";
 import { UsersListPage } from "./list/page";
 import { UsersUpdatePage } from "./update/page";

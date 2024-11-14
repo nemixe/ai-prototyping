@@ -1,4 +1,4 @@
-import { TDetailResponse, TListResponse } from "@/common/types/response";
+import { TDetailResponse, TListResponse } from "@/commons/types/response";
 
 export type TUserItem = {
   id: number;

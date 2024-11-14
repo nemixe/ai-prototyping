@@ -12,7 +12,7 @@ type TBoundary = PropsWithChildren & {
   loading: ReactNode;
 };
 
-export const Boundary: FC<TBoundary> = (props): ReactElement => {
+export const AppBoundary: FC<TBoundary> = (props): ReactElement => {
   return (
     <ErrorBoundary fallback={props.error}>
       <Suspense fallback={props.loading}>{props.children}</Suspense>

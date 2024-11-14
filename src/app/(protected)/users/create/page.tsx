@@ -5,7 +5,7 @@ import { UserCreateLoading } from "./_components/user-create-loading";
 import { UserCreateError } from "./_components/user-create-error";
 
 const { UserCreateForm } = lazily(
-  () => import("./_components/user-create-form")
+  () => import("./_components/user-create-form"),
 );
 
 export const UsersCreatePage: FC = (): ReactElement => {

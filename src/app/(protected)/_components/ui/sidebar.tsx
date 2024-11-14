@@ -2,7 +2,7 @@
 import { Suspense, type FC, type ReactElement } from "react";
 import { lazily } from "react-lazily";
 import { Layout } from "antd";
-import { SIDEBAR_ITEMS } from "@/common/constants/sidebar";
+import { SIDEBAR_ITEMS } from "@/commons/constants/sidebar";
 
 const { Flex, Menu } = lazily(() => import("antd"));
 

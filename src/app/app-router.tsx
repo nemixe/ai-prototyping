@@ -1,21 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
-import { userRouter } from "./users/user-router";
-import { PREFIX } from "@/common/constants/prefix";
-import { GlobalLayout } from "@/components/ui/global-layout";
+import { PREFIX } from "@/commons/constants/prefix";
+import { GlobalError } from "./_components/ui/global-error";
+import { ProtectedLayout } from "./(protected)/_components/protected-layout";
+import { userRouter } from "./(protected)/users/user-router";
 
 export const router = createBrowserRouter([
   {
-    path: "/login",
+    path: PREFIX.AUTH,
     element: <div>Login</div>,
   },
   {
-    path: "/",
-    element: <GlobalLayout />,
+    path: PREFIX.ROOT,
+    element: <ProtectedLayout />,
+    errorElement: <GlobalError />,
     children: [
       {
         path: PREFIX.USERS,
         hasErrorBoundary: true,
-        errorElement: <div>error</div>,
         children: userRouter,
       },
     ],

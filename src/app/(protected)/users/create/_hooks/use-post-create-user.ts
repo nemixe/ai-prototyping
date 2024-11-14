@@ -1,8 +1,8 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
-import { TErrorResponse } from "@/common/types/error";
+import { TErrorResponse } from "@/commons/types/error";
 import { TUserCreateRequest, TUserListResponse } from "@/api/users/type";
 import { postCreateUser } from "@/api/users/api";
-import { QUERY_KEY } from "@/common/constants/query-key";
+import { QUERY_KEY } from "@/commons/constants/query-key";
 
 export const usePostCreateUser = (): UseMutationResult<
   TUserListResponse,
