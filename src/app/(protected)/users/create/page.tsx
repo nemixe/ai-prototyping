@@ -1,8 +1,8 @@
 import type { FC, ReactElement } from "react";
 import { lazily } from "react-lazily";
-import { Boundary } from "@/components/ui/boundary";
 import { UserCreateLoading } from "./_components/user-create-loading";
 import { UserCreateError } from "./_components/user-create-error";
+import { AppBoundary } from "@/app/_components/ui/app-boundary";
 
 const { UserCreateForm } = lazily(
   () => import("./_components/user-create-form"),
@@ -10,8 +10,8 @@ const { UserCreateForm } = lazily(
 
 export const UsersCreatePage: FC = (): ReactElement => {
   return (
-    <Boundary error={<UserCreateError />} loading={<UserCreateLoading />}>
+    <AppBoundary error={<UserCreateError />} loading={<UserCreateLoading />}>
       <UserCreateForm />
-    </Boundary>
+    </AppBoundary>
   );
 };

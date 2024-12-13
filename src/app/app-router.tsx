@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { PREFIX } from "@/commons/constants/prefix";
-import { GlobalError } from "./_components/ui/global-error";
-import { ProtectedLayout } from "./(protected)/_components/protected-layout";
 import { userRouter } from "./(protected)/users/user-router";
+import { AppError } from "./_components/ui/app-error";
+import { ProtectedLayout } from "./(protected)/_components/ui/layout";
 
 export const router = createBrowserRouter([
   {
@@ -12,7 +12,7 @@ export const router = createBrowserRouter([
   {
     path: PREFIX.ROOT,
     element: <ProtectedLayout />,
-    errorElement: <GlobalError />,
+    errorElement: <AppError />,
     children: [
       {
         path: PREFIX.USERS,

@@ -4,12 +4,12 @@ import {
   TUserDetailResponse,
   TUserListResponse,
 } from "./type";
-import { ENDPOINT } from "@/common/constants/endpoint";
-import { urlParser } from "@/utils/helper";
-import { TMetaRequest } from "@/common/types/meta";
+import { ENDPOINT } from "@/commons/constants/endpoint";
+import { urlParser } from "@/utils/url-parser";
+import { TMetaRequest } from "@/commons/types/meta";
 
 export const postCreateUser = async (
-  params: TUserCreateRequest
+  params: TUserCreateRequest,
 ): Promise<TUserListResponse> => {
   const { data } = await api<TUserListResponse>({
     method: "POST",
@@ -20,7 +20,7 @@ export const postCreateUser = async (
 };
 
 export const getDetailUser = async (
-  param: string
+  param: string,
 ): Promise<TUserDetailResponse> => {
   const { data } = await api({
     method: "GET",
@@ -32,7 +32,7 @@ export const getDetailUser = async (
 };
 
 export const getListUser = async (
-  params: TMetaRequest
+  params: TMetaRequest,
 ): Promise<TUserListResponse> => {
   const { data } = await api<TUserListResponse>({
     method: "GET",
@@ -43,7 +43,7 @@ export const getListUser = async (
 };
 
 export const putUpdateUser = async (
-  params: TUserCreateRequest
+  params: TUserCreateRequest,
 ): Promise<string> => {
   const { data } = await api<string>({
     method: "PUT",

@@ -1,11 +1,11 @@
 import { Fragment, type FC, type ReactElement } from "react";
 import { Button, Form, Input, message } from "antd";
 import { TUserCreateRequest } from "@/api/users/type";
-import { Header } from "@protected/_components/ui/header";
 import { usePostCreateUser } from "../_hooks/use-post-create-user";
 import { USER_CREATE_BREADCRUMB } from "../_constants/user-create-breadcrumb";
 import { createZodSync } from "@/utils/zod-sync";
 import { userSchema } from "@/api/users/schema";
+import { Header } from "@/app/(protected)/_components/ui/header";
 
 export const UserCreateForm: FC = (): ReactElement => {
   const [form] = Form.useForm<TUserCreateRequest>();

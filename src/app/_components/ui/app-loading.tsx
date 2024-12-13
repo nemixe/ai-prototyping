@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from "react";
 
-export const GlobalLoading: FC = (): ReactElement => {
+export const AppLoading: FC = (): ReactElement => {
   return <div>Loading...</div>;
 };

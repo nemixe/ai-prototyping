@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from "react";
 
-export const GlobalError: FC = (): ReactElement => {
+export const AppError: FC = (): ReactElement => {
   return <div>Error...</div>;
 };

@@ -1,31 +1,54 @@
 import { Fragment, type FC, type ReactElement } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { TUserUpdateRequest } from "@/api/users/type";
-import { Header } from "@/components/ui/header";
-import { BREADCRUMB_ITEMS } from "@/common/constants/breadcrumb";
+import { createZodSync } from "@/utils/zod-sync";
+import { userSchema } from "@/api/users/schema";
+import { usePutUpdateUser } from "../_hooks/use-put-update-user";
+import { Header } from "@/app/(protected)/_components/ui/header";
+import { USER_UPDATE_BREADCRUMB } from "../_constants/user-update-breadcrumb";
 
 export const UserUpdateForm: FC = (): ReactElement => {
-  const onFinish = (value: TUserUpdateRequest) => {
-    console.log(value);
+  const [form] = Form.useForm<TUserUpdateRequest>();
+  const rule = createZodSync(userSchema);
+
+  const { mutate } = usePutUpdateUser();
+
+  const onFinish = (data: TUserUpdateRequest) => {
+    mutate(data, {
+      onSuccess: () => {
+        message.success("User updated successfully");
+      },
+      onError: (err) => {
+        message.error(err?.response?.data?.message || "Update failed");
+      },
+    });
   };
 
   return (
     <Fragment>
-      <Header
-        breadcrumb={BREADCRUMB_ITEMS.USERS.UPDATE}
-        title={"User Update"}
-      />
-      <Form name="user_update" layout="vertical" onFinish={onFinish}>
-        <Form.Item<TUserUpdateRequest> name="name" label="Full Name">
+      <Header breadcrumb={USER_UPDATE_BREADCRUMB} title={"User Update"} />
+      <Form
+        form={form}
+        name="user_update"
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={{
+          name: "",
+          email: "",
+          phone: "",
+          address: "",
+        }}
+      >
+        <Form.Item name="name" label="Full Name" rules={[rule]}>
           <Input placeholder="Input Fullname" />
         </Form.Item>
-        <Form.Item<TUserUpdateRequest> name="email" label="Email">
+        <Form.Item name="email" label="Email" rules={[rule]}>
           <Input placeholder="Input Email" />
         </Form.Item>
-        <Form.Item<TUserUpdateRequest> name="phone" label="Phone Number">
+        <Form.Item name="phone" label="Phone Number" rules={[rule]}>
           <Input placeholder="Input Phone Number" type="number" />
         </Form.Item>
-        <Form.Item<TUserUpdateRequest> name="address" label="Address">
+        <Form.Item name="address" label="Address" rules={[rule]}>
           <Input.TextArea placeholder="Input Address" />
         </Form.Item>
         <Button type="primary" htmlType="submit">
