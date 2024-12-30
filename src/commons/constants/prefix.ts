@@ -5,4 +5,5 @@ export const PREFIX = {
   BOOKS: "/books",
   CATEGORIES: "/categories",
   AUTHORS: "/authors",
+  DASHBOARD: "/dashboard",
 };

@@ -1,6 +1,11 @@
 import { PREFIX } from "./prefix";
 
 export const ENDPOINT = {
+  AUTH: {
+    LOGIN: `${PREFIX.AUTH}/login`,
+    REGISTER: `${PREFIX.AUTH}/register`,
+    REFRESH: `${PREFIX.AUTH}/refresh`,
+  },
   USERS: {
     LIST: PREFIX.USERS,
     CREATE: `${PREFIX.USERS}/create`,
