@@ -1,4 +1,4 @@
-import { PostLogin } from "@/api/auth/api";
+import { postLogin } from "@/api/auth/api";
 import { TLoginParam, TLoginResponse } from "@/api/auth/type";
 import { AccessTokenCookies, RefreshTokenCookies } from "@/libs/cookies";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
@@ -13,7 +13,7 @@ export const usePostLogin = (): UseMutationResult<
   const navigate = useNavigate();
   return useMutation({
     mutationKey: ["post-login"],
-    mutationFn: (payload) => PostLogin(payload),
+    mutationFn: (payload) => postLogin(payload),
     onSuccess: (res) => {
       AccessTokenCookies.set(res.data.access_token);
       RefreshTokenCookies.set(res.data.refresh_token);

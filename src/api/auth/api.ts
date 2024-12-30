@@ -2,8 +2,8 @@ import { ENDPOINT } from "@/commons/constants/endpoint";
 import { api } from "@/libs/axios/api";
 import { TLoginParam, TLoginResponse } from "./type";
 
-export const PostLogin = async (
-  payload: TLoginParam,
+export const postLogin = async (
+  payload: TLoginParam
 ): Promise<TLoginResponse> => {
   const { data } = await api({
     url: ENDPOINT.AUTH.LOGIN,
