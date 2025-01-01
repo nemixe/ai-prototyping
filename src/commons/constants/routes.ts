@@ -1,6 +1,7 @@
 import { PREFIX } from "./prefix";
 
 export const ROUTES = {
+  DASHBOARD: `${PREFIX.DASHBOARD}`,
   AUTH: {
     LOGIN: `${PREFIX.AUTH}/login`,
     REGISTER: `${PREFIX.AUTH}/register`,
