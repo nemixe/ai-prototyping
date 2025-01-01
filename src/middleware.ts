@@ -1,5 +1,5 @@
-import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { ROUTES } from "./commons/constants/routes";
+import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { AccessTokenCookies, UserCookies } from "./libs/cookies";
 
 export const middleware = async ({ request }: LoaderFunctionArgs) => {
