@@ -9,6 +9,14 @@ export type TUserItem = {
   status: string;
   createdAt: Date;
   updatedAt: Date;
+  role: {
+    id: string;
+    name: string;
+    permissions: Array<{
+      id: string;
+      name: string;
+    }>;
+  };
 };
 
 export type TUserCreateRequest = Omit<

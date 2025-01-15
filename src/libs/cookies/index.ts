@@ -1,8 +1,9 @@
+import { TUserItem } from "@/api/users/type";
 import Cookies from "js-cookie";
 
 export const UserCookies = {
-  set: (val: unknown) => Cookies.set("users", JSON.stringify(val)),
-  get: (): unknown => JSON.parse(Cookies.get("users") ?? "{}"),
+  set: (val: TUserItem) => Cookies.set("users", JSON.stringify(val)),
+  get: (): TUserItem => JSON.parse(Cookies.get("users") ?? "{}"),
   remove: () => Cookies.remove("users"),
 };
 

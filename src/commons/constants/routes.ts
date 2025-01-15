@@ -1,39 +1,55 @@
+import { PERMISSIONS } from "./permissions";
 import { PREFIX } from "./prefix";
 
 export const ROUTES = {
-  DASHBOARD: `${PREFIX.DASHBOARD}`,
+  DASHBOARD: {
+    URL: `${PREFIX.DASHBOARD}`,
+    PERMISSIONS: [PERMISSIONS.DASHBOARD.READ_DASHBOARD],
+  },
   AUTH: {
-    LOGIN: `${PREFIX.AUTH}/login`,
-    REGISTER: `${PREFIX.AUTH}/register`,
-    FORGOT_PASSWORD: `${PREFIX.AUTH}/forgot-password`,
-    RESET_PASSWORD: `${PREFIX.AUTH}/reset-password`,
+    LOGIN: { URL: `${PREFIX.AUTH}/login`, PERMISSIONS: [] },
+    REGISTER: { URL: `${PREFIX.AUTH}/register`, PERMISSIONS: [] },
+    FORGOT_PASSWORD: { URL: `${PREFIX.AUTH}/forgot-password`, PERMISSIONS: [] },
+    RESET_PASSWORD: { URL: `${PREFIX.AUTH}/reset-password`, PERMISSIONS: [] },
   },
   USERS: {
-    LIST: PREFIX.USERS,
-    CREATE: `${PREFIX.USERS}/create`,
-    DETAIL: `${PREFIX.USERS}/:id/detail`,
-    UPDATE: `${PREFIX.USERS}/:id/update`,
-    DELETE: `${PREFIX.USERS}/:id/delete`,
+    LIST: { URL: PREFIX.USERS, PERMISSIONS: [PERMISSIONS.USERS.READ_USERS] },
+    CREATE: {
+      URL: `${PREFIX.USERS}/create`,
+      PERMISSIONS: [PERMISSIONS.USERS.CREATE_USERS],
+    },
+    DETAIL: {
+      URL: `${PREFIX.USERS}/:id/detail`,
+      PERMISSIONS: [PERMISSIONS.USERS.READ_USERS],
+    },
+    UPDATE: {
+      URL: `${PREFIX.USERS}/:id/update`,
+      PERMISSIONS: [PERMISSIONS.USERS.UPDATE_USERS],
+    },
+    DELETE: {
+      URL: `${PREFIX.USERS}/:id/delete`,
+      PERMISSIONS: [PERMISSIONS.USERS.DELETE_USERS],
+    },
   },
   BOOKS: {
-    LIST: PREFIX.BOOKS,
-    CREATE: `${PREFIX.BOOKS}/create`,
-    DETAIL: `${PREFIX.BOOKS}/:id/detail`,
-    UPDATE: `${PREFIX.BOOKS}/:id/update`,
-    DELETE: `${PREFIX.BOOKS}/:id/delete`,
+    LIST: { URL: PREFIX.BOOKS, PERMISSIONS: [] },
+    CREATE: { URL: `${PREFIX.BOOKS}/create`, PERMISSIONS: [] },
+    DETAIL: { URL: `${PREFIX.BOOKS}/:id/detail`, PERMISSIONS: [] },
+    UPDATE: { URL: `${PREFIX.BOOKS}/:id/update`, PERMISSIONS: [] },
+    DELETE: { URL: `${PREFIX.BOOKS}/:id/delete`, PERMISSIONS: [] },
   },
   CATEGORIES: {
-    LIST: PREFIX.CATEGORIES,
-    CREATE: `${PREFIX.CATEGORIES}/create`,
-    DETAIL: `${PREFIX.CATEGORIES}/:id/detail`,
-    UPDATE: `${PREFIX.CATEGORIES}/:id/update`,
-    DELETE: `${PREFIX.CATEGORIES}/:id/delete`,
+    LIST: { URL: PREFIX.CATEGORIES, PERMISSIONS: [] },
+    CREATE: { URL: `${PREFIX.CATEGORIES}/create`, PERMISSIONS: [] },
+    DETAIL: { URL: `${PREFIX.CATEGORIES}/:id/detail`, PERMISSIONS: [] },
+    UPDATE: { URL: `${PREFIX.CATEGORIES}/:id/update`, PERMISSIONS: [] },
+    DELETE: { URL: `${PREFIX.CATEGORIES}/:id/delete`, PERMISSIONS: [] },
   },
   AUTHORS: {
-    LIST: PREFIX.AUTHORS,
-    CREATE: `${PREFIX.AUTHORS}/create`,
-    DETAIL: `${PREFIX.AUTHORS}/:id/detail`,
-    UPDATE: `${PREFIX.AUTHORS}/:id/update`,
-    DELETE: `${PREFIX.AUTHORS}/:id/delete`,
+    LIST: { URL: PREFIX.AUTHORS, PERMISSIONS: [] },
+    CREATE: { URL: `${PREFIX.AUTHORS}/create`, PERMISSIONS: [] },
+    DETAIL: { URL: `${PREFIX.AUTHORS}/:id/detail`, PERMISSIONS: [] },
+    UPDATE: { URL: `${PREFIX.AUTHORS}/:id/update`, PERMISSIONS: [] },
+    DELETE: { URL: `${PREFIX.AUTHORS}/:id/delete`, PERMISSIONS: [] },
   },
 };
