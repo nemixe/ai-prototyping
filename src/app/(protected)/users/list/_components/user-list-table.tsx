@@ -59,14 +59,14 @@ export const UserListTable: FC = (): ReactElement => {
         return (
           <Flex gap={10}>
             <Link
-              to={urlParser(ROUTES.USERS.UPDATE, {
+              to={urlParser(ROUTES.USERS.UPDATE.URL, {
                 id: record.id,
               })}
             >
               Update
             </Link>
             <Link
-              to={urlParser(ROUTES.USERS.DETAIL, {
+              to={urlParser(ROUTES.USERS.DETAIL.URL, {
                 id: record.id,
               })}
             >
@@ -89,6 +89,16 @@ export const UserListTable: FC = (): ReactElement => {
       status: "Active",
       createdAt: new Date("2021-08-01T00:00:00.000Z"),
       updatedAt: new Date("2021-08-01T00:00:00.000Z"),
+      role: {
+        id: "1",
+        name: "Admin",
+        permissions: [
+          {
+            id: "1",
+            name: "Read Dashboard",
+          },
+        ],
+      },
     },
     {
       id: 2,
@@ -97,6 +107,16 @@ export const UserListTable: FC = (): ReactElement => {
       phone: "0891212314",
       address: "",
       status: "Active",
+      role: {
+        id: "1",
+        name: "Admin",
+        permissions: [
+          {
+            id: "1",
+            name: "Read Dashboard",
+          },
+        ],
+      },
       createdAt: new Date("2021-08-01T00:00:00.000Z"),
       updatedAt: new Date("2021-08-01T00:00:00.000Z"),
     },
@@ -106,7 +126,7 @@ export const UserListTable: FC = (): ReactElement => {
       <Header
         breadcrumb={USER_LIST_BREADCRUMB}
         title={"User Management"}
-        add={{ text: "Add User +", link: ROUTES.USERS.CREATE }}
+        add={{ text: "Add User +", link: ROUTES.USERS.CREATE.URL }}
       />
       <Suspense fallback={<div>Loading...</div>} />
       <DataTable columns={columns} data={data} loading={false} rowKey="id" />

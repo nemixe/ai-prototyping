@@ -3,13 +3,11 @@ import { api } from "./api";
 import { ENDPOINT } from "@/commons/constants/endpoint";
 import { AccessTokenCookies, RefreshTokenCookies } from "../cookies";
 
-// Define the structure of a queued request
 type FailedQueueItem = {
   resolve: (token: string) => void;
   reject: (error: unknown) => void;
 };
 
-// Update the failedQueue type
 let isRefreshing = false;
 let failedQueue: FailedQueueItem[] = [];
 
@@ -69,7 +67,7 @@ api.interceptors.response.use(
         processQueue(refreshError, null);
         AccessTokenCookies.remove();
         RefreshTokenCookies.remove();
-        window.location.href = ROUTES.AUTH.LOGIN;
+        window.location.href = ROUTES.AUTH.LOGIN.URL;
         return Promise.reject(refreshError);
       }
     }

@@ -125,7 +125,7 @@ export function Component() {
             </Button>
             <div style={styles.footer}>
               <Text style={styles.text}>Don't have an account?</Text>{" "}
-              <Link to={ROUTES.AUTH.REGISTER}>Register now</Link>
+              <Link to={ROUTES.AUTH.REGISTER.URL}>Register now</Link>
             </div>
           </Form.Item>
         </Form>

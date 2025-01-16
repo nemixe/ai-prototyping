@@ -6,19 +6,19 @@ import { UsersDetailPage } from "./detail/page";
 
 export const UserRouter = [
   {
-    path: ROUTES.USERS.LIST,
+    path: ROUTES.USERS.LIST.URL,
     element: <UsersListPage />,
   },
   {
-    path: ROUTES.USERS.DETAIL,
+    path: ROUTES.USERS.DETAIL.URL,
     element: <UsersDetailPage />,
   },
   {
-    path: ROUTES.USERS.CREATE,
+    path: ROUTES.USERS.CREATE.URL,
     element: <UsersCreatePage />,
   },
   {
-    path: ROUTES.USERS.UPDATE,
+    path: ROUTES.USERS.UPDATE.URL,
     element: <UsersUpdatePage />,
   },
 ];
