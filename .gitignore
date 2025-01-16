@@ -35,3 +35,6 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+tsconfig.node.tsbuildinfo
+tsconfig.app.tsbuildinfo
