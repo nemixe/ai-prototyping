@@ -1,36 +1,61 @@
 "use client";
 import type { FC, ReactElement } from "react";
-import { Layout } from "antd";
-import { Sidebar } from "./sidebar";
+import { LayoutWithHeader } from "admiral";
 import { Outlet } from "react-router-dom";
+import { UserCookies } from "@/libs/cookies";
+import { SIDEBAR_ITEMS, TSidebarItem } from "@/commons/constants/sidebar";
+import { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
+import { checkPermission } from "@/utils/permission";
+import { Flex, Grid, Typography } from "antd";
 
 export const ProtectedLayout: FC = (): ReactElement => {
-  const { Content } = Layout;
+  const userData = UserCookies.get();
+  const userPermissions =
+    userData?.role?.permissions?.map((perm) => perm.name) || [];
+
+  const { md } = Grid.useBreakpoint();
+
+  const filterSidebarItems = (
+    items: TSidebarItem[],
+  ): ItemType<MenuItemType>[] | undefined =>
+    items
+      ?.filter((item) =>
+        item.permissions?.length
+          ? checkPermission({ permissions: item.permissions, userPermissions })
+          : true,
+      )
+      .map((item) => ({
+        ...item,
+        children: item.children ? filterSidebarItems(item.children) : undefined,
+      }));
+
+  const filteredItems = filterSidebarItems(SIDEBAR_ITEMS);
+
   return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-        height: "100%",
-        backgroundColor: "#F5F5F5",
+    <LayoutWithHeader
+      header={{
+        brandLogo: (
+          <Flex align="center" gap={8}>
+            <Typography.Title
+              level={4}
+              style={{
+                marginBottom: 0,
+                color: md ? "white" : "black",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Vite Admiral
+            </Typography.Title>
+          </Flex>
+        ),
+      }}
+      sidebar={{
+        width: 250,
+        menu: filteredItems,
+        theme: "light",
       }}
     >
-      <Sidebar />
-      <Layout style={{ padding: 24, alignItems: "center", width: "100%" }}>
-        <Content
-          style={{
-            padding: "24px",
-            margin: 0,
-            minHeight: 280,
-            height: "auto",
-            borderRadius: 20,
-            backgroundColor: "white",
-            maxWidth: 1440,
-            width: "100%",
-          }}
-        >
-          <Outlet />
-        </Content>
-      </Layout>
-    </Layout>
+      <Outlet />
+    </LayoutWithHeader>
   );
 };

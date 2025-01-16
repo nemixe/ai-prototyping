@@ -31,6 +31,9 @@ export default defineConfig({
               return `lodash-${match[1]}`;
             }
           }
+          if (id.includes("admiral")) {
+            return "admiral";
+          }
           if (id.includes("lodash")) {
             return "lodash";
           }

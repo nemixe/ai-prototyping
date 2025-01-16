@@ -4,8 +4,6 @@ import { TUserUpdateRequest } from "@/api/users/type";
 import { createZodSync } from "@/utils/zod-sync";
 import { userSchema } from "@/api/users/schema";
 import { usePutUpdateUser } from "../_hooks/use-put-update-user";
-import { Header } from "@/app/(protected)/_components/ui/header";
-import { USER_UPDATE_BREADCRUMB } from "../_constants/user-update-breadcrumb";
 
 export const UserUpdateForm: FC = (): ReactElement => {
   const [form] = Form.useForm<TUserUpdateRequest>();
@@ -26,7 +24,6 @@ export const UserUpdateForm: FC = (): ReactElement => {
 
   return (
     <Fragment>
-      <Header breadcrumb={USER_UPDATE_BREADCRUMB} title={"User Update"} />
       <Form
         form={form}
         name="user_update"
