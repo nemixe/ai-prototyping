@@ -1,4 +1,4 @@
-import { TListResponse } from "@/common/types/response";
+import { TListResponse } from "@/commons/types/response";
 
 export type TBookItem = {
   id: string;
