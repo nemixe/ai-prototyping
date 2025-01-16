@@ -1,4 +1,4 @@
-import { Fragment, Suspense, type FC, type ReactElement } from "react";
+import { Fragment, type FC, type ReactElement } from "react";
 import { ColumnsType } from "antd/es/table";
 import { TUserItem } from "@/api/users/type";
 import { Link } from "react-router-dom";
@@ -6,12 +6,8 @@ import { Flex } from "antd";
 import { lazily } from "react-lazily";
 import { urlParser } from "@/utils/url-parser";
 import { ROUTES } from "@/commons/constants/routes";
-import { Header } from "@/app/(protected)/_components/ui/header";
-import { USER_LIST_BREADCRUMB } from "../_constants/user-list-breadcrumb";
 
-const { DataTable } = lazily(
-  () => import("@/app/(protected)/_components/ui/data-table"),
-);
+const { DataTable } = lazily(() => import("admiral"));
 
 export const UserListTable: FC = (): ReactElement => {
   const columns: ColumnsType<TUserItem> = [
@@ -123,14 +119,13 @@ export const UserListTable: FC = (): ReactElement => {
   ];
   return (
     <Fragment>
-      <Header
-        breadcrumb={USER_LIST_BREADCRUMB}
-        title={"User Management"}
-        add={{ text: "Add User +", link: ROUTES.USERS.CREATE.URL }}
+      <DataTable
+        columns={columns}
+        source={{ data, meta: { pageSize: 10 } }}
+        loading={false}
+        hideSearch
+        rowKey="id"
       />
-      <Suspense fallback={<div>Loading...</div>} />
-      <DataTable columns={columns} data={data} loading={false} rowKey="id" />
-      <Suspense />
     </Fragment>
   );
 };
