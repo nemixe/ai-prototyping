@@ -2,6 +2,7 @@ import { lazily } from "react-lazily";
 import { UserUpdateError } from "./_components/user-update-error";
 import { UserUpdateLoading } from "./_components/user-update-loading";
 import { AppBoundary } from "@/app/_components/ui/app-boundary";
+import { Page } from "admiral";
 
 const { UserUpdateForm } = lazily(
   () => import("./_components/user-update-form"),
@@ -9,8 +10,10 @@ const { UserUpdateForm } = lazily(
 
 export const UsersUpdatePage = () => {
   return (
-    <AppBoundary error={<UserUpdateError />} loading={<UserUpdateLoading />}>
-      <UserUpdateForm />;
-    </AppBoundary>
+    <Page title="Update User">
+      <AppBoundary error={<UserUpdateError />} loading={<UserUpdateLoading />}>
+        <UserUpdateForm />;
+      </AppBoundary>
+    </Page>
   );
 };
