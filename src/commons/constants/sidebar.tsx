@@ -39,18 +39,4 @@ export const SIDEBAR_ITEMS: TSidebarItem[] = [
       },
     ],
   },
-  {
-    key: PREFIX.BOOKS,
-    label: "Books",
-    icon: <BookOutlined />,
-    permissions: [],
-    children: [
-      {
-        key: QUERY_KEY.BOOKS.LIST,
-        label: <Link to={ROUTES.BOOKS.LIST.URL}>Book Management</Link>,
-        icon: <BookOutlined />,
-        permissions: [],
-      },
-    ],
-  },
 ];

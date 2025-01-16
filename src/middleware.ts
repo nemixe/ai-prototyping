@@ -3,21 +3,6 @@ import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { AccessTokenCookies, UserCookies } from "./libs/cookies";
 import { checkPermission } from "./utils/permission";
 
-export const pagePermission = (permissions: Array<string>) => {
-  const userData = UserCookies.get();
-
-  if (
-    !checkPermission({
-      permissions,
-      userPermissions: userData?.role?.permissions?.map((val) => val?.name),
-    })
-  ) {
-    return redirect("/permission-denied");
-  }
-
-  return null;
-};
-
 export const middleware = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const session = AccessTokenCookies.get();

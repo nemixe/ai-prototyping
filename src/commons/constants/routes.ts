@@ -31,25 +31,4 @@ export const ROUTES = {
       PERMISSIONS: [PERMISSIONS.USERS.DELETE_USERS],
     },
   },
-  BOOKS: {
-    LIST: { URL: PREFIX.BOOKS, PERMISSIONS: [] },
-    CREATE: { URL: `${PREFIX.BOOKS}/create`, PERMISSIONS: [] },
-    DETAIL: { URL: `${PREFIX.BOOKS}/:id/detail`, PERMISSIONS: [] },
-    UPDATE: { URL: `${PREFIX.BOOKS}/:id/update`, PERMISSIONS: [] },
-    DELETE: { URL: `${PREFIX.BOOKS}/:id/delete`, PERMISSIONS: [] },
-  },
-  CATEGORIES: {
-    LIST: { URL: PREFIX.CATEGORIES, PERMISSIONS: [] },
-    CREATE: { URL: `${PREFIX.CATEGORIES}/create`, PERMISSIONS: [] },
-    DETAIL: { URL: `${PREFIX.CATEGORIES}/:id/detail`, PERMISSIONS: [] },
-    UPDATE: { URL: `${PREFIX.CATEGORIES}/:id/update`, PERMISSIONS: [] },
-    DELETE: { URL: `${PREFIX.CATEGORIES}/:id/delete`, PERMISSIONS: [] },
-  },
-  AUTHORS: {
-    LIST: { URL: PREFIX.AUTHORS, PERMISSIONS: [] },
-    CREATE: { URL: `${PREFIX.AUTHORS}/create`, PERMISSIONS: [] },
-    DETAIL: { URL: `${PREFIX.AUTHORS}/:id/detail`, PERMISSIONS: [] },
-    UPDATE: { URL: `${PREFIX.AUTHORS}/:id/update`, PERMISSIONS: [] },
-    DELETE: { URL: `${PREFIX.AUTHORS}/:id/delete`, PERMISSIONS: [] },
-  },
 };
