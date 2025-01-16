@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { lazily } from "react-lazily";
-import { QUERY_KEY } from "./query-key";
 import { ROUTES } from "./routes";
 import { PREFIX } from "./prefix";
 import { PERMISSIONS } from "./permissions";
 import { ReactNode } from "react";
 
-const { BookOutlined, DashboardFilled, UserOutlined } = lazily(
-  () => import("@ant-design/icons"),
+const { DashboardFilled, UserOutlined } = lazily(
+  () => import("@ant-design/icons")
 );
 
 export type TSidebarItem = {
@@ -32,9 +31,25 @@ export const SIDEBAR_ITEMS: TSidebarItem[] = [
     permissions: [PERMISSIONS.USERS.READ_USERS],
     children: [
       {
-        key: QUERY_KEY.USERS.LIST,
-        label: <Link to={ROUTES.USERS.LIST.URL}>User Management</Link>,
+        key: ROUTES.IAM.USERS.LIST.URL,
+        label: <Link to={ROUTES.IAM.USERS.LIST.URL}>User Management</Link>,
         permissions: [PERMISSIONS.USERS.READ_USERS],
+        icon: <UserOutlined />,
+      },
+      {
+        key: ROUTES.IAM.ROLES.LIST.URL,
+        label: <Link to={ROUTES.IAM.ROLES.LIST.URL}>Role Management</Link>,
+        permissions: [PERMISSIONS.ROLES.READ_ROLES],
+        icon: <UserOutlined />,
+      },
+      {
+        key: ROUTES.IAM.PERMISSIONS.LIST.URL,
+        label: (
+          <Link to={ROUTES.IAM.PERMISSIONS.LIST.URL}>
+            Permission Management
+          </Link>
+        ),
+        permissions: [PERMISSIONS.PERMISSIONS.READ_PERMISSIONS],
         icon: <UserOutlined />,
       },
     ],

@@ -11,18 +11,20 @@ import { Flex, Grid, Typography } from "antd";
 export const ProtectedLayout: FC = (): ReactElement => {
   const userData = UserCookies.get();
   const userPermissions =
-    userData?.role?.permissions?.map((perm) => perm.name) || [];
+    userData?.roles
+      ?.map((role) => role.permissions?.map((perm) => perm.name))
+      .flat() || [];
 
   const { md } = Grid.useBreakpoint();
 
   const filterSidebarItems = (
-    items: TSidebarItem[],
+    items: TSidebarItem[]
   ): ItemType<MenuItemType>[] | undefined =>
     items
       ?.filter((item) =>
         item.permissions?.length
           ? checkPermission({ permissions: item.permissions, userPermissions })
-          : true,
+          : true
       )
       .map((item) => ({
         ...item,

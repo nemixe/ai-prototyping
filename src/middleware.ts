@@ -9,7 +9,7 @@ const mappingRoutePermissions = [
     path: ROUTES.DASHBOARD.URL,
   },
   {
-    path: ROUTES.USERS.LIST.URL,
+    path: ROUTES.IAM.USERS.LIST.URL,
     permissions: [PERMISSIONS.USERS.READ_USERS],
   },
 ];
@@ -20,7 +20,10 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const session = AccessTokenCookies.get();
   const userData = UserCookies.get();
-  const userPermissions = userData?.role?.permissions?.map((val) => val?.name);
+  const userPermissions =
+    userData?.roles
+      ?.map((role) => role.permissions.map((perm) => perm.name))
+      ?.flat() || [];
 
   const pathname = url.pathname;
 
@@ -29,9 +32,9 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
     (route) =>
       (session && route.path === pathname && route.permissions
         ? route.permissions.some(
-            (permission) => permission ?? userPermissions.some(permission),
+            (permission) => permission ?? userPermissions.some(permission)
           )
-        : true) || false,
+        : true) || false
   );
 
   if (mappingPublicRoutes.includes(pathname)) {

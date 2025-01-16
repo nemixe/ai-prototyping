@@ -17,14 +17,17 @@ dependencies:
   axios:
     specifier: ^1.7.7
     version: 1.7.9
+  dayjs:
+    specifier: ^1.11.13
+    version: 1.11.13
   js-cookie:
     specifier: ^3.0.5
     version: 3.0.5
   react:
-    specifier: ^18.3.1
+    specifier: ^18.2.0
     version: 18.3.1
   react-dom:
-    specifier: ^18.3.1
+    specifier: ^18.2.0
     version: 18.3.1(react@18.3.1)
   react-error-boundary:
     specifier: ^4.1.0
@@ -3051,7 +3054,6 @@ packages:
     name: admiral
     version: 2.0.0-beta.91
     engines: {node: 18 || 20 || 22, pnpm: 8.14.1}
-    prepare: true
     requiresBuild: true
     peerDependencies:
       '@ant-design/icons': ^5.3.6
