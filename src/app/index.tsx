@@ -12,6 +12,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     loader: middleware,
+    shouldRevalidate: () => true,
     element: <AntDProvider />,
     children: [
       {
