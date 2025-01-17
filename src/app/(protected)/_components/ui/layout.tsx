@@ -16,8 +16,13 @@ export const ProtectedLayout: FC = (): ReactElement => {
 
   const { md } = Grid.useBreakpoint();
 
-  const filteredItems = filterPermission(SIDEBAR_ITEMS, (item) =>
-    item.permissions.some((permission) => userPermissions.includes(permission)),
+  const filteredItems = filterPermission(
+    SIDEBAR_ITEMS,
+    (item) =>
+      item.permissions === undefined ||
+      item.permissions.some((permission) =>
+        userPermissions.includes(permission),
+      ),
   );
 
   return (

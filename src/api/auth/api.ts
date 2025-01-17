@@ -4,7 +4,7 @@ import { TLoginParam, TLoginResponse } from "./type";
 import { PERMISSIONS } from "@/commons/constants/permissions";
 
 export const postLogin = async (
-  payload: TLoginParam
+  payload: TLoginParam,
 ): Promise<TLoginResponse> => {
   return {
     data: {
@@ -24,8 +24,8 @@ export const postLogin = async (
             permissions: [
               {
                 id: "1",
-                key: PERMISSIONS.DASHBOARD.READ_DASHBOARD,
-                name: PERMISSIONS.DASHBOARD.READ_DASHBOARD,
+                key: PERMISSIONS.USERS.READ_USERS,
+                name: PERMISSIONS.USERS.READ_USERS,
               },
               {
                 id: "2",
