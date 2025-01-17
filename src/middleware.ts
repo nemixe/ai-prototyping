@@ -14,7 +14,7 @@ const mappingRoutePermissions = [
   },
 ];
 
-const mappingPublicRoutes = ["/auth/login"];
+const mappingPublicRoutes = ["/auth/login", "/auth/oauth-callback"];
 
 export const middleware = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
@@ -32,9 +32,9 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
     (route) =>
       (session && route.path === pathname && route.permissions
         ? route.permissions.some(
-            (permission) => permission ?? userPermissions.some(permission)
+            (permission) => permission ?? userPermissions.some(permission),
           )
-        : true) || false
+        : true) || false,
   );
 
   if (mappingPublicRoutes.includes(pathname)) {

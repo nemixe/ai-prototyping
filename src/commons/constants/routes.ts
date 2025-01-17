@@ -9,6 +9,7 @@ export const ROUTES = {
   AUTH: {
     LOGIN: { URL: `${PREFIX.AUTH}/login`, PERMISSIONS: [] },
     REGISTER: { URL: `${PREFIX.AUTH}/register`, PERMISSIONS: [] },
+    CALLBACK: { URL: `${PREFIX.AUTH}/oauth-callback`, PERMISSIONS: [] },
     FORGOT_PASSWORD: { URL: `${PREFIX.AUTH}/forgot-password`, PERMISSIONS: [] },
     RESET_PASSWORD: { URL: `${PREFIX.AUTH}/reset-password`, PERMISSIONS: [] },
   },

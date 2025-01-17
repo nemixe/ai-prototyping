@@ -13,3 +13,15 @@ export type TLoginResponse = {
     user: TUserItem;
   };
 };
+
+export type TLoginOidcParam = {
+  code: string;
+};
+
+export type TLoginOidcResponse = {
+  data: {
+    access_token: string;
+    refresh_token: string;
+    user: TUserItem;
+  };
+};
