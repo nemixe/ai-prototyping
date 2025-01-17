@@ -1,2 +1,2 @@
 [develop]
-dot_sandbox ansible_host=sandbox.dot.co.id
+dot_sandbox ansible_host=10.148.15.195

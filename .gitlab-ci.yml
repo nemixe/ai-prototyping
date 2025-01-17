@@ -6,7 +6,7 @@ stages:
 include:
   - component: gitlab.dot.co.id/cicd-components/sonarqube/cli@main
     inputs:
-      run-on: /^develop$|/i
+      run-on: /^develop$/i
       sonar-project-key: playground_boilerplates_vite-admiral_d40f7698-bcac-4f02-b16a-f872446bf1df
       sonar-project-name: dot-boilerplate-vite-admiral
 
@@ -59,4 +59,4 @@ build_mr:docker_image:
     - chmod 600 $ANSIBLE_KEY_FILE
     - ansible-galaxy collection install community.docker:==3.4.0
   script:
-    - ansible-playbook --private-key $ANSIBLE_KEY_FILE -i deploy/hosts -v deploy/${CI_COMMIT_BRANCH}.yaml
+    - ansible-playbook --private-key $ANSIBLE_KEY_FILE -i deploy/hosts -v deploy/develop.yml
