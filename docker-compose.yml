@@ -1,0 +1,7 @@
+services:
+  nexus-fe:
+    build: ./
+    container_name: "vite-admiral"
+    ports:
+      - "80:8080"
+    env_file: ".env"
