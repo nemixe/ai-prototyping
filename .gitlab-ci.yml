@@ -8,7 +8,7 @@ include:
     inputs:
       run-on: /^develop$|/i
       sonar-project-key: playground_boilerplates_vite-admiral_d40f7698-bcac-4f02-b16a-f872446bf1df
-      sonar-project-name: vite-admiral
+      sonar-project-name: dot-boilerplate-vite-admiral
 
 
 .build:docker_image:
@@ -39,7 +39,7 @@ build_mr:docker_image:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^develop$/i'
   script:
-    - cp "$DOTENV_DEV" .env
+    - cp "$DOTENV_DEVELOP" .env
     - docker build
         --progress plain
         --build-arg BASE_IMAGE=${CI_REGISTRY_IMAGE}:${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}_base
@@ -60,4 +60,4 @@ build_mr:docker_image:
     - chmod 600 $ANSIBLE_KEY_FILE
     - ansible-galaxy collection install community.docker:==3.4.0
   script:
-    - ansible-playbook --private-key $ANSIBLE_KEY_FILE -i deploy/ansible/hosts -v deploy/ansible/${CI_COMMIT_BRANCH}.yaml
+    - ansible-playbook --private-key $ANSIBLE_KEY_FILE -i deploy/hosts -v deploy/${CI_COMMIT_BRANCH}.yaml
