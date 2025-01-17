@@ -42,7 +42,7 @@ build_mr:docker_image:
     - cp "$DOTENV_DEVELOP" .env.local
     - docker build
         --progress plain
-        --tag "${CI_REGISTRY_IMAGE}:${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}_mr_dev"
+        --tag "${CI_REGISTRY_IMAGE}:${CI_COMMIT_BRANCH}_mr_dev"
         --file Dockerfile
         .
 
