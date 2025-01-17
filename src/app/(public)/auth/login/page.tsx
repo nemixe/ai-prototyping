@@ -1,4 +1,4 @@
-import { Button, Form, Grid, Input, theme, Typography } from "antd";
+import { Button, Flex, Form, Grid, Input, theme, Typography } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { TLoginParam } from "@/api/auth/type";
 import { ROUTES } from "@/commons/constants/routes";
@@ -17,6 +17,16 @@ export function Component() {
   const screens = useBreakpoint();
   const [form] = Form.useForm<TLoginParam>();
   const { mutate } = usePostLogin();
+
+  const redirectUrl = new URL(
+    "/auth/oauth-callback",
+    import.meta.env.VITE_BASE_URL,
+  );
+
+  const authFusionLoginUrl = new URL(
+    `/oauth2/authorize?client_id=${import.meta.env.VITE_AUTH_FUSION_ID}&redirect_uri=${redirectUrl.toString()}&response_type=code&tenantId=${import.meta.env.VITE_AUTH_FUSION_TENANT_ID}`,
+    import.meta.env.VITE_AUTH_FUSION_ISSUER_URL,
+  );
 
   useEffect(() => {
     const session = AccessTokenCookies.get();
@@ -128,9 +138,18 @@ export function Component() {
             />
           </Form.Item>
           <Form.Item style={{ marginBottom: "0px" }}>
-            <Button block={true} type="primary" htmlType="submit">
-              Log in
-            </Button>
+            <Flex vertical gap={10}>
+              <Button block={true} type="primary" htmlType="submit">
+                Log in
+              </Button>
+              <Button
+                block={true}
+                type="primary"
+                href={authFusionLoginUrl.toString()}
+              >
+                Log in with SSO
+              </Button>
+            </Flex>
             <div style={styles.footer}>
               <Text style={styles.text}>Don't have an account?</Text>{" "}
               <Link to={ROUTES.AUTH.REGISTER.URL}>Register now</Link>
