@@ -1,49 +1,52 @@
 import { ROUTES } from "./commons/constants/routes";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { AccessTokenCookies, UserCookies } from "./libs/cookies";
-import { checkPermission } from "./utils/permission";
+import { filterPermission } from "./utils/permission";
+import { PERMISSIONS } from "./commons/constants/permissions";
+
+const mappingRoutePermissions = [
+  {
+    path: ROUTES.DASHBOARD.URL,
+  },
+  {
+    path: ROUTES.IAM.USERS.LIST.URL,
+    permissions: [PERMISSIONS.USERS.READ_USERS],
+  },
+];
+
+const mappingPublicRoutes = ["/auth/login"];
 
 export const middleware = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const session = AccessTokenCookies.get();
+  const userData = UserCookies.get();
+  const userPermissions =
+    userData?.roles
+      ?.map((role) => role.permissions.map((perm) => perm.name))
+      ?.flat() || [];
 
   const pathname = url.pathname;
 
-  const isAuthPath = Object.values(ROUTES.AUTH).some(
-    (route) => route.URL === pathname,
+  const allowedPermissions = filterPermission(
+    mappingRoutePermissions,
+    (route) =>
+      (session && route.path === pathname && route.permissions
+        ? route.permissions.some(
+            (permission) => permission ?? userPermissions.some(permission)
+          )
+        : true) || false
   );
 
-  if (isAuthPath && session) {
-    return redirect(ROUTES.DASHBOARD.URL);
+  if (mappingPublicRoutes.includes(pathname)) {
+    return null;
   }
 
-  if (!isAuthPath && !session) {
+  if (!session) {
     return redirect(ROUTES.AUTH.LOGIN.URL);
   }
 
-  const userData = UserCookies.get();
-  const userPermissions = userData?.role?.permissions?.map((val) => val?.name);
-
-  const matchingRoute = Object.values(ROUTES).find((routeCategory) => {
-    if (typeof routeCategory === "object" && !Array.isArray(routeCategory)) {
-      return Object.values(routeCategory).some(
-        (route) => route.URL === pathname,
-      );
-    }
-    return false;
-  });
-
-  if (matchingRoute) {
-    const routePermissions = Object.values(matchingRoute).find(
-      (route) => route.URL === pathname,
-    )?.PERMISSIONS;
-
-    if (
-      routePermissions &&
-      !checkPermission({ permissions: routePermissions, userPermissions })
-    ) {
-      return redirect("/permission-denied");
-    }
+  if (allowedPermissions.length === 0) {
+    return redirect(ROUTES.DASHBOARD.URL);
   }
 
   return null;

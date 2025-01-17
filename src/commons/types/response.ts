@@ -1,10 +1,27 @@
-import { TMetaResponse } from "./meta";
-
-export type TListResponse<T> = {
-  data: T;
-  meta: TMetaResponse;
+export type TResponsePaginate<T> = {
+  status_code: number;
+  data: {
+    items: T[];
+    meta: {
+      page: number;
+      per_page: number;
+      total: number;
+      total_page: number;
+    };
+  };
+  version: string;
 };
 
-export type TDetailResponse<T> = {
+export type TResponseData<T> = {
+  status_code: number;
   data: T;
+  version: string;
+};
+
+export type TResponseError<T = null> = {
+  status_code: number;
+  error_message: string;
+  stack_trace: string;
+  errors: T[];
+  version: string;
 };

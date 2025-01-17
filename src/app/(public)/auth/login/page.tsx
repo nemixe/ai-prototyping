@@ -2,18 +2,26 @@ import { Button, Form, Grid, Input, theme, Typography } from "antd";
 import { LockOutlined, MailOutlined } from "@ant-design/icons";
 import { TLoginParam } from "@/api/auth/type";
 import { ROUTES } from "@/commons/constants/routes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { usePostLogin } from "./_hooks/use-post-login";
+import { useEffect } from "react";
+import { AccessTokenCookies } from "@/libs/cookies";
 
 const { useToken } = theme;
 const { useBreakpoint } = Grid;
 const { Text, Title } = Typography;
 
 export function Component() {
+  const navigate = useNavigate();
   const { token } = useToken();
   const screens = useBreakpoint();
   const [form] = Form.useForm<TLoginParam>();
   const { mutate } = usePostLogin();
+
+  useEffect(() => {
+    const session = AccessTokenCookies.get();
+    if (session) navigate(ROUTES.DASHBOARD.URL);
+  }, []);
 
   const onFinish = (values: TLoginParam) => {
     mutate(values);

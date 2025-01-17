@@ -1,4 +1,4 @@
-import { TUserItem } from "@/api/users/type";
+import { TUserItem } from "@/api/user/type";
 import Cookies from "js-cookie";
 
 export const UserCookies = {
