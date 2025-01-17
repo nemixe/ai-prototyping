@@ -18,10 +18,13 @@ export type TResponseData<T> = {
   version: string;
 };
 
-export type TResponseError<T = null> = {
+export type TResponseError = {
   status_code: number;
   error_message: string;
   stack_trace: string;
-  errors: T[];
+  errors: {
+    key: string;
+    message: string;
+  }[];
   version: string;
 };

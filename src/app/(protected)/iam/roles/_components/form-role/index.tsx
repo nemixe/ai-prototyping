@@ -21,7 +21,9 @@ export const FormRole: FC<TProps> = ({
 }): ReactElement => {
   const [form] = Form.useForm();
 
-  useFormErrorHandling(form, error);
+  useFormErrorHandling(error, ({ key, message }) =>
+    form.setFields([{ name: key, errors: [message] }]),
+  );
 
   return (
     <Form {...formProps} form={form} layout="vertical">

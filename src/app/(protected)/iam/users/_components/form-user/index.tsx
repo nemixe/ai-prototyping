@@ -20,13 +20,19 @@ const rule = createZodSync(UserFormSchema);
 export const FormUser: FC<Props> = ({ formProps, error, loading }) => {
   const [form] = Form.useForm();
 
-  useFormErrorHandling(form, error);
+  useFormErrorHandling(error, ({ key, message }) => {
+    // Define validation key that differs from the form field name
+    if (key === "fullname")
+      form.setFields([{ name: "name", errors: [message] }]);
+    // If the key is similar then assign directly
+    else form.setFields([{ name: key, errors: [message] }]);
+  });
 
   const rolesOptionQuery = useRolesOptionQuery();
 
   return (
     <Form {...formProps} form={form} layout="vertical">
-      <Form.Item label="Full Name" name="fullname" rules={[rule]}>
+      <Form.Item label="Full Name" name="name" rules={[rule]}>
         <Input placeholder="Admin" />
       </Form.Item>
       <Form.Item label="Password" name="password" rules={[rule]}>
