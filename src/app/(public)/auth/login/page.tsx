@@ -21,7 +21,7 @@ export function Component() {
   useEffect(() => {
     const session = AccessTokenCookies.get();
     if (session) navigate(ROUTES.DASHBOARD.URL);
-  }, []);
+  }, [navigate]);
 
   const onFinish = (values: TLoginParam) => {
     mutate(values);
@@ -30,9 +30,7 @@ export function Component() {
   const styles = {
     container: {
       margin: "0 auto",
-      padding: screens.md
-        ? `${token.paddingXL}px`
-        : `${token.sizeXXL}px ${token.padding}px`,
+      padding: screens.md ? `${token.paddingXL}px` : `${token.sizeXXL}px ${token.padding}px`,
       width: "380px",
     },
     footer: {
@@ -73,18 +71,9 @@ export function Component() {
             xmlns="http://www.w3.org/2000/svg"
           >
             <rect x="0.464294" width="24" height="24" rx="4.8" fill="#1890FF" />
-            <path
-              d="M14.8643 3.6001H20.8643V9.6001H14.8643V3.6001Z"
-              fill="white"
-            />
-            <path
-              d="M10.0643 9.6001H14.8643V14.4001H10.0643V9.6001Z"
-              fill="white"
-            />
-            <path
-              d="M4.06427 13.2001H11.2643V20.4001H4.06427V13.2001Z"
-              fill="white"
-            />
+            <path d="M14.8643 3.6001H20.8643V9.6001H14.8643V3.6001Z" fill="white" />
+            <path d="M10.0643 9.6001H14.8643V14.4001H10.0643V9.6001Z" fill="white" />
+            <path d="M4.06427 13.2001H11.2643V20.4001H4.06427V13.2001Z" fill="white" />
           </svg>
 
           <Title style={styles.title}>Login</Title>
@@ -121,11 +110,7 @@ export function Component() {
               },
             ]}
           >
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
-            />
+            <Input.Password prefix={<LockOutlined />} type="password" placeholder="Password" />
           </Form.Item>
           <Form.Item style={{ marginBottom: "0px" }}>
             <Button block={true} type="primary" htmlType="submit">
