@@ -1,11 +1,11 @@
 "use client";
 
-import { FormUser } from "../list/form-user";
-import { UserFormData } from "../list/form-user/schema";
 import { Page } from "admiral";
 import { Col, Row, message } from "antd";
 import { useCreateUserMutation } from "./_hooks/use-create-user-mutation";
 import { useNavigate } from "react-router-dom";
+import { FormUser } from "../_components/form-user";
+import { UserFormData } from "../_components/form-user/schema";
 
 export const Component = () => {
   const navigate = useNavigate();
