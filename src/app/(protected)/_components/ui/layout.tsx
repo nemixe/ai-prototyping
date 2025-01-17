@@ -3,9 +3,8 @@ import type { FC, ReactElement } from "react";
 import { LayoutWithHeader } from "admiral";
 import { Outlet } from "react-router-dom";
 import { UserCookies } from "@/libs/cookies";
-import { SIDEBAR_ITEMS, TSidebarItem } from "@/commons/constants/sidebar";
-import { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
-import { checkPermission } from "@/utils/permission";
+import { SIDEBAR_ITEMS } from "@/commons/constants/sidebar";
+import { filterPermission } from "@/utils/permission";
 import { Flex, Grid, Typography } from "antd";
 
 export const ProtectedLayout: FC = (): ReactElement => {
@@ -17,21 +16,9 @@ export const ProtectedLayout: FC = (): ReactElement => {
 
   const { md } = Grid.useBreakpoint();
 
-  const filterSidebarItems = (
-    items: TSidebarItem[]
-  ): ItemType<MenuItemType>[] | undefined =>
-    items
-      ?.filter((item) =>
-        item.permissions?.length
-          ? checkPermission({ permissions: item.permissions, userPermissions })
-          : true
-      )
-      .map((item) => ({
-        ...item,
-        children: item.children ? filterSidebarItems(item.children) : undefined,
-      }));
-
-  const filteredItems = filterSidebarItems(SIDEBAR_ITEMS);
+  const filteredItems = filterPermission(SIDEBAR_ITEMS, (item) =>
+    item.permissions.some((permission) => userPermissions.includes(permission)),
+  );
 
   return (
     <LayoutWithHeader
