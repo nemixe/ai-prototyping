@@ -20,7 +20,9 @@ const rule = createZodSync(PermissionFormSchema);
 export const FormPermission: FC<Props> = ({ formProps, error, loading }) => {
   const [form] = Form.useForm();
 
-  useFormErrorHandling(form, error);
+  useFormErrorHandling(error, ({ key, message }) =>
+    form.setFields([{ name: key, errors: [message] }]),
+  );
 
   return (
     <Form {...formProps} form={form} layout="vertical">

@@ -7,7 +7,7 @@ import {
 } from "./type";
 
 export const getRoles = (
-  params: TRoleGetRequest
+  params: TRoleGetRequest,
 ): Promise<TRoleListResponse> => {
   console.log(params);
   return Promise.resolve({
@@ -89,7 +89,7 @@ export const getRole = (id: string): Promise<TRoleDetailResponse> => {
 };
 
 export const createRole = (
-  data: TRoleCreateRequest
+  data: TRoleCreateRequest,
 ): Promise<TRoleDetailResponse> => {
   console.log(data);
   return Promise.resolve({
@@ -118,7 +118,7 @@ export const createRole = (
 
 export const updateRole = (
   id: string,
-  data: TRoleUpdateRequest
+  data: TRoleUpdateRequest,
 ): Promise<TRoleDetailResponse> => {
   console.log(id, data);
   return Promise.resolve({
