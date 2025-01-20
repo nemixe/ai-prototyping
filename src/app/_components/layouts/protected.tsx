@@ -1,18 +1,15 @@
-"use client";
 import type { FC, ReactElement } from "react";
 import { LayoutWithHeader } from "admiral";
 import { Outlet } from "react-router-dom";
 import { SIDEBAR_ITEMS } from "@/commons/constants/sidebar";
 import { filterPermission } from "@/utils/permission";
 import { Flex, Grid, Typography } from "antd";
-import { useSession } from "@/app/_components/ui/session-provider";
+import { useSession } from "../providers/session";
 
 export const ProtectedLayout: FC = (): ReactElement => {
   const { session } = useSession();
   const userPermissions =
-    session?.user?.roles
-      ?.map((role) => role.permissions?.map((perm) => perm.name))
-      .flat() || [];
+    session?.user?.roles?.map((role) => role.permissions?.map((perm) => perm.name)).flat() || [];
 
   const { md } = Grid.useBreakpoint();
 
@@ -20,9 +17,7 @@ export const ProtectedLayout: FC = (): ReactElement => {
     SIDEBAR_ITEMS,
     (item) =>
       item.permissions === undefined ||
-      item.permissions.some((permission) =>
-        userPermissions.includes(permission),
-      ),
+      item.permissions.some((permission) => userPermissions.includes(permission)),
   );
 
   return (

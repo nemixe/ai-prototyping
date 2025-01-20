@@ -1,7 +1,6 @@
-import { createContext, useContext } from "react";
 import { TLoginOidcParam } from "@/api/auth/type";
 import { TUserItem } from "@/api/user/type";
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { SessionCookies } from "@/libs/cookies";
 import { usePostLoginOidc } from "@/app/(public)/auth/oauth-callback/_hooks/use-post-login-oidc";
 import { useNavigate } from "react-router-dom";
@@ -26,7 +25,7 @@ const SessionContext = createContext<Session>({
 
 const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const navigate = useNavigate();
-  const [session, setSession] = useState<Session["session"]>();
+  const [sessionData, setSessionData] = useState<Session["session"]>();
   const [status, setStatus] = useState<Session["status"]>();
 
   const { mutate: oidcMutate } = usePostLoginOidc();
@@ -34,7 +33,7 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     const session = SessionCookies.get();
     if (session) {
-      setSession(session);
+      setSessionData(session);
       setStatus("authenticated");
     } else {
       setStatus("unauthenticated");
@@ -45,7 +44,7 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     setStatus("authenticating");
     oidcMutate(payload, {
       onSuccess: (res) => {
-        setSession(res.data);
+        setSessionData(res.data);
         setStatus("authenticated");
         SessionCookies.set(res.data);
         setTimeout(() => {
@@ -60,14 +59,14 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   const signout = () => {
     setStatus("unauthenticated");
-    setSession(undefined);
+    setSessionData(undefined);
     SessionCookies.remove();
     navigate("/auth/login");
   };
   return (
     <SessionContext.Provider
       value={{
-        session,
+        session: sessionData,
         status,
         signin,
         signout,

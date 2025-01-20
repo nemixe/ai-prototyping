@@ -1,4 +1,4 @@
-import { useSession } from "@/app/_components/ui/session-provider";
+import { useSession } from "@/app/_components/providers/session";
 import { Page } from "admiral";
 import { Button } from "antd";
 import { FC, ReactElement } from "react";

@@ -3,7 +3,7 @@ import { Flex, Spin } from "antd";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "@/commons/constants/routes";
 import { SessionCookies } from "@/libs/cookies";
-import { useSession } from "@/app/_components/ui/session-provider";
+import { useSession } from "@/app/_components/providers/session";
 
 export const Component = () => {
   const navigate = useNavigate();

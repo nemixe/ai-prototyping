@@ -2,7 +2,7 @@ import { Button, Col, Row, Space, Typography } from "antd";
 import { useIsMobileScreen } from "admiral";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useSession } from "@/app/_components/ui/session-provider";
+import { useSession } from "@/app/_components/providers/session";
 
 export const Component: React.FC = () => {
   const session = useSession();
