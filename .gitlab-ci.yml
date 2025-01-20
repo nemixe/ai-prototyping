@@ -46,7 +46,7 @@ build_mr:docker_image:
         --file Dockerfile
         .
 
-.deploy_develop:docker:
+deploy_develop:docker:
   stage: deploy
   image: asia.gcr.io/dot-gitlab-runner/ansible:2.9.21
   tags: [dot]
