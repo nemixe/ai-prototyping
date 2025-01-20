@@ -23,7 +23,7 @@ export const Component = () => {
 
   useEffect(() => {
     const session = AccessTokenCookies.get();
-    if (session) navigate(ROUTES.DASHBOARD.URL);
+    if (session) navigate(ROUTES.dashboard);
   }, []);
 
   return (

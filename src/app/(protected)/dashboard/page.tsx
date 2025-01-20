@@ -1,9 +1,5 @@
 import { ROUTES } from "@/commons/constants/routes";
-import {
-  AccessTokenCookies,
-  RefreshTokenCookies,
-  UserCookies,
-} from "@/libs/cookies";
+import { AccessTokenCookies, RefreshTokenCookies, UserCookies } from "@/libs/cookies";
 import { Page } from "admiral";
 import { Button } from "antd";
 import { FC, ReactElement } from "react";
@@ -15,7 +11,7 @@ export const Component: FC = (): ReactElement => {
     UserCookies.remove();
     AccessTokenCookies.remove();
     RefreshTokenCookies.remove();
-    navigate(ROUTES.AUTH.LOGIN.URL);
+    navigate(ROUTES.auth.login);
   };
   return (
     <Page title="Dashboard">

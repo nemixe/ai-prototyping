@@ -18,10 +18,7 @@ export function Component() {
   const [form] = Form.useForm<TLoginParam>();
   const { mutate } = usePostLogin();
 
-  const redirectUrl = new URL(
-    "/auth/oauth-callback",
-    import.meta.env.VITE_BASE_URL,
-  );
+  const redirectUrl = new URL("/auth/oauth-callback", import.meta.env.VITE_BASE_URL);
 
   const authFusionLoginUrl = new URL(
     `/oauth2/authorize?client_id=${import.meta.env.VITE_AUTH_FUSION_ID}&redirect_uri=${redirectUrl.toString()}&response_type=code&tenantId=${import.meta.env.VITE_AUTH_FUSION_TENANT_ID}`,
@@ -30,7 +27,7 @@ export function Component() {
 
   useEffect(() => {
     const session = AccessTokenCookies.get();
-    if (session) navigate(ROUTES.DASHBOARD.URL);
+    if (session) navigate(ROUTES.dashboard);
   }, [navigate]);
 
   const onFinish = (values: TLoginParam) => {
@@ -127,17 +124,13 @@ export function Component() {
               <Button block={true} type="primary" htmlType="submit">
                 Log in
               </Button>
-              <Button
-                block={true}
-                type="primary"
-                href={authFusionLoginUrl.toString()}
-              >
+              <Button block={true} type="primary" href={authFusionLoginUrl.toString()}>
                 Log in with SSO
               </Button>
             </Flex>
             <div style={styles.footer}>
               <Text style={styles.text}>Don't have an account?</Text>{" "}
-              <Link to={ROUTES.AUTH.REGISTER.URL}>Register now</Link>
+              <Link to={ROUTES.auth.register}>Register now</Link>
             </div>
           </Form.Item>
         </Form>

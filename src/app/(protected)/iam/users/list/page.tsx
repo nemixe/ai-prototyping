@@ -2,12 +2,7 @@
 
 import { Page } from "admiral";
 import { Button, Flex, message } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import Datatable from "admiral/table/datatable/index";
 import { ColumnsType } from "antd/es/table";
 import { useDeleteUserMutation } from "./_hooks/use-delete-user-mutation";
@@ -62,14 +57,11 @@ export const Component = () => {
         return (
           <Flex>
             <Link
-              to={urlParser(ROUTES.IAM.USERS.DETAIL.URL, {
+              to={urlParser(ROUTES.iam.users.detail, {
                 id: record.id,
               })}
             >
-              <Button
-                type="link"
-                icon={<EyeOutlined style={{ color: "green" }} />}
-              />
+              <Button type="link" icon={<EyeOutlined style={{ color: "green" }} />} />
             </Link>
             <Button
               type="link"
@@ -84,7 +76,7 @@ export const Component = () => {
               }}
             />
             <Link
-              to={urlParser(ROUTES.IAM.USERS.UPDATE.URL, {
+              to={urlParser(ROUTES.iam.users.update, {
                 id: record.id,
               })}
             >
@@ -99,21 +91,16 @@ export const Component = () => {
   const breadcrumbs = [
     {
       label: "Dashboard",
-      path: ROUTES.DASHBOARD.URL,
+      path: ROUTES.dashboard,
     },
     {
       label: "Users",
-      path: ROUTES.IAM.USERS.LIST.URL,
+      path: ROUTES.iam.users.list,
     },
   ];
 
   return (
-    <Page
-      title="Users"
-      breadcrumbs={breadcrumbs}
-      topActions={<TopAction />}
-      noStyle
-    >
+    <Page title="Users" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
       <Datatable
         onChange={handleChange}
         rowKey="id"
@@ -128,7 +115,7 @@ export const Component = () => {
 };
 
 const TopAction = () => (
-  <Link to={ROUTES.IAM.USERS.CREATE.URL}>
+  <Link to={ROUTES.iam.users.create}>
     <Button icon={<PlusCircleOutlined />}>Add User</Button>
   </Link>
 );

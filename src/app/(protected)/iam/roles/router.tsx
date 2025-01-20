@@ -2,19 +2,19 @@ import { ROUTES } from "@/commons/constants/routes";
 
 export const RoleRouter = [
   {
-    path: ROUTES.IAM.ROLES.LIST.URL,
+    path: ROUTES.iam.roles.list,
     lazy: () => import("./list/page"),
   },
   {
-    path: ROUTES.IAM.ROLES.DETAIL.URL,
+    path: ROUTES.iam.roles.detail,
     lazy: () => import("./detail/page"),
   },
   {
-    path: ROUTES.IAM.ROLES.CREATE.URL,
+    path: ROUTES.iam.roles.create,
     lazy: () => import("./create/page"),
   },
   {
-    path: ROUTES.IAM.ROLES.UPDATE.URL,
+    path: ROUTES.iam.roles.update,
     lazy: () => import("./update/page"),
   },
 ];

@@ -6,10 +6,10 @@ import { PERMISSIONS } from "./commons/constants/permissions";
 
 const mappingRoutePermissions = [
   {
-    path: ROUTES.DASHBOARD.URL,
+    path: ROUTES.dashboard,
   },
   {
-    path: ROUTES.IAM.USERS.LIST.URL,
+    path: ROUTES.iam.users.list,
     permissions: [PERMISSIONS.USERS.READ_USERS],
   },
 ];
@@ -21,9 +21,7 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
   const session = AccessTokenCookies.get();
   const userData = UserCookies.get();
   const userPermissions =
-    userData?.roles
-      ?.map((role) => role.permissions.map((perm) => perm.name))
-      ?.flat() || [];
+    userData?.roles?.map((role) => role.permissions.map((perm) => perm.name))?.flat() || [];
 
   const pathname = url.pathname;
 
@@ -31,9 +29,7 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
     mappingRoutePermissions,
     (route) =>
       (session && route.path === pathname && route.permissions
-        ? route.permissions.some(
-            (permission) => permission ?? userPermissions.some(permission),
-          )
+        ? route.permissions.some((permission) => permission ?? userPermissions.some(permission))
         : true) || false,
   );
 
@@ -42,11 +38,11 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
   }
 
   if (!session) {
-    return redirect(ROUTES.AUTH.LOGIN.URL);
+    return redirect(ROUTES.auth.login);
   }
 
   if (allowedPermissions.length === 0) {
-    return redirect(ROUTES.DASHBOARD.URL);
+    return redirect(ROUTES.dashboard);
   }
 
   return null;

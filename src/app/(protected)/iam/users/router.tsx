@@ -2,19 +2,19 @@ import { ROUTES } from "@/commons/constants/routes";
 
 export const UserRouter = [
   {
-    path: ROUTES.IAM.USERS.LIST.URL,
+    path: ROUTES.iam.users.list,
     lazy: () => import("./list/page"),
   },
   {
-    path: ROUTES.IAM.USERS.DETAIL.URL,
+    path: ROUTES.iam.users.detail,
     lazy: () => import("./detail/page"),
   },
   {
-    path: ROUTES.IAM.USERS.CREATE.URL,
+    path: ROUTES.iam.users.create,
     lazy: () => import("./create/page"),
   },
   {
-    path: ROUTES.IAM.USERS.UPDATE.URL,
+    path: ROUTES.iam.users.update,
     lazy: () => import("./update/page"),
   },
 ];

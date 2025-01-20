@@ -1,6 +1,5 @@
 import { ROUTES } from "@/commons/constants/routes";
 import { api } from "./api";
-import { ENDPOINT } from "@/commons/constants/endpoint";
 import { AccessTokenCookies, RefreshTokenCookies } from "../cookies";
 
 type FailedQueueItem = {
@@ -45,7 +44,7 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const { data } = await api.post(ENDPOINT.AUTH.REFRESH, {
+        const { data } = await api.post("/auth/refresh", {
           refreshToken: RefreshTokenCookies.get(),
         });
 
@@ -55,8 +54,7 @@ api.interceptors.response.use(
         AccessTokenCookies.set(newAccessToken);
         RefreshTokenCookies.set(newRefreshToken);
 
-        api.defaults.headers.common["Authorization"] =
-          `Bearer ${newAccessToken}`;
+        api.defaults.headers.common["Authorization"] = `Bearer ${newAccessToken}`;
         processQueue(null, newAccessToken);
 
         isRefreshing = false;
@@ -67,7 +65,7 @@ api.interceptors.response.use(
         processQueue(refreshError, null);
         AccessTokenCookies.remove();
         RefreshTokenCookies.remove();
-        window.location.href = ROUTES.AUTH.LOGIN.URL;
+        window.location.href = ROUTES.auth.login;
         return Promise.reject(refreshError);
       }
     }

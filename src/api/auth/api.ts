@@ -1,11 +1,8 @@
-import { ENDPOINT } from "@/commons/constants/endpoint";
 import { api } from "@/libs/axios/api";
 import { TLoginOidcParam, TLoginParam, TLoginResponse } from "./type";
 import { PERMISSIONS } from "@/commons/constants/permissions";
 
-export const postLogin = async (
-  payload: TLoginParam,
-): Promise<TLoginResponse> => {
+export const postLogin = async (payload: TLoginParam): Promise<TLoginResponse> => {
   return {
     data: {
       access_token: "access_token",
@@ -44,16 +41,14 @@ export const postLogin = async (
     },
   };
   const { data } = await api({
-    url: ENDPOINT.AUTH.LOGIN,
+    url: "/auth/login",
     method: "POST",
     data: payload,
   });
   return data;
 };
 
-export const postLoginOidc = async (
-  payload: TLoginOidcParam,
-): Promise<TLoginResponse> => {
+export const postLoginOidc = async (payload: TLoginOidcParam): Promise<TLoginResponse> => {
   return {
     data: {
       access_token: "access_token",
@@ -92,7 +87,7 @@ export const postLoginOidc = async (
     },
   };
   const { data } = await api({
-    url: ENDPOINT.AUTH.LOGIN,
+    url: "/auth/login",
     method: "POST",
     data: payload,
   });

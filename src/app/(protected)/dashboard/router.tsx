@@ -1,8 +1,8 @@
-import { PREFIX } from "@/commons/constants/prefix";
+import { ROUTES } from "@/commons/constants/routes";
 
 export const DashboardRouter = [
   {
-    path: PREFIX.DASHBOARD,
+    path: ROUTES.dashboard,
     lazy: () => import("./page"),
   },
 ];
