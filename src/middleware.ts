@@ -1,8 +1,8 @@
 import { ROUTES } from "./commons/constants/routes";
 import { LoaderFunctionArgs, redirect } from "react-router-dom";
-import { AccessTokenCookies, UserCookies } from "./libs/cookies";
 import { filterPermission } from "./utils/permission";
 import { PERMISSIONS } from "./commons/constants/permissions";
+import { SessionCookies } from "./libs/cookies";
 
 const mappingRoutePermissions = [
   {
@@ -18,10 +18,9 @@ const mappingPublicRoutes = ["/auth/login", "/auth/oauth-callback"];
 
 export const middleware = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  const session = AccessTokenCookies.get();
-  const userData = UserCookies.get();
+  const session = SessionCookies.get();
   const userPermissions =
-    userData?.roles
+    session?.user?.roles
       ?.map((role) => role.permissions.map((perm) => perm.name))
       ?.flat() || [];
 
@@ -32,7 +31,7 @@ export const middleware = async ({ request }: LoaderFunctionArgs) => {
     (route) =>
       (session && route.path === pathname && route.permissions
         ? route.permissions.some(
-            (permission) => permission ?? userPermissions.some(permission),
+            (permission) => permission ?? userPermissions?.some(permission),
           )
         : true) || false,
   );

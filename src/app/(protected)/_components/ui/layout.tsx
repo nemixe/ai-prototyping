@@ -2,15 +2,15 @@
 import type { FC, ReactElement } from "react";
 import { LayoutWithHeader } from "admiral";
 import { Outlet } from "react-router-dom";
-import { UserCookies } from "@/libs/cookies";
 import { SIDEBAR_ITEMS } from "@/commons/constants/sidebar";
 import { filterPermission } from "@/utils/permission";
 import { Flex, Grid, Typography } from "antd";
+import { useSession } from "@/app/_components/ui/session-provider";
 
 export const ProtectedLayout: FC = (): ReactElement => {
-  const userData = UserCookies.get();
+  const { session } = useSession();
   const userPermissions =
-    userData?.roles
+    session?.user?.roles
       ?.map((role) => role.permissions?.map((perm) => perm.name))
       .flat() || [];
 

@@ -9,13 +9,18 @@ import { DashboardRouter } from "./(protected)/dashboard/router";
 import { AuthRouter } from "./(public)/auth/router";
 import { PermissionRouter } from "./(protected)/iam/permissions/router";
 import { RoleRouter } from "./(protected)/iam/roles/router";
+import SessionProvider from "./_components/ui/session-provider";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     loader: middleware,
     shouldRevalidate: () => true,
-    element: <AntDProvider />,
+    element: (
+      <SessionProvider>
+        <AntDProvider />
+      </SessionProvider>
+    ),
     children: [
       {
         path: PREFIX.AUTH,
