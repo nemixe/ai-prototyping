@@ -11,10 +11,7 @@ export const Component: React.FC = () => {
 
   const isMobile = useIsMobileScreen();
 
-  const redirectUrl = new URL(
-    "/auth/oauth-callback",
-    import.meta.env.VITE_BASE_URL,
-  );
+  const redirectUrl = new URL("/auth/oauth-callback", import.meta.env.VITE_BASE_URL);
 
   const authFusionLoginUrl = new URL(
     `/oauth2/authorize?client_id=${import.meta.env.VITE_AUTH_FUSION_ID}&redirect_uri=${redirectUrl.toString()}&response_type=code&tenantId=${import.meta.env.VITE_AUTH_FUSION_TENANT_ID}`,
@@ -40,8 +37,7 @@ export const Component: React.FC = () => {
         >
           <Typography.Title level={4}>Welcome back!</Typography.Title>
           <Typography.Text style={{ opacity: 0.5 }}>
-            Ant Design is the most influential web design specification in Xihu
-            district
+            Ant Design is the most influential web design specification in Xihu district
           </Typography.Text>
         </Space>
         <Button

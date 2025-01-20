@@ -1,14 +1,11 @@
 import { TResponseError } from "@/commons/types/response";
-import { formErrorHandling } from "@/utils/form";
-import { FormInstance } from "antd";
 import { useEffect } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const useFormErrorHandling = <Values = any>(
-  form: FormInstance<Values>,
-  error?: TResponseError | null
+export const useFormErrorHandling = (
+  error?: TResponseError | null,
+  onError?: (error: TResponseError["errors"][number]) => void,
 ) => {
   useEffect(() => {
-    if (error) formErrorHandling(form, error);
-  }, [error, form]);
+    error?.errors?.forEach((value) => onError?.(value));
+  }, [error]);
 };
