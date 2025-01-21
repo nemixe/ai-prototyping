@@ -11,11 +11,11 @@ export const Component = () => {
   const breadcrumb = [
     {
       label: "Dashboard",
-      path: ROUTES.DASHBOARD.URL,
+      path: ROUTES.dashboard,
     },
     {
       label: "Roles",
-      path: ROUTES.IAM.ROLES.LIST.URL,
+      path: ROUTES.iam.roles.list,
     },
     {
       label: "Create Role",
@@ -34,7 +34,7 @@ export const Component = () => {
     createRoleMutation.mutate(payload, {
       onSuccess: () => {
         message.success("Role berhasil dibuat");
-        navigate(ROUTES.IAM.ROLES.LIST.URL);
+        navigate(ROUTES.iam.roles.list);
       },
       onError: () => {
         message.error("Role gagal dibuat");

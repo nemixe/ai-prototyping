@@ -20,7 +20,7 @@ export const Component = () => {
   const handleOnFinish = (data: TRoleUpdateRequest) =>
     updateRoleMutation.mutate(data, {
       onSuccess: () => {
-        navigate(ROUTES.IAM.ROLES.LIST.URL);
+        navigate(ROUTES.iam.roles.list);
         message.success("Role berhasil diupdate");
       },
       onError: () => {

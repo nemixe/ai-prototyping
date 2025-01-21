@@ -2,19 +2,19 @@ import { ROUTES } from "@/commons/constants/routes";
 
 export const PermissionRouter = [
   {
-    path: ROUTES.IAM.PERMISSIONS.LIST.URL,
+    path: ROUTES.iam.permissions.list,
     lazy: () => import("./list/page"),
   },
   {
-    path: ROUTES.IAM.PERMISSIONS.DETAIL.URL,
+    path: ROUTES.iam.permissions.detail,
     lazy: () => import("./detail/page"),
   },
   {
-    path: ROUTES.IAM.PERMISSIONS.CREATE.URL,
+    path: ROUTES.iam.permissions.create,
     lazy: () => import("./create/page"),
   },
   {
-    path: ROUTES.IAM.PERMISSIONS.UPDATE.URL,
+    path: ROUTES.iam.permissions.update,
     lazy: () => import("./update/page"),
   },
 ];

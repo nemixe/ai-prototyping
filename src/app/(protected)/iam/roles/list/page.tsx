@@ -1,10 +1,5 @@
 import { Button, Flex, message } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { ColumnsType } from "antd/es/table";
 import { Page } from "admiral";
 import Datatable from "admiral/table/datatable/index";
@@ -45,9 +40,7 @@ export const Component = () => {
       title: "Created At",
       key: "createdAt",
       render: (_, record) => {
-        return record.created_at
-          ? dayjs(record.created_at).format("DD/MM/YYYY")
-          : "-";
+        return record.created_at ? dayjs(record.created_at).format("DD/MM/YYYY") : "-";
       },
     },
     {
@@ -58,14 +51,11 @@ export const Component = () => {
         return (
           <Flex>
             <Link
-              to={urlParser(ROUTES.IAM.ROLES.DETAIL.URL, {
+              to={urlParser(ROUTES.iam.roles.detail, {
                 id: record.id,
               })}
             >
-              <Button
-                type="link"
-                icon={<EyeOutlined style={{ color: "green" }} />}
-              />
+              <Button type="link" icon={<EyeOutlined style={{ color: "green" }} />} />
             </Link>
             <Button
               type="link"
@@ -80,7 +70,7 @@ export const Component = () => {
               }}
             />
             <Link
-              to={urlParser(ROUTES.IAM.ROLES.UPDATE.URL, {
+              to={urlParser(ROUTES.iam.roles.update, {
                 id: record.id,
               })}
             >
@@ -95,21 +85,16 @@ export const Component = () => {
   const breadcrumbs = [
     {
       label: "Dashboard",
-      path: ROUTES.DASHBOARD.URL,
+      path: ROUTES.dashboard,
     },
     {
       label: "Roles",
-      path: ROUTES.IAM.ROLES.LIST.URL,
+      path: ROUTES.iam.roles.list,
     },
   ];
 
   return (
-    <Page
-      title="Roles"
-      breadcrumbs={breadcrumbs}
-      topActions={<TopAction />}
-      noStyle
-    >
+    <Page title="Roles" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
       <Datatable
         onChange={handleChange}
         rowKey="id"
@@ -124,7 +109,7 @@ export const Component = () => {
 };
 
 const TopAction = () => (
-  <Link to={ROUTES.IAM.ROLES.CREATE.URL}>
+  <Link to={ROUTES.iam.roles.create}>
     <Button icon={<PlusCircleOutlined />}>Add Role</Button>
   </Link>
 );
