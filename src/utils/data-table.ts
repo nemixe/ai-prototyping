@@ -3,7 +3,7 @@ import { IDataTableProps } from "admiral/table/datatable/type";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const makeSource = <T extends Record<string, any>>(
-  source?: TResponsePaginate<T>
+  source?: TResponsePaginate<T>,
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 ): IDataTableProps<T, {}>["source"] | undefined => {
   if (!source) return;

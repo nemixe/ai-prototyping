@@ -6,17 +6,18 @@ import { useCreateUserMutation } from "./_hooks/use-create-user-mutation";
 import { useNavigate } from "react-router";
 import { FormUser } from "../_components/form-user";
 import { UserFormData } from "../_components/form-user/schema";
+import { ROUTES } from "@/commons/constants/routes";
 
 export const Component = () => {
   const navigate = useNavigate();
   const breadcrumb = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "Users",
-      path: "/iam/users",
+      path: ROUTES.iam.users.list,
     },
     {
       label: "Create User",
@@ -51,3 +52,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;

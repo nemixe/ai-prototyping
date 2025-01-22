@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router";
-import { ReactQueryProvider } from "./libs/react-query/react-query-provider";
 import {
   add404PageToRoutesChildren,
   addErrorElementToRoutes,
@@ -9,6 +8,7 @@ import {
 } from "./libs/react-router/file-based-routing";
 import "antd/dist/reset.css";
 import { middleware } from "./middleware";
+import { ReactQueryProvider } from "./libs/react-query/react-query-provider";
 
 const files = import.meta.glob("./app/**/*(page|layout).tsx");
 const errorFiles = import.meta.glob("./app/**/*error.tsx");

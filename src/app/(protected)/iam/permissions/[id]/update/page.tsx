@@ -4,8 +4,10 @@ import { Page } from "admiral";
 import { usePermissionQuery } from "../_hooks/use-permission-query";
 import { useUpdatePermissionMutation } from "./_hooks/use-update-permission-mutation";
 import { useNavigate, useParams } from "react-router";
-import { FormPermission } from "../_components/form-permission";
-import { PermissionFormData } from "../_components/form-permission/schema";
+import { FormPermission } from "../../_components/form-permission";
+import { PermissionFormData } from "../../_components/form-permission/schema";
+import { ROUTES } from "@/commons/constants/routes";
+import { urlParser } from "@/utils/url-parser";
 
 export const Component = () => {
   const params = useParams();
@@ -34,15 +36,15 @@ export const Component = () => {
   const breadcrumb = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "Permissions",
-      path: "/iam/permissions",
+      path: ROUTES.iam.permissions.list,
     },
     {
       label: permissionQuery.data?.data.name ?? "",
-      path: `/iam/permissions/${permissionQuery.data?.data.id}`,
+      path: urlParser(ROUTES.iam.permissions.detail, { id: permissionId }),
     },
     {
       label: "Update",
@@ -74,3 +76,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;

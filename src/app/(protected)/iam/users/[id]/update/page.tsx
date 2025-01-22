@@ -6,7 +6,8 @@ import { useUpdateUserMutation } from "./_hooks/use-update-user-mutation";
 import { TUserUpdateRequest } from "@/api/user/type";
 import { useUserQuery } from "../_hooks/use-user-query";
 import { useNavigate, useParams } from "react-router";
-import { FormUser } from "../_components/form-user";
+import { FormUser } from "../../_components/form-user";
+import { ROUTES } from "@/commons/constants/routes";
 
 export const Component = () => {
   const params = useParams();
@@ -32,11 +33,11 @@ export const Component = () => {
   const breadcrumb = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "Users",
-      path: "/iam/users",
+      path: ROUTES.iam.users.list,
     },
     {
       label: userQuery.data?.data.name ?? "",
@@ -66,3 +67,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;
