@@ -1,5 +1,7 @@
 import type { FC, ReactElement } from "react";
 
-export const AppLoading: FC = (): ReactElement => {
+const AppLoading: FC = (): ReactElement => {
   return <div>Loading...</div>;
 };
+
+export default AppLoading;

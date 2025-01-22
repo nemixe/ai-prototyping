@@ -1,12 +1,7 @@
 "use client";
 
 import { Button, Flex, message } from "antd";
-import {
-  DeleteOutlined,
-  EditOutlined,
-  EyeOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, EyeOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import { ColumnsType } from "antd/es/table";
 import { DataTable, Page } from "admiral";
 
@@ -14,7 +9,7 @@ import { makeSource } from "@/utils/data-table";
 
 import { useDeletePermissionMutation } from "./_hooks/use-delete-permission-mutation";
 import { usePermissionsQuery } from "./_hooks/use-permissions-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { TPermissionItem } from "@/api/permission/type";
 
@@ -40,10 +35,7 @@ export const Component = () => {
         return (
           <Flex>
             <Link to={`/iam/permissions/${record?.id}`}>
-              <Button
-                type="link"
-                icon={<EyeOutlined style={{ color: "green" }} />}
-              />
+              <Button type="link" icon={<EyeOutlined style={{ color: "green" }} />} />
             </Link>
             <Button
               type="link"
@@ -78,12 +70,7 @@ export const Component = () => {
   ];
 
   return (
-    <Page
-      title="Permissions"
-      breadcrumbs={breadcrumbs}
-      topActions={<TopAction />}
-      noStyle
-    >
+    <Page title="Permissions" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
       <DataTable
         onChange={handleChange}
         rowKey="id"

@@ -2,7 +2,7 @@ import { Col, Row, message } from "antd";
 import { Page } from "admiral";
 import { FormRole } from "../_components/form-role";
 import { RoleFormData } from "../_components/form-role/schema";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { ROUTES } from "@/commons/constants/routes";
 import { usePostCreateRole } from "./_hooks/use-post-create-role-";
 

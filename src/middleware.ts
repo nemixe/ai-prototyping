@@ -1,5 +1,5 @@
 import { ROUTES } from "./commons/constants/routes";
-import { LoaderFunctionArgs, redirect } from "react-router-dom";
+import { LoaderFunctionArgs, redirect } from "react-router";
 import { filterPermission } from "./utils/permission";
 import { PERMISSIONS } from "./commons/constants/permissions";
 import { SessionCookies } from "./libs/cookies";

@@ -1,6 +1,6 @@
 import { useTableFilter } from "admiral";
 import { UseTableFilterProps } from "admiral/table/datatable/hook";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 
 /**
  * Custom hook to manage and synchronize filter state with URL query parameters.

@@ -4,9 +4,9 @@ import { Outlet } from "react-router";
 import { SIDEBAR_ITEMS } from "@/commons/constants/sidebar";
 import { filterPermission } from "@/utils/permission";
 import { Flex, Grid, Typography } from "antd";
-import { useSession } from "../providers/session";
+import { useSession } from "../_components/providers/session";
 
-export const ProtectedLayout: FC = (): ReactElement => {
+const ProtectedLayout: FC = (): ReactElement => {
   const { session } = useSession();
   const userPermissions =
     session?.user?.roles?.map((role) => role.permissions?.map((perm) => perm.name)).flat() || [];
@@ -48,3 +48,5 @@ export const ProtectedLayout: FC = (): ReactElement => {
     </LayoutWithHeader>
   );
 };
+
+export default ProtectedLayout;

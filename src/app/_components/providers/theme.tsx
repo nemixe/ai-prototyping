@@ -1,5 +1,5 @@
 import { ThemeProvider as AdmiralThemeProvider, TThemeConfig } from "admiral";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 
 const theme: TThemeConfig = {
   components: {

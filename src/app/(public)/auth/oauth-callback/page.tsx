@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { Flex, Spin } from "antd";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router";
 import { ROUTES } from "@/commons/constants/routes";
 import { SessionCookies } from "@/libs/cookies";
 import { useSession } from "@/app/_components/providers/session";
 
-export const Component = () => {
+const Component = () => {
   const navigate = useNavigate();
   const searchParams = useSearchParams();
 
@@ -41,3 +41,5 @@ export const Component = () => {
     </Flex>
   );
 };
+
+export default Component;
