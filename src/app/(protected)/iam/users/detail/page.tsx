@@ -3,7 +3,7 @@
 import { Page, Section } from "admiral";
 import { Descriptions } from "antd";
 import { useUserQuery } from "../_hooks/use-user-query";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 export const Component = () => {
   const params = useParams();

@@ -3,7 +3,7 @@ import { Page } from "admiral";
 import { Button } from "antd";
 import { FC, ReactElement } from "react";
 
-export const Component: FC = (): ReactElement => {
+const Component: FC = (): ReactElement => {
   const { signout } = useSession();
   const handleLogout = () => {
     signout();
@@ -17,3 +17,5 @@ export const Component: FC = (): ReactElement => {
     </Page>
   );
 };
+
+export default Component;

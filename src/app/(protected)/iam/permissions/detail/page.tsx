@@ -4,7 +4,7 @@ import { Page, Section } from "admiral";
 import { Descriptions } from "antd";
 
 import { usePermissionQuery } from "../_hooks/use-permission-query";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 
 export const Component = () => {
   const params = useParams();

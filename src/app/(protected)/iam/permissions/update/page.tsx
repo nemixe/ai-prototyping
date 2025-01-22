@@ -3,7 +3,7 @@ import { Page } from "admiral";
 
 import { usePermissionQuery } from "../_hooks/use-permission-query";
 import { useUpdatePermissionMutation } from "./_hooks/use-update-permission-mutation";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { FormPermission } from "../_components/form-permission";
 import { PermissionFormData } from "../_components/form-permission/schema";
 
@@ -28,7 +28,7 @@ export const Component = () => {
         onError: () => {
           message.error("Permission gagal diupdate");
         },
-      }
+      },
     );
 
   const breadcrumb = [

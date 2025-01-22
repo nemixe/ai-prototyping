@@ -5,7 +5,7 @@ import { Col, Row, message } from "antd";
 import { useUpdateUserMutation } from "./_hooks/use-update-user-mutation";
 import { TUserUpdateRequest } from "@/api/user/type";
 import { useUserQuery } from "../_hooks/use-user-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { FormUser } from "../_components/form-user";
 
 export const Component = () => {

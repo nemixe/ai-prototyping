@@ -3,7 +3,7 @@ import { TUserItem } from "@/api/user/type";
 import { useEffect, useState, createContext, useContext } from "react";
 import { SessionCookies } from "@/libs/cookies";
 import { usePostLoginOidc } from "@/app/(public)/auth/oauth-callback/_hooks/use-post-login-oidc";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 
 type Session = {
   signin: (payload: TLoginOidcParam) => void;

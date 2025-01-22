@@ -3,7 +3,7 @@
 import { Page } from "admiral";
 import { Col, Row, message } from "antd";
 import { useCreateUserMutation } from "./_hooks/use-create-user-mutation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { FormUser } from "../_components/form-user";
 import { UserFormData } from "../_components/form-user/schema";
 

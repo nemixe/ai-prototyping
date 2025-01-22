@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { lazily } from "react-lazily";
 import { ROUTES } from "./routes";
 import { PERMISSIONS } from "./permissions";

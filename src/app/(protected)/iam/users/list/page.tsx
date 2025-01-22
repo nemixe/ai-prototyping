@@ -8,7 +8,7 @@ import { ColumnsType } from "antd/es/table";
 import { useDeleteUserMutation } from "./_hooks/use-delete-user-mutation";
 import { useUsersQuery } from "./_hooks/use-users-query";
 import { makeSource } from "@/utils/data-table";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { TUserItem } from "@/api/user/type";
 import { ROUTES } from "@/commons/constants/routes";

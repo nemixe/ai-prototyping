@@ -6,7 +6,7 @@ import Datatable from "admiral/table/datatable/index";
 import { makeSource } from "@/utils/data-table";
 import dayjs from "dayjs";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { useGetRoles } from "../_hooks/use-get-roles";
 import { useDeleteRole } from "../_hooks/use-delete-role";
 import { TRoleItem } from "@/api/role/type";

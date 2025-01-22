@@ -4,7 +4,7 @@ import { Col, Row, message } from "antd";
 import { usePutUpdateRole } from "./_hooks/use-update-role-mutation";
 import { useGetDetailRole } from "../_hooks/use-get-detail-role";
 import { TRoleUpdateRequest } from "@/api/role/type";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { FormRole } from "../_components/form-role";
 
 export const Component = () => {

@@ -2,7 +2,7 @@ import { Page, Section } from "admiral";
 import { Descriptions } from "antd";
 
 import dayjs from "dayjs";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetDetailRole } from "../_hooks/use-get-detail-role";
 
 export const Component = () => {
@@ -36,9 +36,7 @@ export const Component = () => {
             {roleQuery.data?.data.key}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Permissions" key="permissions">
-            {roleQuery.data?.data.permissions
-              ?.map((role) => role.name)
-              .join(", ")}
+            {roleQuery.data?.data.permissions?.map((role) => role.name).join(", ")}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Created At" key="created_at">
             {roleQuery.data?.data.created_at
