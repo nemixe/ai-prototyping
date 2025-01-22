@@ -4,6 +4,7 @@ import { Page, Section } from "admiral";
 import { Descriptions } from "antd";
 import { useUserQuery } from "../_hooks/use-user-query";
 import { useParams } from "react-router";
+import { ROUTES } from "@/commons/constants/routes";
 
 export const Component = () => {
   const params = useParams();
@@ -13,11 +14,11 @@ export const Component = () => {
   const breadcrumbs = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "User",
-      path: "/iam/users",
+      path: ROUTES.iam.users.list,
     },
     {
       label: userQuery.data?.data.name ?? "",
@@ -43,3 +44,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;

@@ -56,3 +56,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;

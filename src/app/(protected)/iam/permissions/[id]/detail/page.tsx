@@ -5,8 +5,10 @@ import { Descriptions } from "antd";
 
 import { usePermissionQuery } from "../_hooks/use-permission-query";
 import { useParams } from "react-router";
+import { ROUTES } from "@/commons/constants/routes";
+import { urlParser } from "@/utils/url-parser";
 
-export const Component = () => {
+const Component = () => {
   const params = useParams();
   const permissionId = typeof params.id === "string" ? params.id : "";
   const permissionQuery = usePermissionQuery(permissionId);
@@ -14,15 +16,15 @@ export const Component = () => {
   const breadcrumbs = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "Permission",
-      path: "/iam/permissions",
+      path: ROUTES.iam.permissions.list,
     },
     {
       label: permissionQuery.data?.data.name ?? "",
-      path: `/iam/permissions/${permissionQuery.data?.data.id}`,
+      path: urlParser(ROUTES.iam.permissions.detail, { id: permissionId }),
     },
   ];
 
@@ -38,3 +40,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;

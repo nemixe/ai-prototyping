@@ -22,8 +22,7 @@ export const FormUser: FC<Props> = ({ formProps, error, loading }) => {
 
   useFormErrorHandling(error, ({ key, message }) => {
     // Define validation key that differs from the form field name
-    if (key === "fullname")
-      form.setFields([{ name: "name", errors: [message] }]);
+    if (key === "fullname") form.setFields([{ name: "name", errors: [message] }]);
     // If the key is similar then assign directly
     else form.setFields([{ name: key, errors: [message] }]);
   });
@@ -46,6 +45,7 @@ export const FormUser: FC<Props> = ({ formProps, error, loading }) => {
       </Form.Item>
       <Form.Item label="Role" name="roleId" rules={[rule]}>
         <Select
+          mode="multiple"
           placeholder="Select Role"
           options={rolesOptionQuery.data}
           loading={rolesOptionQuery.isLoading}

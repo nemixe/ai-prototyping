@@ -1,10 +1,51 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { VitePWA } from "vite-plugin-pwa";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  server: {
+    port: 3000,
+  },
+  plugins: [
+    react(),
+    sentryVitePlugin({
+      url: process.env.SENTRY_URL,
+      org: process.env.SENTRY_ORG,
+      project: process.env.SENTRY_PROJECT,
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: "auto",
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,ico,png,svg}"],
+        clientsClaim: true,
+        skipWaiting: true,
+      },
+      includeAssets: ["favicon.ico", "apple-touch-icon.png", "mask-icon.svg"],
+      manifest: {
+        name: "My Awesome App",
+        short_name: "MyApp",
+        description: "My Awesome App description",
+        theme_color: "#ffffff",
+        icons: [
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
+    }),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -12,31 +53,11 @@ export default defineConfig({
     },
   },
   build: {
+    sourcemap: true,
     chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         manualChunks(id: string) {
-          if (id.includes("@ant-design/icons/es")) {
-            const match = id.match(/@ant-design\/icons\/es\/([^/]+)/);
-            if (match) {
-              return `ant-design-icon-${match[1]}`;
-            }
-          }
-          if (id.includes("@ant-design/icons")) {
-            return "ant-design-icons";
-          }
-          if (id.includes("lodash-es")) {
-            const match = id.match(/lodash-es\/([^/]+)/);
-            if (match) {
-              return `lodash-${match[1]}`;
-            }
-          }
-          if (id.includes("admiral")) {
-            return "admiral";
-          }
-          if (id.includes("lodash")) {
-            return "lodash";
-          }
           if (id.includes("moment")) {
             return "moment";
           }
@@ -51,3 +72,4 @@ export default defineConfig({
     },
   },
 });
+

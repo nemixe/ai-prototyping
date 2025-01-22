@@ -4,6 +4,7 @@ import { Descriptions } from "antd";
 import dayjs from "dayjs";
 import { useParams } from "react-router";
 import { useGetDetailRole } from "../_hooks/use-get-detail-role";
+import { ROUTES } from "@/commons/constants/routes";
 
 export const Component = () => {
   const params = useParams();
@@ -13,11 +14,11 @@ export const Component = () => {
   const breadcrumbs = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "Role",
-      path: "/iam/roles",
+      path: ROUTES.iam.roles.list,
     },
     {
       label: roleQuery.data?.data.name ?? "",
@@ -53,3 +54,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;

@@ -5,7 +5,8 @@ import { usePutUpdateRole } from "./_hooks/use-update-role-mutation";
 import { useGetDetailRole } from "../_hooks/use-get-detail-role";
 import { TRoleUpdateRequest } from "@/api/role/type";
 import { useNavigate, useParams } from "react-router";
-import { FormRole } from "../_components/form-role";
+import { FormRole } from "../../_components/form-role";
+import { urlParser } from "@/utils/url-parser";
 
 export const Component = () => {
   const params = useParams();
@@ -31,15 +32,15 @@ export const Component = () => {
   const breadcrumb = [
     {
       label: "Dashboard",
-      path: "/dashboard",
+      path: ROUTES.dashboard,
     },
     {
       label: "Roles",
-      path: "/roles",
+      path: ROUTES.iam.roles.list,
     },
     {
-      label: roleQuery.data?.data.name ?? "",
-      path: `/roles/${roleQuery.data?.data.id}`,
+      label: roleQuery.data?.data.name ?? "-",
+      path: urlParser(ROUTES.iam.roles.detail, { id: roleQuery.data?.data.id ?? "" }),
     },
     {
       label: "Update",
@@ -75,3 +76,5 @@ export const Component = () => {
     </Page>
   );
 };
+
+export default Component;
