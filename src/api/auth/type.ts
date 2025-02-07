@@ -2,7 +2,7 @@ import { TUserItem } from "../user/type";
 
 export type TLoginParam = {
   email: string;
-  name: string;
+  name?: string;
   password: string;
 };
 

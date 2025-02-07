@@ -3,7 +3,8 @@ import { TLoginOidcParam, TLoginParam, TLoginResponse } from "./type";
 import { PERMISSIONS } from "@/commons/constants/permissions";
 
 export const postLogin = async (payload: TLoginParam): Promise<TLoginResponse> => {
-  return {
+  console.log("teriggered", payload);
+  const data = Promise.resolve({
     data: {
       access_token: "access_token",
       refresh_token: "refresh_token",
@@ -39,12 +40,13 @@ export const postLogin = async (payload: TLoginParam): Promise<TLoginResponse> =
         ],
       },
     },
-  };
-  const { data } = await api({
-    url: "/auth/login",
-    method: "POST",
-    data: payload,
   });
+  //const { data } = await api({
+  //  url: "/auth/login",
+  //  method: "POST",
+  //  data: payload,
+  //});
+  console.log(data);
   return data;
 };
 
