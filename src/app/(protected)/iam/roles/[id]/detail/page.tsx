@@ -1,15 +1,19 @@
 import { Page, Section } from "admiral";
-import { Descriptions } from "antd";
+import { Button, Descriptions, Flex, message } from "antd";
 
 import dayjs from "dayjs";
-import { useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { useGetDetailRole } from "../_hooks/use-get-detail-role";
 import { ROUTES } from "@/commons/constants/routes";
+import { urlParser } from "@/utils/url-parser";
+import { useDeleteRole } from "../../_hooks/use-delete-role";
 
 export const Component = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const roleId = typeof params.id === "string" ? params.id : "";
   const roleQuery = useGetDetailRole(roleId);
+  const deleteRoleMutation = useDeleteRole();
 
   const breadcrumbs = [
     {
@@ -27,7 +31,37 @@ export const Component = () => {
   ];
 
   return (
-    <Page title="Detail Role" breadcrumbs={breadcrumbs} noStyle>
+    <Page
+      topActions={
+        <Flex gap={10}>
+          <Button
+            htmlType="button"
+            onClick={() => {
+              deleteRoleMutation.mutate(roleQuery.data?.data.id ?? "", {
+                onSuccess: () => {
+                  message.success("Role berhasil dihapus");
+                  navigate(ROUTES.iam.users.list);
+                },
+              });
+            }}
+          >
+            Delete
+          </Button>
+          <Link
+            to={urlParser(ROUTES.iam.roles.update, {
+              id: Number(roleQuery.data?.data.id),
+            })}
+          >
+            <Button htmlType="button" type="primary">
+              Edit
+            </Button>
+          </Link>
+        </Flex>
+      }
+      title="Detail Role"
+      breadcrumbs={breadcrumbs}
+      noStyle
+    >
       <Section loading={roleQuery.isLoading} title="Detail Role">
         <Descriptions bordered column={2}>
           <Descriptions.Item span={2} label="Name" key="name">
