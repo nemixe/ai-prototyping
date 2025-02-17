@@ -1,22 +1,17 @@
-import { TUserItem } from "@/api/user/type";
 import Cookies from "js-cookie";
 
-export const SessionCookies = {
-  set: (val: {
-    access_token: string;
-    refresh_token: string;
-    user: TUserItem;
-  }) => Cookies.set("users", JSON.stringify(val)),
+export const SessionToken = {
+  set: (val: { access_token: string; refresh_token: string }) =>
+    Cookies.set("token", JSON.stringify(val)),
   get: ():
     | {
         access_token: string;
         refresh_token: string;
-        user: TUserItem;
       }
     | undefined => {
-    const users = Cookies.get("users");
-    if (!users) return undefined;
-    return JSON.parse(users);
+    const token = Cookies.get("token");
+    if (!token) return undefined;
+    return JSON.parse(token);
   },
-  remove: () => Cookies.remove("users"),
+  remove: () => Cookies.remove("token"),
 };

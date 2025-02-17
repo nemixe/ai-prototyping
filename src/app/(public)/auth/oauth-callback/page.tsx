@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Flex, Spin } from "antd";
 import { useNavigate, useSearchParams } from "react-router";
 import { ROUTES } from "@/commons/constants/routes";
-import { SessionLocalstorage } from "@/libs/localstorage";
+import { SessionToken } from "@/libs/cookies";
 import { useSession } from "@/app/_components/providers/session";
 
 const Component = () => {
@@ -22,7 +22,7 @@ const Component = () => {
   }, []);
 
   useEffect(() => {
-    const session = SessionLocalstorage.get();
+    const session = SessionToken.get();
     if (session) navigate(ROUTES.dashboard);
   }, []);
 
