@@ -1,9 +1,10 @@
 import { TLoginOidcParam } from "@/api/auth/type";
-import { TUserItem } from "@/api/user/type";
 import { useEffect, useState, createContext, useContext } from "react";
-import { SessionCookies } from "@/libs/cookies";
+import { SessionUser } from "@/libs/localstorage";
+import { SessionToken } from "@/libs/cookies";
 import { usePostLoginOidc } from "@/app/(public)/auth/oauth-callback/_hooks/use-post-login-oidc";
 import { useNavigate } from "react-router";
+import { TUserItem } from "@/api/user/type";
 
 type Session = {
   signin: (payload: TLoginOidcParam) => void;
@@ -11,7 +12,7 @@ type Session = {
   session?: {
     access_token: string;
     refresh_token: string;
-    user: TUserItem;
+    user?: TUserItem;
   };
   status?: "authenticated" | "authenticating" | "unauthenticated";
 };
@@ -31,9 +32,10 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { mutate: oidcMutate } = usePostLoginOidc();
 
   useEffect(() => {
-    const session = SessionCookies.get();
+    const session = SessionToken.get();
+    const user = SessionUser.get();
     if (session) {
-      setSessionData(session);
+      setSessionData({ ...session, ...user });
       setStatus("authenticated");
     } else {
       setStatus("unauthenticated");
@@ -45,8 +47,11 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
     oidcMutate(payload, {
       onSuccess: (res) => {
         setSessionData(res.data);
+
         setStatus("authenticated");
-        SessionCookies.set(res.data);
+
+        SessionUser.set(res.data);
+
         setTimeout(() => {
           navigate("/dashboard");
         }, 600);
@@ -60,7 +65,8 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const signout = () => {
     setStatus("unauthenticated");
     setSessionData(undefined);
-    SessionCookies.remove();
+    SessionUser.remove();
+    SessionToken.remove();
     navigate("/auth/login");
   };
   return (
