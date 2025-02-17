@@ -17,7 +17,7 @@ export const usePostLogin = (): UseMutationResult<
     mutationKey: ["post-login"],
     mutationFn: async (payload) => await postLogin(payload),
     onSuccess: (res) => {
-      SessionUser.set(res.data);
+      SessionUser.set({ user: res.data.user });
       SessionToken.set(res.data);
       navigate(0);
     },
