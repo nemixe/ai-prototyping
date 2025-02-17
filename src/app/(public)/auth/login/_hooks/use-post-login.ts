@@ -1,6 +1,6 @@
 import { postLogin } from "@/api/auth/api";
 import { TLoginParam, TLoginResponse } from "@/api/auth/type";
-import { SessionCookies } from "@/libs/cookies";
+import { SessionLocalstorage } from "@/libs/localstorage";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import { notification } from "antd";
 import { useNavigate } from "react-router";
@@ -16,7 +16,7 @@ export const usePostLogin = (): UseMutationResult<
     mutationKey: ["post-login"],
     mutationFn: async (payload) => await postLogin(payload),
     onSuccess: (res) => {
-      SessionCookies.set({
+      SessionLocalstorage.set({
         access_token: res.data.access_token,
         refresh_token: res.data.refresh_token,
         user: res.data.user,

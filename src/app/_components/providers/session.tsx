@@ -1,7 +1,7 @@
 import { TLoginOidcParam } from "@/api/auth/type";
 import { TUserItem } from "@/api/user/type";
 import { useEffect, useState, createContext, useContext } from "react";
-import { SessionCookies } from "@/libs/cookies";
+import { SessionLocalstorage } from "@/libs/localstorage";
 import { usePostLoginOidc } from "@/app/(public)/auth/oauth-callback/_hooks/use-post-login-oidc";
 import { useNavigate } from "react-router";
 
@@ -31,7 +31,7 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const { mutate: oidcMutate } = usePostLoginOidc();
 
   useEffect(() => {
-    const session = SessionCookies.get();
+    const session = SessionLocalstorage.get();
     if (session) {
       setSessionData(session);
       setStatus("authenticated");
@@ -46,7 +46,7 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
       onSuccess: (res) => {
         setSessionData(res.data);
         setStatus("authenticated");
-        SessionCookies.set(res.data);
+        SessionLocalstorage.set(res.data);
         setTimeout(() => {
           navigate("/dashboard");
         }, 600);
@@ -60,7 +60,7 @@ const SessionProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const signout = () => {
     setStatus("unauthenticated");
     setSessionData(undefined);
-    SessionCookies.remove();
+    SessionLocalstorage.remove();
     navigate("/auth/login");
   };
   return (
