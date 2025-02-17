@@ -1,7 +1,13 @@
-import type { FC, ReactElement } from "react";
+import React from "react";
+import { Button, Result } from "antd";
 
-const AppNotFound: FC = (): ReactElement => {
-  return <div>Not Found...</div>;
-};
+const AppNotFound: React.FC = () => (
+  <Result
+    status="404"
+    title="404"
+    subTitle="Sorry, the page you visited does not exist."
+    extra={<Button type="primary">Back Home</Button>}
+  />
+);
 
 export default AppNotFound;
