@@ -10,15 +10,67 @@ import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { urlParser } from "@/utils/url-parser";
 
-import { useDeleteRole, useGetRoles } from "../hook";
-import { TRoleItem } from "../type";
+import { TRoleGetRequest, TRoleItem, TRoleListResponse } from "../type";
+
+const getRoles = (params: TRoleGetRequest): TRoleListResponse => {
+  console.log(params);
+  return {
+    status_code: 200,
+    data: {
+      items: [
+        {
+          permissions: [
+            {
+              name: "View Role",
+              key: "view-role",
+              id: "145efcff-8ae5-4a6c-9900-05a855000622",
+              created_at: null,
+              updated_at: null,
+              deleted_at: null,
+            },
+          ],
+          name: "Admin",
+          key: "admin",
+          id: "9b89100c-fd49-4b87-b2fd-763832c59cc1",
+          created_at: "2023-10-01T00:00:00.000Z",
+          updated_at: "2023-10-01T00:00:00.000Z",
+          deleted_at: null,
+        },
+        {
+          permissions: [
+            {
+              name: "View Role",
+              key: "view-role",
+              id: "145efcff-8ae5-4a6c-9900-05a855000622",
+              created_at: null,
+              updated_at: null,
+              deleted_at: null,
+            },
+          ],
+          name: "Super Admin",
+          key: "super-admin",
+          id: "410b4d3f-9ea1-4871-81ff-b091cf6c15fb",
+          created_at: "2023-10-01T00:00:00.000Z",
+          updated_at: "2023-10-01T00:00:00.000Z",
+          deleted_at: null,
+        },
+      ],
+      meta: {
+        total_page: 1,
+        total: 2,
+        page: 1,
+        per_page: 10,
+      },
+    },
+    version: "1.0.0",
+  };
+};
 
 export const Component = () => {
   const navigate = useNavigate();
   const { handleChange, pagination, filters } = useFilter();
-  const rolesQuery = useGetRoles(pagination);
 
-  const deleteRoleMutation = useDeleteRole();
+  const rolesData = getRoles(pagination);
 
   const columns: ColumnsType<TRoleItem> = [
     {
@@ -60,12 +112,8 @@ export const Component = () => {
               type="link"
               icon={<DeleteOutlined style={{ color: "red" }} />}
               onClick={() => {
-                deleteRoleMutation.mutate(record.id, {
-                  onSuccess: () => {
-                    message.success("Role berhasil dihapus");
-                    navigate(0);
-                  },
-                });
+                message.success("Role berhasil dihapus");
+                navigate(0);
               }}
             />
             <Link
@@ -98,8 +146,8 @@ export const Component = () => {
         onChange={handleChange}
         rowKey="id"
         showRowSelection={false}
-        loading={rolesQuery.isLoading}
-        source={makeSource(rolesQuery.data)}
+        loading={false}
+        source={makeSource(rolesData)}
         columns={columns}
         search={filters.search}
       />

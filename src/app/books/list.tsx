@@ -3,17 +3,53 @@ import { EyeOutlined } from "@ant-design/icons";
 import { ColumnsType } from "antd/es/table";
 import { ActionTable, Page } from "admiral";
 import Datatable from "admiral/table/datatable/index";
-import { makeSource } from "@/utils/data-table";
 import dayjs from "dayjs";
-import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { Link } from "react-router";
-import { urlParser } from "@/utils/url-parser";
-import { useGetBooks } from "./hook";
-import { TBookItem } from "./type";
 
+import { useFilter } from "@/app/_hooks/datatable/use-filter";
+import { urlParser } from "@/utils/url-parser";
+import { makeSource } from "@/utils/data-table";
+
+import { TBookItem, TBookResponse } from "./type";
+
+const getBooks = (params: unknown): TBookResponse => {
+  console.log(params);
+  return {
+    status_code: 200,
+    data: {
+      items: [
+        {
+          id: "1",
+          title: "The Great Gatsby",
+          year: 1925,
+          publish_date: "1925-04-10",
+        },
+        {
+          id: "2",
+          title: "To Kill a Mockingbird",
+          year: 1960,
+          publish_date: "1960-07-11",
+        },
+        {
+          id: "3",
+          title: "1984",
+          year: 1949,
+          publish_date: "1949-06-08",
+        },
+      ],
+      meta: {
+        total_page: 1,
+        total: 2,
+        page: 1,
+        per_page: 10,
+      },
+    },
+    version: "1.0.0",
+  };
+};
 export const Component = () => {
   const { handleChange, pagination, filters, setFilters } = useFilter();
-  const booksQuery = useGetBooks(pagination);
+  const booksData = getBooks(pagination);
 
   const columns: ColumnsType<TBookItem> = [
     {
@@ -82,8 +118,8 @@ export const Component = () => {
           onChange={handleChange}
           rowKey="id"
           showRowSelection={false}
-          loading={booksQuery.isLoading}
-          source={makeSource(booksQuery.data)}
+          loading={false}
+          source={makeSource(booksData)}
           columns={columns}
           search={filters.search}
         />
