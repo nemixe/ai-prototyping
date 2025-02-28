@@ -1,9 +1,9 @@
 import { Col, Row, message } from "antd";
 import { Page } from "admiral";
 import { useNavigate } from "react-router";
-import { UserFormData } from "./schema";
 import { FormUser } from "./form";
 import { usePostCreateUser } from "./hook";
+import { TUserCreateRequest } from "./type";
 
 export const Component = () => {
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ export const Component = () => {
 
   const createUserMutation = usePostCreateUser();
 
-  const handleOnFinish = (data: UserFormData) => {
+  const handleOnFinish = (data: TUserCreateRequest) => {
     createUserMutation.mutate(data, {
       onSuccess: () => {
         message.success("User successfully created");

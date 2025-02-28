@@ -1,9 +1,14 @@
 import { Col, Row, message } from "antd";
 import { Page } from "admiral";
 import { useNavigate } from "react-router";
-import { RoleFormData } from "./schema";
 import { FormRole } from "./form";
 import { usePostCreateRole } from "./hook";
+
+type RoleFormData = {
+  name: string;
+  roleKey: string;
+  permissions_ids: string[];
+};
 
 export const Component = () => {
   const navigate = useNavigate();
