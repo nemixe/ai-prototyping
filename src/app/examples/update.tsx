@@ -1,13 +1,12 @@
 import { Page } from "admiral";
 import { Col, Row, message } from "antd";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
 
 import { FormRole } from "./form";
-import { TRoleDetailResponse } from "./type";
 
-const getRole = (id: string): TRoleDetailResponse => {
-  return {
+const role = {
+  data: {
     status_code: 200,
     data: {
       permissions: [
@@ -22,22 +21,18 @@ const getRole = (id: string): TRoleDetailResponse => {
       ],
       name: "Super Admin",
       key: "super-admin",
-      id: id,
+      id: "1",
       created_at: null,
       updated_at: null,
       deleted_at: null,
     },
     version: "1.0.0",
-  };
+  },
+  loading: false,
 };
 
 export const Component = () => {
-  const params = useParams();
   const navigate = useNavigate();
-
-  const roleId = typeof params.id === "string" ? params.id : "";
-
-  const roleQuery = getRole(roleId);
 
   const handleOnFinish = () => {
     navigate("/roles");
@@ -54,8 +49,8 @@ export const Component = () => {
       path: "/roles",
     },
     {
-      label: roleQuery.data?.name ?? "-",
-      path: urlParser("/roles/detail/:id", { id: roleQuery.data?.id ?? "" }),
+      label: role.data.data?.name ?? "-",
+      path: urlParser("/roles/detail/:id", { id: role.data.data?.id ?? "" }),
     },
     {
       label: "Update",
@@ -64,9 +59,9 @@ export const Component = () => {
   ];
 
   const initialValues = {
-    name: roleQuery.data?.name,
-    roleKey: roleQuery.data?.key,
-    permissions_ids: roleQuery.data?.permissions?.map((role) => ({
+    name: role.data.data?.name,
+    roleKey: role.data.data?.key,
+    permissions_ids: role.data.data?.permissions?.map((role) => ({
       label: role.name,
       value: role.id,
     })),
@@ -77,14 +72,14 @@ export const Component = () => {
       <Row>
         <Col span={12} style={{ margin: "auto" }}>
           <FormRole
-            key={roleQuery.data?.id}
+            key={role.data.data?.id}
             formProps={{
               onFinish: handleOnFinish,
               initialValues,
               disabled: false,
             }}
             error={null}
-            loading={false}
+            loading={role.loading}
           />
         </Col>
       </Row>

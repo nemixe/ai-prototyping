@@ -1,6 +1,5 @@
 import { Button, Flex, message } from "antd";
 import { DeleteOutlined, EditOutlined, EyeOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { ColumnsType } from "antd/es/table";
 import Datatable from "admiral/table/datatable/index";
 import dayjs from "dayjs";
 import { Link, useNavigate } from "react-router";
@@ -9,12 +8,11 @@ import { Page } from "admiral";
 import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { urlParser } from "@/utils/url-parser";
+import { ColumnsType } from "antd/es/table";
+import { TRoleItem } from "../type";
 
-import { TRoleGetRequest, TRoleItem, TRoleListResponse } from "../type";
-
-const getRoles = (params: TRoleGetRequest): TRoleListResponse => {
-  console.log(params);
-  return {
+const roles = {
+  data: {
     status_code: 200,
     data: {
       items: [
@@ -63,13 +61,13 @@ const getRoles = (params: TRoleGetRequest): TRoleListResponse => {
       },
     },
     version: "1.0.0",
-  };
+  },
+  loading: false,
 };
 
 export const Component = () => {
   const navigate = useNavigate();
-  const { handleChange, pagination } = useFilter();
-  const rolesData = getRoles(pagination);
+  const { handleChange } = useFilter();
 
   const columns: ColumnsType<TRoleItem> = [
     {
@@ -146,8 +144,8 @@ export const Component = () => {
         onChange={handleChange}
         rowKey="id"
         showRowSelection={false}
-        loading={false}
-        source={makeSource(rolesData)}
+        loading={roles.loading}
+        source={makeSource(roles.data)}
         columns={columns}
       />
     </Page>

@@ -2,12 +2,11 @@ import { Page, Section } from "admiral";
 import { Button, Descriptions, Flex, message } from "antd";
 
 import dayjs from "dayjs";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
-import { TRoleDetailResponse } from "./type";
 
-const getRole = (id: string): TRoleDetailResponse => {
-  return {
+const role = {
+  data: {
     status_code: 200,
     data: {
       permissions: [
@@ -22,20 +21,18 @@ const getRole = (id: string): TRoleDetailResponse => {
       ],
       name: "Super Admin",
       key: "super-admin",
-      id: id,
+      id: "1",
       created_at: null,
       updated_at: null,
       deleted_at: null,
     },
     version: "1.0.0",
-  };
+  },
+  loading: false,
 };
 
 export const Component = () => {
-  const params = useParams();
   const navigate = useNavigate();
-  const roleId = typeof params.id === "string" ? params.id : "";
-  const roleData = getRole(roleId);
 
   const breadcrumbs = [
     {
@@ -47,7 +44,7 @@ export const Component = () => {
       path: "/roles",
     },
     {
-      label: roleData.data.name,
+      label: role.data.data.name,
       path: "#",
     },
   ];
@@ -67,7 +64,7 @@ export const Component = () => {
           </Button>
           <Link
             to={urlParser("/roles/update/:id", {
-              id: Number(roleData.data?.id),
+              id: Number(role.data.data.id),
             })}
           >
             <Button htmlType="button" type="primary">
@@ -80,25 +77,25 @@ export const Component = () => {
       breadcrumbs={breadcrumbs}
       noStyle
     >
-      <Section loading={false} title="Detail Role">
+      <Section loading={role.loading} title="Detail Role">
         <Descriptions bordered column={2}>
           <Descriptions.Item span={2} label="Name" key="name">
-            {roleData.data?.name}
+            {role.data.data?.name}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Key" key="key">
-            {roleData.data?.key}
+            {role.data.data?.key}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Permissions" key="permissions">
-            {roleData.data?.permissions?.map((role) => role.name).join(", ")}
+            {role.data.data?.permissions?.map((role) => role.name).join(", ")}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Created At" key="created_at">
-            {roleData.data?.created_at
-              ? dayjs(roleData.data?.created_at).format("DD/MM/YYYY")
+            {role.data.data?.created_at
+              ? dayjs(role.data.data?.created_at).format("DD/MM/YYYY")
               : "-"}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Updated At" key="updated_at">
-            {roleData.data?.updated_at
-              ? dayjs(roleData.data?.updated_at).format("DD/MM/YYYY")
+            {role.data.data?.updated_at
+              ? dayjs(role.data.data?.updated_at).format("DD/MM/YYYY")
               : "-"}
           </Descriptions.Item>
         </Descriptions>

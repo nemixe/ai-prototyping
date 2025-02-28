@@ -16,22 +16,21 @@ import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { urlParser } from "@/utils/url-parser";
 
-import { TUserGetRequest, TUserItem, TUserListResponse } from "./type";
+import { TUserItem } from "./type";
 
-const getUsers = (params: TUserGetRequest): TUserListResponse => {
-  console.log(params);
-  const dummyUsers = Array.from({ length: 10 }, (_, index) => ({
-    id: "9b89100c-fd49-4b87-b2fd-763832c59cc1",
-    fullname: `User ${index + 1}`,
-    email: `user${index + 1}@example.com`,
-    birthdate: "1990-01-01",
-    password: "password123",
-    created_at: "2024-02-21T00:00:00Z",
-    updated_at: null,
-    deleted_at: null,
-  }));
+const dummyUsers = Array.from({ length: 10 }, (_, index) => ({
+  id: "9b89100c-fd49-4b87-b2fd-763832c59cc1",
+  fullname: `User ${index + 1}`,
+  email: `user${index + 1}@example.com`,
+  birthdate: "1990-01-01",
+  password: "password123",
+  created_at: "2024-02-21T00:00:00Z",
+  updated_at: null,
+  deleted_at: null,
+}));
 
-  return {
+const users = {
+  data: {
     status_code: 200,
     data: {
       items: dummyUsers,
@@ -43,13 +42,13 @@ const getUsers = (params: TUserGetRequest): TUserListResponse => {
       },
     },
     version: "1.0",
-  };
+  },
+  loading: false,
 };
 
 export const Component = () => {
   const navigate = useNavigate();
-  const { handleChange, pagination, filters, setFilters } = useFilter();
-  const usersData = getUsers(pagination);
+  const { handleChange, filters, setFilters } = useFilter();
 
   const columns: ColumnsType<TUserItem> = [
     {
@@ -165,8 +164,8 @@ export const Component = () => {
           onChange={handleChange}
           rowKey="id"
           showRowSelection={false}
-          loading={false}
-          source={makeSource(usersData)}
+          loading={users.loading}
+          source={makeSource(users.data)}
           columns={columns}
           search={filters.search}
         />

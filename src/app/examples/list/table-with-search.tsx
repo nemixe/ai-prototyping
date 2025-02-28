@@ -10,11 +10,10 @@ import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { urlParser } from "@/utils/url-parser";
 
-import { TRoleGetRequest, TRoleItem, TRoleListResponse } from "../type";
+import { TRoleItem } from "../type";
 
-const getRoles = (params: TRoleGetRequest): TRoleListResponse => {
-  console.log(params);
-  return {
+const roles = {
+  data: {
     status_code: 200,
     data: {
       items: [
@@ -63,14 +62,13 @@ const getRoles = (params: TRoleGetRequest): TRoleListResponse => {
       },
     },
     version: "1.0.0",
-  };
+  },
+  loading: false,
 };
 
 export const Component = () => {
   const navigate = useNavigate();
-  const { handleChange, pagination, filters } = useFilter();
-
-  const rolesData = getRoles(pagination);
+  const { handleChange, filters } = useFilter();
 
   const columns: ColumnsType<TRoleItem> = [
     {
@@ -147,7 +145,7 @@ export const Component = () => {
         rowKey="id"
         showRowSelection={false}
         loading={false}
-        source={makeSource(rolesData)}
+        source={makeSource(roles.data)}
         columns={columns}
         search={filters.search}
       />

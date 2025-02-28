@@ -5,13 +5,16 @@ import { Link, useNavigate } from "react-router";
 
 import { urlParser } from "@/utils/url-parser";
 
-const data = {
-  id: "1",
-  fullname: "John Doe",
-  email: "john@doe.com",
-  birthdate: "1990-01-01",
-  created_at: "2021-01-01",
-  updated_at: "2021-01-01",
+const user = {
+  data: {
+    id: "1",
+    fullname: "John Doe",
+    email: "john@doe.com",
+    birthdate: "1990-01-01",
+    created_at: "2021-01-01",
+    updated_at: "2021-01-01",
+  },
+  loading: false,
 };
 
 export const Component = () => {
@@ -27,7 +30,7 @@ export const Component = () => {
       path: "/users",
     },
     {
-      label: data.fullname ?? "",
+      label: user.data.fullname ?? "",
       path: "#",
     },
   ];
@@ -47,7 +50,7 @@ export const Component = () => {
           </Button>
           <Link
             to={urlParser("/users/update/:id", {
-              id: data.id ?? "",
+              id: user.data.id ?? "",
             })}
           >
             <Button htmlType="button" type="primary">
@@ -60,22 +63,22 @@ export const Component = () => {
       breadcrumbs={breadcrumbs}
       noStyle
     >
-      <Section loading={false} title="User Details">
+      <Section loading={user.loading} title="User Details">
         <Descriptions bordered column={2}>
           <Descriptions.Item span={2} label="Full Name" key="fullname">
-            {data.fullname}
+            {user.data.fullname}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Email" key="email">
-            {data.email}
+            {user.data.email}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Birth Date" key="birthdate">
-            {data.birthdate ? dayjs(data.birthdate).format("DD/MM/YYYY") : "-"}
+            {user.data.birthdate ? dayjs(user.data.birthdate).format("DD/MM/YYYY") : "-"}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Created At" key="created_at">
-            {data.created_at ? dayjs(data.created_at).format("DD/MM/YYYY") : "-"}
+            {user.data.created_at ? dayjs(user.data.created_at).format("DD/MM/YYYY") : "-"}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Updated At" key="updated_at">
-            {data.updated_at ? dayjs(data.updated_at).format("DD/MM/YYYY") : "-"}
+            {user.data.updated_at ? dayjs(user.data.updated_at).format("DD/MM/YYYY") : "-"}
           </Descriptions.Item>
         </Descriptions>
       </Section>
