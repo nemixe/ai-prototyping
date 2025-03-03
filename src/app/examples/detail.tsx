@@ -2,16 +2,37 @@ import { Page, Section } from "admiral";
 import { Button, Descriptions, Flex, message } from "antd";
 
 import dayjs from "dayjs";
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
-import { useDeleteRole, useGetDetailRole } from "./hook";
+
+const role = {
+  data: {
+    status_code: 200,
+    data: {
+      permissions: [
+        {
+          name: "View Role",
+          key: "view-role",
+          id: "145efcff-8ae5-4a6c-9900-05a855000622",
+          created_at: null,
+          updated_at: null,
+          deleted_at: null,
+        },
+      ],
+      name: "Super Admin",
+      key: "super-admin",
+      id: "1",
+      created_at: null,
+      updated_at: null,
+      deleted_at: null,
+    },
+    version: "1.0.0",
+  },
+  loading: false,
+};
 
 export const Component = () => {
-  const params = useParams();
   const navigate = useNavigate();
-  const roleId = typeof params.id === "string" ? params.id : "";
-  const roleQuery = useGetDetailRole(roleId);
-  const deleteRoleMutation = useDeleteRole();
 
   const breadcrumbs = [
     {
@@ -23,7 +44,7 @@ export const Component = () => {
       path: "/roles",
     },
     {
-      label: roleQuery.data?.data.name ?? "",
+      label: role.data.data.name,
       path: "#",
     },
   ];
@@ -35,19 +56,15 @@ export const Component = () => {
           <Button
             htmlType="button"
             onClick={() => {
-              deleteRoleMutation.mutate(roleQuery.data?.data.id ?? "", {
-                onSuccess: () => {
-                  message.success("Role berhasil dihapus");
-                  navigate("/roles");
-                },
-              });
+              message.success("Role berhasil dihapus");
+              navigate("/roles");
             }}
           >
             Delete
           </Button>
           <Link
             to={urlParser("/roles/update/:id", {
-              id: Number(roleQuery.data?.data.id),
+              id: Number(role.data.data.id),
             })}
           >
             <Button htmlType="button" type="primary">
@@ -60,25 +77,25 @@ export const Component = () => {
       breadcrumbs={breadcrumbs}
       noStyle
     >
-      <Section loading={roleQuery.isLoading} title="Detail Role">
+      <Section loading={role.loading} title="Detail Role">
         <Descriptions bordered column={2}>
           <Descriptions.Item span={2} label="Name" key="name">
-            {roleQuery.data?.data.name}
+            {role.data.data?.name}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Key" key="key">
-            {roleQuery.data?.data.key}
+            {role.data.data?.key}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Permissions" key="permissions">
-            {roleQuery.data?.data.permissions?.map((role) => role.name).join(", ")}
+            {role.data.data?.permissions?.map((role) => role.name).join(", ")}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Created At" key="created_at">
-            {roleQuery.data?.data.created_at
-              ? dayjs(roleQuery.data?.data.created_at).format("DD/MM/YYYY")
+            {role.data.data?.created_at
+              ? dayjs(role.data.data?.created_at).format("DD/MM/YYYY")
               : "-"}
           </Descriptions.Item>
           <Descriptions.Item span={2} label="Updated At" key="updated_at">
-            {roleQuery.data?.data.updated_at
-              ? dayjs(roleQuery.data?.data.updated_at).format("DD/MM/YYYY")
+            {role.data.data?.updated_at
+              ? dayjs(role.data.data?.updated_at).format("DD/MM/YYYY")
               : "-"}
           </Descriptions.Item>
         </Descriptions>

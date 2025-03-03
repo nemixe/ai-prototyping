@@ -1,8 +1,7 @@
 import type { FC, ReactElement } from "react";
 import { Button, Form, Input, DatePicker } from "antd";
 import { FormProps } from "antd/lib";
-import { createZodSync } from "@/utils/zod-sync";
-import { UserFormSchema } from "./schema";
+
 import { TResponseError } from "@/commons/types/response";
 import { useFormErrorHandling } from "@/app/_hooks/form/use-form-error-handling";
 
@@ -11,8 +10,6 @@ type TProps = {
   loading: boolean;
   error: TResponseError | null;
 };
-
-const rule = createZodSync(UserFormSchema);
 
 export const FormUser: FC<TProps> = ({ formProps, error, loading }): ReactElement => {
   const [form] = Form.useForm();
@@ -23,16 +20,60 @@ export const FormUser: FC<TProps> = ({ formProps, error, loading }): ReactElemen
 
   return (
     <Form {...formProps} form={form} layout="vertical">
-      <Form.Item label="Full Name" name="fullname" rules={[rule]}>
+      <Form.Item
+        label="Full Name"
+        name="fullname"
+        rules={[
+          {
+            required: true,
+            message: "Full name is required",
+          },
+        ]}
+      >
         <Input placeholder="John Doe" />
       </Form.Item>
-      <Form.Item label="Birth Date" name="birthdate" rules={[rule]}>
+      <Form.Item
+        label="Birth Date"
+        name="birthdate"
+        rules={[
+          {
+            required: true,
+            message: "Birth date is required",
+          },
+        ]}
+      >
         <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
       </Form.Item>
-      <Form.Item label="Email" name="email" rules={[rule]}>
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: "Email is required",
+          },
+          {
+            type: "email",
+            message: "Invalid email address",
+          },
+        ]}
+      >
         <Input type="email" placeholder="john.doe@example.com" />
       </Form.Item>
-      <Form.Item label="Password" name="password" rules={[rule]}>
+      <Form.Item
+        label="Password"
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: "Password is required",
+          },
+          {
+            min: 6,
+            message: "Password must be at least 6 characters",
+          },
+        ]}
+      >
         <Input.Password placeholder="Enter password" />
       </Form.Item>
       <Form.Item>

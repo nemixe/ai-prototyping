@@ -7,22 +7,48 @@ import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
 import { ColumnsType } from "antd/es/table";
+import { Link, useNavigate } from "react-router";
+import dayjs from "dayjs";
 import { ActionTable, Page } from "admiral";
 import Datatable from "admiral/table/datatable/index";
+
 import { makeSource } from "@/utils/data-table";
-import dayjs from "dayjs";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
-import { Link, useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
-import { useDeleteUser, useGetUsers } from "./hook";
+
 import { TUserItem } from "./type";
+
+const dummyUsers = Array.from({ length: 10 }, (_, index) => ({
+  id: "9b89100c-fd49-4b87-b2fd-763832c59cc1",
+  fullname: `User ${index + 1}`,
+  email: `user${index + 1}@example.com`,
+  birthdate: "1990-01-01",
+  password: "password123",
+  created_at: "2024-02-21T00:00:00Z",
+  updated_at: null,
+  deleted_at: null,
+}));
+
+const users = {
+  data: {
+    status_code: 200,
+    data: {
+      items: dummyUsers,
+      meta: {
+        total_page: 1,
+        total: 2,
+        page: 1,
+        per_page: 10,
+      },
+    },
+    version: "1.0",
+  },
+  loading: false,
+};
 
 export const Component = () => {
   const navigate = useNavigate();
-  const { handleChange, pagination, filters, setFilters } = useFilter();
-  const usersQuery = useGetUsers(pagination);
-
-  const deleteUserMutation = useDeleteUser();
+  const { handleChange, filters, setFilters } = useFilter();
 
   const columns: ColumnsType<TUserItem> = [
     {
@@ -65,12 +91,8 @@ export const Component = () => {
               type="link"
               icon={<DeleteOutlined style={{ color: "red" }} />}
               onClick={() => {
-                deleteUserMutation.mutate(record.id, {
-                  onSuccess: () => {
-                    message.success("User successfully deleted");
-                    navigate(0);
-                  },
-                });
+                message.success("User successfully deleted");
+                navigate(0);
               }}
             />
             <Link
@@ -142,8 +164,8 @@ export const Component = () => {
           onChange={handleChange}
           rowKey="id"
           showRowSelection={false}
-          loading={usersQuery.isLoading}
-          source={makeSource(usersQuery.data)}
+          loading={users.loading}
+          source={makeSource(users.data)}
           columns={columns}
           search={filters.search}
         />
