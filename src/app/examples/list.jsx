@@ -1,18 +1,21 @@
-import { Button, Flex, message } from "antd";
+import { Button, Col, Flex, message, Row } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
   EyeOutlined,
   FilterOutlined,
   PlusCircleOutlined,
+  SortAscendingOutlined,
 } from "@ant-design/icons";
-import { ActionTable, Page, DataTable } from "admiral";
+import Datatable from "admiral/table/datatable/index";
 import dayjs from "dayjs";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
+import { Page } from "admiral";
 
 import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { urlParser } from "@/utils/url-parser";
+import { Checkbox } from "antd";
 
 const roles = {
   data: {
@@ -69,19 +72,20 @@ const roles = {
 };
 
 export const Component = () => {
-  const navigate = useNavigate();
-  const { handleChange, filters, setFilters } = useFilter();
+  const { handleChange, filters } = useFilter();
 
   const columns = [
     {
       dataIndex: "name",
       key: "name",
       title: "Name",
+      sorter: true,
     },
     {
       dataIndex: "permissions",
       title: "Permissions",
       key: "permissions",
+      sorter: true,
       render: (_, record) => {
         return record.permissions?.map((role) => role.name).join(", ");
       },
@@ -89,6 +93,7 @@ export const Component = () => {
     {
       dataIndex: "createdAt",
       title: "Created At",
+      sorter: true,
       key: "createdAt",
       render: (_, record) => {
         return record.created_at ? dayjs(record.created_at).format("DD/MM/YYYY") : "-";
@@ -113,7 +118,6 @@ export const Component = () => {
               icon={<DeleteOutlined style={{ color: "red" }} />}
               onClick={() => {
                 message.success("Role berhasil dihapus");
-                navigate(0);
               }}
             />
             <Link
@@ -142,55 +146,174 @@ export const Component = () => {
 
   return (
     <Page title="Roles" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
-      <ActionTable
-        onSearch={(value) => setFilters({ search: value })}
-        searchValue={filters.search}
-        onFiltersChange={(values) => setFilters(values)}
-        filters={[
+      <Datatable
+        filterComponents={[
           {
             label: "filter",
             name: "filter",
             type: "Group",
             icon: <FilterOutlined />,
+            cols: 2,
             filters: [
               {
                 label: "Name",
                 name: "name",
                 type: "Select",
-                placeholder: "Filter Name",
-                value: filters.name,
+                placeholder: "Type to search",
+                defaultValue: filters.name,
                 options: [
                   {
-                    label: "A-Z",
-                    value: "ASC",
+                    label: "Admin",
+                    value: "admin",
                   },
                   {
-                    label: "Z-A",
-                    value: "DESC",
+                    label: "Super Admin",
+                    value: "super-admin",
+                  },
+                ],
+              },
+              {
+                label: "Period",
+                name: "date",
+                type: "DateRangePicker",
+                defaultValue: filters.date,
+              },
+              {
+                label: "Permissions",
+                name: "permissions",
+                type: "CheckboxDropdown",
+                defaultValue: filters.permissions,
+                placeholder: "Type to search",
+                options: [
+                  {
+                    label: "View Role",
+                    value: "view-role",
+                  },
+                  {
+                    label: "Create Role",
+                    value: "create-role",
+                  },
+                  {
+                    label: "Update Role",
+                    value: "update-role",
+                  },
+                ],
+              },
+              {
+                label: "",
+                name: "statuses",
+                defaultValue: filters?.group?.statuses,
+                span: 2,
+                render: ({ value = [], onChange }) => {
+                  const statuses = [
+                    {
+                      label: "Active",
+                      value: "active",
+                    },
+                    {
+                      label: "Inactive",
+                      value: "inactive",
+                    },
+                    {
+                      label: "Pending",
+                      value: "pending",
+                    },
+                  ];
+                  return (
+                    <Checkbox.Group
+                      name="statuses"
+                      style={{ width: "100%" }}
+                      defaultValue={value}
+                      onChange={(checkedValues) => {
+                        onChange(checkedValues);
+                      }}
+                    >
+                      <Row gutter={[10, 10]}>
+                        {statuses.map((item) => (
+                          <Col key={item.value} xs={24} sm={12} md={12}>
+                            <Checkbox value={item.value}>{item.label}</Checkbox>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Checkbox.Group>
+                  );
+                },
+              },
+            ],
+          },
+          {
+            label: "Sort",
+            title: "Sort",
+            name: "sort",
+            type: "Group",
+            icon: <SortAscendingOutlined />,
+            cols: 2,
+            filters: [
+              {
+                label: "Field",
+                name: "sort_by",
+                type: "Select",
+                placeholder: "Choose field",
+                value: filters?.sort_by,
+                options: [
+                  {
+                    label: "Name",
+                    value: "name",
+                  },
+                  {
+                    label: "Permission",
+                    value: "permission",
+                  },
+                ],
+              },
+              {
+                label: <span style={{ color: "white" }}>.</span>,
+                name: "order",
+                type: "Select",
+                placeholder: "Order",
+                value: filters?.order,
+                options: [
+                  {
+                    label: "Ascending",
+                    value: "asc",
+                  },
+                  {
+                    label: "Descending",
+                    value: "desc",
                   },
                 ],
               },
             ],
           },
         ]}
+        batchActionMenus={[
+          {
+            key: "delete",
+            label: "Delete",
+            onClick: (_values, cb) => {
+              message.success("Role berhasil dihapus");
+              cb.reset();
+            },
+            danger: true,
+            icon: <DeleteOutlined />,
+          },
+          {
+            key: "download",
+            label: "Download",
+            onClick: (_values, cb) => {
+              message.success("Role berhasil didownload");
+              cb.reset();
+            },
+            icon: <DeleteOutlined />,
+          },
+        ]}
+        onChange={handleChange}
+        rowKey="id"
+        loading={roles.loading}
+        source={makeSource(roles.data)}
+        columns={columns}
+        search={filters.search}
       />
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "5px",
-          marginTop: "10px",
-        }}
-      >
-        <DataTable
-          onChange={handleChange}
-          rowKey="id"
-          showRowSelection={false}
-          loading={roles.loading}
-          source={makeSource(roles.data)}
-          columns={columns}
-          search={filters.search}
-        />
-      </div>
     </Page>
   );
 };
@@ -200,3 +323,5 @@ const TopAction = () => (
     <Button icon={<PlusCircleOutlined />}>Add Role</Button>
   </Link>
 );
+
+export default Component;

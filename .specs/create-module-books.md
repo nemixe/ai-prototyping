@@ -7,18 +7,21 @@ A web-based application to display and manage a list of books in a table format.
 ### List Page
 - Display: The book list should be presented in a table format.
 - Search Feature: Users can search for books by title.
-- Filter Feature: User can filter data by author and publication date
+- Filter Feature: User can filter data by author and publication date.
+- Sorting Feature: User can sort data by author, publication date, and total copies.
 - Book Properties:
   - Title
   - Publication Date
   - Author
   - Total Copies
+  - Created At
+  - Update At
 - Main Focus: The functionality is limited to displaying the book list with action create, edit, and see detail
-- Sample Data: Provide at least 20 sample book.
+- Sample Data: Provide at least 10 sample book.
 
 ### Detail Page
-- Shows full details of a selected book, including: title, publication date, author, and total copies, description
-- back button, return to book list
+- Shows full details of a selected book.
+- back button, return to book list.
 
 ### Edit Page
 - Allows users to update book details

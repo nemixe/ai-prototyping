@@ -68,21 +68,23 @@ export const Component = () => {
   };
 
   return (
-    <Page title="Update Role" breadcrumbs={breadcrumb}>
-      <Row>
-        <Col span={12} style={{ margin: "auto" }}>
-          <FormRole
-            key={role.data.data?.id}
-            formProps={{
-              onFinish: handleOnFinish,
-              initialValues,
-              disabled: false,
-            }}
-            error={null}
-            loading={role.loading}
-          />
-        </Col>
-      </Row>
+    <Page
+      title={`Update Role ${role.data.data.name}`}
+      breadcrumbs={breadcrumb}
+      noStyle
+      goBack={() => navigate("/roles")}
+    >
+      <FormRole
+        isEdit
+        key={role.data.data?.id}
+        formProps={{
+          onFinish: handleOnFinish,
+          initialValues,
+          disabled: false,
+        }}
+        error={null}
+        loading={role.loading}
+      />
     </Page>
   );
 };
