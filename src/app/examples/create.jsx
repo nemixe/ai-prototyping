@@ -27,12 +27,8 @@ export const Component = () => {
   };
 
   return (
-    <Page title="Add Role" breadcrumbs={breadcrumb}>
-      <Row>
-        <Col span={12} style={{ margin: "auto" }}>
-          <FormRole formProps={{ onFinish: handleOnFinish }} error={null} loading={false} />
-        </Col>
-      </Row>
+    <Page title="Add Role" breadcrumbs={breadcrumb} noStyle goBack={() => navigate("/roles")}>
+      <FormRole formProps={{ onFinish: handleOnFinish }} error={null} loading={false} />
     </Page>
   );
 };

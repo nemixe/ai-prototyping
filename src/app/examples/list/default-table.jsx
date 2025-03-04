@@ -1,5 +1,11 @@
 import { Button, Flex, message } from "antd";
-import { DeleteOutlined, EditOutlined, EyeOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  EyeOutlined,
+  FilterOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
 import Datatable from "admiral/table/datatable/index";
 import dayjs from "dayjs";
 import { Link, useNavigate } from "react-router";
@@ -97,7 +103,7 @@ export const Component = () => {
         return (
           <Flex>
             <Link
-              to={urlParser("/users/detail/:id", {
+              to={urlParser("/roles/detail/:id", {
                 id: record.id,
               })}
             >
@@ -112,7 +118,7 @@ export const Component = () => {
               }}
             />
             <Link
-              to={urlParser("/users/update/:id", {
+              to={urlParser("/roles/update/:id", {
                 id: record.id,
               })}
             >
@@ -130,18 +136,56 @@ export const Component = () => {
       path: "/dashboard",
     },
     {
-      label: "Users",
-      path: "/users",
+      label: "Roles",
+      path: "/roles",
     },
   ];
 
   return (
-    <Page title="Users" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
+    <Page title="Roles" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
       <Datatable
+        filterComponents={[
+          {
+            label: "filter",
+            name: "filter",
+            type: "Group",
+            icon: <FilterOutlined />,
+            filters: [
+              {
+                label: "Name",
+                name: "name",
+                type: "Select",
+                placeholder: "Filter Name",
+                value: filters.name,
+                options: [],
+              },
+            ],
+          },
+        ]}
+        batchActionMenus={[
+          {
+            key: "delete",
+            label: "Delete",
+            onClick: (_values, cb) => {
+              message.success("Role berhasil dihapus");
+              cb.reset();
+            },
+            danger: true,
+            icon: <DeleteOutlined />,
+          },
+          {
+            key: "download",
+            label: "Download",
+            onClick: (_values, cb) => {
+              message.success("Role berhasil didownload");
+              cb.reset();
+            },
+            icon: <DeleteOutlined />,
+          },
+        ]}
         onChange={handleChange}
         rowKey="id"
-        showRowSelection={false}
-        loading={false}
+        loading={roles.loading}
         source={makeSource(roles.data)}
         columns={columns}
         search={filters.search}
@@ -151,8 +195,8 @@ export const Component = () => {
 };
 
 const TopAction = () => (
-  <Link to={"/users/create"}>
-    <Button icon={<PlusCircleOutlined />}>Add User</Button>
+  <Link to={"/roles/create"}>
+    <Button icon={<PlusCircleOutlined />}>Add Role</Button>
   </Link>
 );
 

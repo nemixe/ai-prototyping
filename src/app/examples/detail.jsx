@@ -4,6 +4,7 @@ import { Button, Descriptions, Flex, message } from "antd";
 import dayjs from "dayjs";
 import { Link, useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
+import { Typography } from "antd";
 
 const role = {
   data: {
@@ -49,6 +50,50 @@ export const Component = () => {
     },
   ];
 
+  const items = [
+    {
+      key: "name",
+      label: "Name",
+      children: <Typography.Text strong>{role.data.data.name ?? "-"}</Typography.Text>,
+    },
+    {
+      key: "key",
+      label: "Key",
+      children: <Typography.Text strong>{role.data.data.key ?? "-"}</Typography.Text>,
+    },
+    {
+      key: "permissions",
+      label: "Permissions",
+      children: (
+        <Typography.Text strong>
+          {role.data.data?.permissions?.map((role) => role.name).join(", ")}
+        </Typography.Text>
+      ),
+    },
+    {
+      key: "created_at",
+      label: "Created At",
+      children: (
+        <Typography.Text strong>
+          {role.data.data?.created_at
+            ? dayjs(role.data.data?.created_at).format("DD/MM/YYYY")
+            : "-"}
+        </Typography.Text>
+      ),
+    },
+    {
+      key: "updated_at",
+      label: "Updated At",
+      children: (
+        <Typography.Text strong>
+          {role.data.data?.updated_at
+            ? dayjs(role.data.data?.updated_at).format("DD/MM/YYYY")
+            : "-"}
+        </Typography.Text>
+      ),
+    },
+  ];
+
   return (
     <Page
       topActions={
@@ -73,32 +118,25 @@ export const Component = () => {
           </Link>
         </Flex>
       }
-      title="Detail Role"
+      title={`Detail Role ${role.data.data.name}`}
       breadcrumbs={breadcrumbs}
+      goBack={() => navigate("/roles")}
       noStyle
     >
-      <Section loading={role.loading} title="Detail Role">
-        <Descriptions bordered column={2}>
-          <Descriptions.Item span={2} label="Name" key="name">
-            {role.data.data?.name}
-          </Descriptions.Item>
-          <Descriptions.Item span={2} label="Key" key="key">
-            {role.data.data?.key}
-          </Descriptions.Item>
-          <Descriptions.Item span={2} label="Permissions" key="permissions">
-            {role.data.data?.permissions?.map((role) => role.name).join(", ")}
-          </Descriptions.Item>
-          <Descriptions.Item span={2} label="Created At" key="created_at">
-            {role.data.data?.created_at
-              ? dayjs(role.data.data?.created_at).format("DD/MM/YYYY")
-              : "-"}
-          </Descriptions.Item>
-          <Descriptions.Item span={2} label="Updated At" key="updated_at">
-            {role.data.data?.updated_at
-              ? dayjs(role.data.data?.updated_at).format("DD/MM/YYYY")
-              : "-"}
-          </Descriptions.Item>
-        </Descriptions>
+      <Section loading={role.loading}>
+        <Section title="General Information">
+          <Descriptions
+            bordered
+            layout="horizontal"
+            items={items}
+            column={{
+              md: 1,
+              lg: 2,
+              xl: 2,
+              xxl: 2,
+            }}
+          />
+        </Section>
       </Section>
     </Page>
   );

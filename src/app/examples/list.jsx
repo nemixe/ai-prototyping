@@ -6,9 +6,10 @@ import {
   FilterOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import { ActionTable, Page, DataTable } from "admiral";
+import Datatable from "admiral/table/datatable/index";
 import dayjs from "dayjs";
 import { Link, useNavigate } from "react-router";
+import { Page } from "admiral";
 
 import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
@@ -70,7 +71,7 @@ const roles = {
 
 export const Component = () => {
   const navigate = useNavigate();
-  const { handleChange, filters, setFilters } = useFilter();
+  const { handleChange, filters } = useFilter();
 
   const columns = [
     {
@@ -113,7 +114,6 @@ export const Component = () => {
               icon={<DeleteOutlined style={{ color: "red" }} />}
               onClick={() => {
                 message.success("Role berhasil dihapus");
-                navigate(0);
               }}
             />
             <Link
@@ -142,11 +142,8 @@ export const Component = () => {
 
   return (
     <Page title="Roles" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
-      <ActionTable
-        onSearch={(value) => setFilters({ search: value })}
-        searchValue={filters.search}
-        onFiltersChange={(values) => setFilters(values)}
-        filters={[
+      <Datatable
+        filterComponents={[
           {
             label: "filter",
             name: "filter",
@@ -159,38 +156,39 @@ export const Component = () => {
                 type: "Select",
                 placeholder: "Filter Name",
                 value: filters.name,
-                options: [
-                  {
-                    label: "A-Z",
-                    value: "ASC",
-                  },
-                  {
-                    label: "Z-A",
-                    value: "DESC",
-                  },
-                ],
+                options: [],
               },
             ],
           },
         ]}
+        batchActionMenus={[
+          {
+            key: "delete",
+            label: "Delete",
+            onClick: (_values, cb) => {
+              message.success("Role berhasil dihapus");
+              cb.reset();
+            },
+            danger: true,
+            icon: <DeleteOutlined />,
+          },
+          {
+            key: "download",
+            label: "Download",
+            onClick: (_values, cb) => {
+              message.success("Role berhasil didownload");
+              cb.reset();
+            },
+            icon: <DeleteOutlined />,
+          },
+        ]}
+        onChange={handleChange}
+        rowKey="id"
+        loading={roles.loading}
+        source={makeSource(roles.data)}
+        columns={columns}
+        search={filters.search}
       />
-      <div
-        style={{
-          backgroundColor: "white",
-          padding: "5px",
-          marginTop: "10px",
-        }}
-      >
-        <DataTable
-          onChange={handleChange}
-          rowKey="id"
-          showRowSelection={false}
-          loading={roles.loading}
-          source={makeSource(roles.data)}
-          columns={columns}
-          search={filters.search}
-        />
-      </div>
     </Page>
   );
 };
@@ -200,3 +198,5 @@ const TopAction = () => (
     <Button icon={<PlusCircleOutlined />}>Add Role</Button>
   </Link>
 );
+
+export default Component;
