@@ -1,23 +1,13 @@
 import { LayoutWithHeader } from "admiral";
 import { Flex, Typography } from "antd";
 import { Link, Outlet } from "react-router";
-import { BookOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { DashboardOutlined } from "@ant-design/icons";
 
 const SIDEBAR_ITEMS = [
   {
-    key: "role-route",
-    label: <Link to={"/roles"}>Role</Link>,
-    icon: <UserOutlined />,
-  },
-  {
-    key: "user-route",
-    label: <Link to={"/users"}>Users</Link>,
-    icon: <TeamOutlined />,
-  },
-  {
-    key: "book-route",
-    label: <Link to={"/books"}>Books</Link>,
-    icon: <BookOutlined />,
+    key: "dashboard",
+    label: <Link to={"/"}>Dashboard</Link>,
+    icon: <DashboardOutlined />,
   },
 ];
 
