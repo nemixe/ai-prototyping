@@ -1,13 +1,18 @@
 import { LayoutWithHeader } from "admiral";
 import { Flex, Typography } from "antd";
 import { Link, Outlet } from "react-router";
-import { DashboardOutlined } from "@ant-design/icons";
+import { DashboardOutlined, BookOutlined } from "@ant-design/icons";
 
 const SIDEBAR_ITEMS = [
   {
     key: "dashboard",
     label: <Link to={"/"}>Dashboard</Link>,
     icon: <DashboardOutlined />,
+  },
+  {
+    key: "books",
+    label: <Link to={"/books"}>Books</Link>,
+    icon: <BookOutlined />,
   },
 ];
 
