@@ -13,6 +13,7 @@ A web-based application to manage a generic resource. Users can perform CRUD (Cr
 
 - **File Path:** `/src/app/[resource]/page.jsx`
 - **Example File** `.cline/example/list.jsx`
+- **Important Note** use all component describe in example/list.jsx dont try make any other custom component
 - **Route:** `/[resource]`
 - **Features:**
   - Displays a list of items for the resource.

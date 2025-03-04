@@ -4,7 +4,7 @@
 
 DONT MAKE new FILE [resource].md inside .cline/specs folder, just understand the file dont try to make any other file on `.cline/specs`
 
-THIS IS VITE with React Router DOM dont act like this is NEXTJS APP
+THIS IS VITE with react-router dont act like this is NEXTJS APP
 
 ## 1. Scope of Markdown Files
 
