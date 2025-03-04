@@ -2,9 +2,11 @@ import { Button, Col, Form, Input, Row, Select } from "antd";
 import { Section } from "admiral";
 import { useFormErrorHandling } from "@/app/_hooks/form/use-form-error-handling";
 import { Flex } from "antd";
+import { useNavigate } from "react-router";
 
 export const FormRole = ({ formProps, error, loading, isEdit }) => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   useFormErrorHandling(error, ({ key, message }) =>
     form.setFields([{ name: key, errors: [message] }]),
@@ -72,11 +74,12 @@ export const FormRole = ({ formProps, error, loading, isEdit }) => {
       </Section>
 
       <Flex justify="flex-end" style={{ marginTop: 24 }}>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" loading={loading}>
-            {isEdit ? "Save Changes" : "Submit"}
-          </Button>
-        </Form.Item>
+        <Button type="text" disabled={loading} onClick={() => navigate("/roles")}>
+          Cancel
+        </Button>
+        <Button type="primary" htmlType="submit" loading={loading}>
+          {isEdit ? "Save Changes" : "Submit"}
+        </Button>
       </Flex>
     </Form>
   );

@@ -104,6 +104,7 @@ export const Component = () => {
               message.success("Role berhasil dihapus");
               navigate("/roles");
             }}
+            danger
           >
             Delete
           </Button>
