@@ -1,0 +1,31 @@
+# AI File-Based Routing Generation Rules
+
+# VERY IMPORTANT INFORMATION
+
+DONT MAKE new FILE [resource].md inside .cline/specs folder, just understand the file dont try to make any other file on `.cline/specs`
+
+THIS IS VITE with react-router dont act like this is NEXTJS APP
+
+## 1. Scope of Markdown Files
+
+- **Only** read markdown files located in the `.cline/specs` folder.
+- Do **not** read any files outside of the `.cline` folder.
+
+## 2. Understanding User Requests
+
+- **Full CRUD Request:**
+  - If a user says, "make me a [resource] page", it means they want a full CRUD implementation for that resource (i.e., Create, Read, Update, and Delete pages).
+- **Specific Page Request:**
+  - If a user explicitly says, "make me just a [resource] create page" (or any other specific action), it means they want **only** that specific page (in this example, just the Create Page).
+  - In this case, only the specs for the corresponding section (e.g., Create) should be read and used.
+
+## 3. Examples
+
+- **Full CRUD Example:**
+  - User Query: "make me a books page"
+  - Action: Generate full CRUD pages (List, Detail, Edit, Create, etc.) for the "books" resource.
+- **Specific Page Example:**
+  - User Query: "make me just a books create page"
+  - Action: Generate only the Create Page for the "books" resource by reading the specs from the Create section.
+
+Follow these rules to correctly interpret the user's needs and generate the appropriate file-based routing structure.
