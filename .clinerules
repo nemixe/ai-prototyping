@@ -1,15 +1,76 @@
+# Modules Specification
+
+## NOTE
+
+- DONT MAKE the [resource].md file just understand it
+- Make dummy file with constant variable
+
+A web-based application to manage a generic resource. Users can perform CRUD (Create, Read, Update, Delete) operations such as listing items, viewing details, creating new items, and editing or deleting existing items. The application leverages file-based routing to automatically generate routes based on the file structure.
+
+## File-based Routing Structure
+
+### List Page (Read)
+
+- **File Path:** `/src/app/[resource]/page.jsx`
+- **Example File** `cline/examples/list.jsx`
+- **Important Note** use all component describe in examples/list.jsx dont try make any other custom component
+- **Route:** `/[resource]`
+- **Features:**
+  - Displays a list of items for the resource.
+  - Supports features like search, filtering, and sorting.
+  - Main focus is on listing items with navigation to create, edit, or view details.
+  - Sample data and data properties will be defined via prompt.
+
+### Detail Page (Read)
+
+- **File Path:** `/src/app/[resource]/[id]/page.jsx`
+- **Example File** `cline/examples/detail.jsx`
+- **Route:** `/[resource]/:id`
+- **Features:**
+  - Shows detailed information for a selected item.
+  - Includes a back button to return to the list page.
+
+### Edit Page (Update)
+
+- **File Path:** `/src/app/[resource]/[id]/update/page.jsx`
+- **Example File** `cline/examples/update.jsx`
+- **Route:** `/[resource]/:id/edit`
+- **Features:**
+  - Provides a form for updating an existing item.
+  - Pre-fills fields with the current item data.
+  - Includes validation rules (e.g., required fields).
+  - Contains actions such as a back button, cancel button, and submit button to save changes.
+
+### Create Page (Create)
+
+- **File Path:** `/src/app/[resource]/create/page.jsx`
+- **Example File** `cline/examples/create.jsx`
+- **Route:** `/[resource]/create`
+- **Features:**
+  - Provides a form to create a new item.
+  - Includes validation rules (e.g., required fields).
+  - Contains actions such as a back button, cancel button, and submit button to save the new item.
+
+## Additonal Note
+- Create the same form between create and update page
+  - **File Path:** `/src/app/[resource]/_components/form.jsx`
+  - **Example File** `cline/examples/form.jsx`
+- Dont forget to add a section [resource] to SIDEBAR_ITEMS located on `/src/app/layout.jsx`
+
 # AI File-Based Routing Generation Rules
 
 # VERY IMPORTANT INFORMATION
 
-DONT MAKE new FILE [resource].md inside .cline/specs folder, just understand the file dont try to make any other file on `.cline/specs`
+DONT MAKE new FILE [resource].md inside cline/specs folder, just understand the file dont try to make any other file on `cline/specs`
 
 THIS IS VITE with react-router dont act like this is NEXTJS APP
 
+USE react-router instead of react-router-dom
+
 ## 1. Scope of Markdown Files
 
-- **Only** read markdown files located in the `.cline/specs` folder.
-- Do **not** read any files outside of the `.cline` folder.
+- **Only** read markdown files located in the `cline/specs` folder.
+- Do **not** read any files outside of the `cline` folder.
 
 ## 2. Understanding User Requests
 
@@ -27,5 +88,11 @@ THIS IS VITE with react-router dont act like this is NEXTJS APP
 - **Specific Page Example:**
   - User Query: "make me just a books create page"
   - Action: Generate only the Create Page for the "books" resource by reading the specs from the Create section.
+
+## 4. Working Apps
+- This code was a working app, dont change anything beside your task.
+
+## 5. Dependency
+- Before using any dependencies, look at package.json file to check wether the dependency installed or not
 
 Follow these rules to correctly interpret the user's needs and generate the appropriate file-based routing structure.

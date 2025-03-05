@@ -107,7 +107,7 @@ export const Component = () => {
         return (
           <Flex>
             <Link
-              to={urlParser("/roles/detail/:id", {
+              to={urlParser("/roles/:id", {
                 id: record.id,
               })}
             >
@@ -121,7 +121,7 @@ export const Component = () => {
               }}
             />
             <Link
-              to={urlParser("/roles/update/:id", {
+              to={urlParser("/roles/:id/update", {
                 id: record.id,
               })}
             >
