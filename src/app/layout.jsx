@@ -1,7 +1,7 @@
 import { LayoutWithHeader } from "admiral";
 import { Flex, Typography } from "antd";
 import { Link, Outlet } from "react-router";
-import { DashboardOutlined, BookOutlined } from "@ant-design/icons";
+import { DashboardOutlined, BookOutlined, VideoCameraOutlined } from "@ant-design/icons";
 
 const SIDEBAR_ITEMS = [
   {
@@ -14,6 +14,12 @@ const SIDEBAR_ITEMS = [
     label: <Link to={"/books"}>Books</Link>,
     icon: <BookOutlined />,
   },
+  {
+    key: "movies",
+    label: <Link to={"/movies"}>Movies</Link>,
+    icon: <VideoCameraOutlined />,
+  },
+  
 ];
 
 function MainLayout() {

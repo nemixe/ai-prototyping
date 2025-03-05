@@ -73,7 +73,7 @@ export const FormRole = ({ formProps, error, loading, isEdit }) => {
         </Section>
       </Section>
 
-      <Flex justify="flex-end" style={{ marginTop: 24 }}>
+      <Flex justify="flex-end" gap={16} style={{ marginTop: 24 }}>
         <Button type="text" disabled={loading} onClick={() => navigate("/roles")}>
           Cancel
         </Button>
