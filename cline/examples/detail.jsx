@@ -32,7 +32,7 @@ const role = {
   loading: false,
 };
 
-export const Component = () => {
+const Component = () => {
   const navigate = useNavigate();
 
   const breadcrumbs = [
