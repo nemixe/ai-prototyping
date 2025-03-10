@@ -11,9 +11,9 @@ A web-based application to manage a generic resource. Users can perform CRUD (Cr
 
 ### List Page (Read)
 
-- **File Path:** `./src/app/[resource]/page.jsx`
-- **Example File** `./cline/examples/list.jsx`
-- **Important Note** use all component describe in `./cline/examples/list.jsx` dont try make any other custom component
+- **File Path:** `/src/app/[resource]/page.jsx`
+- **Example File** `cline/examples/list.jsx`, `cline/examples/list-with-tabs.jsx`. Select variant list based on the specs
+- **Important Note** use all component describe in examples dont try make any other custom component
 - **Route:** `/[resource]`
 - **Features:**
   - Displays a list of items for the resource.

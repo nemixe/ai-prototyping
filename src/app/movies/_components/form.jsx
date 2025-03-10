@@ -10,7 +10,7 @@ export const FormMovie = ({ formProps, error, loading, isEdit }) => {
   const navigate = useNavigate();
 
   useFormErrorHandling(error, ({ key, message }) =>
-    form.setFields([{ name: key, errors: [message] }]),
+    form.setFields([{ name: key, errors: [message] }])
   );
 
   return (
@@ -43,7 +43,7 @@ export const FormMovie = ({ formProps, error, loading, isEdit }) => {
                   },
                 ]}
               >
-                <Input placeholder="Enter movie director" />
+                <Input placeholder="Enter director name" />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -83,7 +83,7 @@ export const FormMovie = ({ formProps, error, loading, isEdit }) => {
         </Section>
       </Section>
 
-      <Flex justify="flex-end" style={{ marginTop: 24 }}>
+      <Flex justify="flex-end" gap={16} style={{ marginTop: 24 }}>
         <Button type="text" disabled={loading} onClick={() => navigate("/movies")}>
           Cancel
         </Button>

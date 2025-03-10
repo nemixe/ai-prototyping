@@ -1,23 +1,21 @@
 import { Page, Section } from "admiral";
 import { Button, Descriptions, Flex, message } from "antd";
-
 import dayjs from "dayjs";
 import { Link, useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
 import { Typography } from "antd";
 
-// Sample movie data (replace with actual data source later)
 const movie = {
   data: {
     status_code: 200,
     data: {
       id: "1",
       title: "Inception",
-      director: "Christopher Nolan",
       releaseDate: "2010-07-16",
+      director: "Christopher Nolan",
       totalCopies: 50,
-      createdAt: "2023-01-01T00:00:00.000Z",
-      updatedAt: "2023-01-01T00:00:00.000Z",
+      createdAt: "2023-10-01T00:00:00.000Z",
+      updatedAt: "2023-10-01T00:00:00.000Z",
     },
     version: "1.0.0",
   },
@@ -58,8 +56,8 @@ export const Component = () => {
       label: "Release Date",
       children: (
         <Typography.Text strong>
-          {movie.data.data?.releaseDate
-            ? dayjs(movie.data.data?.releaseDate).format("DD/MM/YYYY")
+          {movie.data.data.releaseDate
+            ? dayjs(movie.data.data.releaseDate).format("DD/MM/YYYY")
             : "-"}
         </Typography.Text>
       ),
@@ -74,8 +72,8 @@ export const Component = () => {
       label: "Created At",
       children: (
         <Typography.Text strong>
-          {movie.data.data?.createdAt
-            ? dayjs(movie.data.data?.createdAt).format("DD/MM/YYYY")
+          {movie.data.data.createdAt
+            ? dayjs(movie.data.data.createdAt).format("DD/MM/YYYY")
             : "-"}
         </Typography.Text>
       ),
@@ -85,8 +83,8 @@ export const Component = () => {
       label: "Updated At",
       children: (
         <Typography.Text strong>
-          {movie.data.data?.updatedAt
-            ? dayjs(movie.data.data?.updatedAt).format("DD/MM/YYYY")
+          {movie.data.data.updatedAt
+            ? dayjs(movie.data.data.updatedAt).format("DD/MM/YYYY")
             : "-"}
         </Typography.Text>
       ),
@@ -100,7 +98,7 @@ export const Component = () => {
           <Button
             htmlType="button"
             onClick={() => {
-              message.success("Movie berhasil dihapus");
+              message.success("Movie successfully deleted");
               navigate("/movies");
             }}
             danger
@@ -118,7 +116,7 @@ export const Component = () => {
           </Link>
         </Flex>
       }
-      title={`Detail Movie ${movie.data.data.title}`}
+      title={`Movie Details: ${movie.data.data.title}`}
       breadcrumbs={breadcrumbs}
       goBack={() => navigate("/movies")}
       noStyle

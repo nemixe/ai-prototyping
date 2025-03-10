@@ -19,7 +19,6 @@ const SIDEBAR_ITEMS = [
     label: <Link to={"/movies"}>Movies</Link>,
     icon: <VideoCameraOutlined />,
   },
-  
 ];
 
 function MainLayout() {
