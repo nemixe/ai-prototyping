@@ -1,4 +1,5 @@
-import { Button, Col, Flex, message, Row } from "antd";
+import { useState } from "react";
+import { Button, Flex, message, Space } from "antd";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -10,15 +11,15 @@ import {
 import Datatable from "admiral/table/datatable/index";
 import dayjs from "dayjs";
 import { Link } from "react-router";
-import { Page } from "admiral";
+import { ActionTable, Page, Tabs } from "admiral";
 
 import { makeSource } from "@/utils/data-table";
 import { useFilter } from "@/app/_hooks/datatable/use-filter";
 import { urlParser } from "@/utils/url-parser";
-import { Checkbox } from "antd";
+import { Checkbox, Col, Row } from "antd";
 
-// Sample movies data (replace with actual data source later)
-const movies = {
+// Sample movie data
+const allMovies = {
   data: {
     status_code: 200,
     data: {
@@ -26,92 +27,92 @@ const movies = {
         {
           id: "1",
           title: "Inception",
-          director: "Christopher Nolan",
           releaseDate: "2010-07-16",
+          director: "Christopher Nolan",
           totalCopies: 50,
-          createdAt: "2023-01-01T00:00:00.000Z",
-          updatedAt: "2023-01-01T00:00:00.000Z",
+          createdAt: "2023-10-01T00:00:00.000Z",
+          updatedAt: "2023-10-01T00:00:00.000Z",
         },
         {
           id: "2",
           title: "The Matrix",
-          director: "Lana Wachowski",
           releaseDate: "1999-03-31",
+          director: "Lana Wachowski",
           totalCopies: 75,
-          createdAt: "2023-01-02T00:00:00.000Z",
-          updatedAt: "2023-01-02T00:00:00.000Z",
+          createdAt: "2023-10-02T00:00:00.000Z",
+          updatedAt: "2023-10-02T00:00:00.000Z",
         },
         {
           id: "3",
           title: "Interstellar",
-          director: "Christopher Nolan",
           releaseDate: "2014-11-07",
+          director: "Christopher Nolan",
           totalCopies: 40,
-          createdAt: "2023-01-03T00:00:00.000Z",
-          updatedAt: "2023-01-03T00:00:00.000Z",
+          createdAt: "2023-10-03T00:00:00.000Z",
+          updatedAt: "2023-10-03T00:00:00.000Z",
         },
         {
           id: "4",
           title: "Pulp Fiction",
-          director: "Quentin Tarantino",
           releaseDate: "1994-10-14",
+          director: "Quentin Tarantino",
           totalCopies: 60,
-          createdAt: "2023-01-04T00:00:00.000Z",
-          updatedAt: "2023-01-04T00:00:00.000Z",
+          createdAt: "2023-10-04T00:00:00.000Z",
+          updatedAt: "2023-10-04T00:00:00.000Z",
         },
         {
           id: "5",
           title: "The Shawshank Redemption",
-          director: "Frank Darabont",
           releaseDate: "1994-09-23",
+          director: "Frank Darabont",
           totalCopies: 55,
-          createdAt: "2023-01-05T00:00:00.000Z",
-          updatedAt: "2023-01-05T00:00:00.000Z",
+          createdAt: "2023-10-05T00:00:00.000Z",
+          updatedAt: "2023-10-05T00:00:00.000Z",
         },
         {
           id: "6",
           title: "Forrest Gump",
-          director: "Robert Zemeckis",
           releaseDate: "1994-07-06",
-          totalCopies: 45,
-          createdAt: "2023-01-06T00:00:00.000Z",
-          updatedAt: "2023-01-06T00:00:00.000Z",
+          director: "Robert Zemeckis",
+          totalCopies: 65,
+          createdAt: "2023-10-06T00:00:00.000Z",
+          updatedAt: "2023-10-06T00:00:00.000Z",
         },
         {
           id: "7",
           title: "The Dark Knight",
-          director: "Christopher Nolan",
           releaseDate: "2008-07-18",
-          totalCopies: 65,
-          createdAt: "2023-01-07T00:00:00.000Z",
-          updatedAt: "2023-01-07T00:00:00.000Z",
+          director: "Christopher Nolan",
+          totalCopies: 80,
+          createdAt: "2023-10-07T00:00:00.000Z",
+          updatedAt: "2023-10-07T00:00:00.000Z",
         },
         {
           id: "8",
-          title: "Fight Club",
-          director: "David Fincher",
-          releaseDate: "1999-10-15",
-          totalCopies: 55,
-          createdAt: "2023-01-08T00:00:00.000Z",
-          updatedAt: "2023-01-08T00:00:00.000Z",
+          title: "Goodfellas",
+          releaseDate: "1990-09-19",
+          director: "Martin Scorsese",
+          totalCopies: 45,
+          createdAt: "2023-10-08T00:00:00.000Z",
+          updatedAt: "2023-10-08T00:00:00.000Z",
         },
         {
           id: "9",
-          title: "The Godfather",
-          director: "Francis Ford Coppola",
-          releaseDate: "1972-03-24",
-          totalCopies: 70,
-          createdAt: "2023-01-09T00:00:00.000Z",
-          updatedAt: "2023-01-09T00:00:00.000Z",
+          title: "Fight Club",
+          releaseDate: "1999-10-15",
+          director: "David Fincher",
+          totalCopies: 55,
+          createdAt: "2023-10-09T00:00:00.000Z",
+          updatedAt: "2023-10-09T00:00:00.000Z",
         },
         {
           id: "10",
-          title: "Goodfellas",
-          director: "Martin Scorsese",
-          releaseDate: "1990-09-19",
-          totalCopies: 50,
-          createdAt: "2023-01-10T00:00:00.000Z",
-          updatedAt: "2023-01-10T00:00:00.000Z",
+          title: "The Godfather",
+          releaseDate: "1972-03-24",
+          director: "Francis Ford Coppola",
+          totalCopies: 70,
+          createdAt: "2023-10-10T00:00:00.000Z",
+          updatedAt: "2023-10-10T00:00:00.000Z",
         }
       ],
       meta: {
@@ -126,20 +127,63 @@ const movies = {
   loading: false,
 };
 
+const trendingMovies = {
+  data: {
+    status_code: 200,
+    data: {
+      items: [
+        {
+          id: "1",
+          title: "Inception",
+          releaseDate: "2010-07-16",
+          director: "Christopher Nolan",
+          viewsThisMonth: 5000,
+          socialMentions: 12500,
+          createdAt: "2023-10-01T00:00:00.000Z",
+          updatedAt: "2023-10-01T00:00:00.000Z",
+        },
+        {
+          id: "7",
+          title: "The Dark Knight",
+          releaseDate: "2008-07-18",
+          director: "Christopher Nolan",
+          viewsThisMonth: 4800,
+          socialMentions: 11200,
+          createdAt: "2023-10-07T00:00:00.000Z",
+          updatedAt: "2023-10-07T00:00:00.000Z",
+        },
+        {
+          id: "3",
+          title: "Interstellar",
+          releaseDate: "2014-11-07",
+          director: "Christopher Nolan",
+          viewsThisMonth: 4500,
+          socialMentions: 10000,
+          createdAt: "2023-10-03T00:00:00.000Z",
+          updatedAt: "2023-10-03T00:00:00.000Z",
+        }
+      ],
+      meta: {
+        total_page: 1,
+        total: 3,
+        page: 1,
+        per_page: 10,
+      },
+    },
+    version: "1.0.0",
+  },
+  loading: false,
+};
+
 export const Component = () => {
   const { handleChange, filters } = useFilter();
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
 
-  const columns = [
+  const allMovieColumns = [
     {
       dataIndex: "title",
       key: "title",
       title: "Title",
-      sorter: true,
-    },
-    {
-      dataIndex: "director",
-      title: "Director",
-      key: "director",
       sorter: true,
     },
     {
@@ -150,6 +194,12 @@ export const Component = () => {
       render: (_, record) => {
         return record.releaseDate ? dayjs(record.releaseDate).format("DD/MM/YYYY") : "-";
       },
+    },
+    {
+      dataIndex: "director",
+      title: "Director",
+      key: "director",
+      sorter: true,
     },
     {
       dataIndex: "totalCopies",
@@ -184,7 +234,75 @@ export const Component = () => {
               type="link"
               icon={<DeleteOutlined style={{ color: "red" }} />}
               onClick={() => {
-                message.success("Movie berhasil dihapus");
+                message.success("Movie successfully deleted");
+              }}
+            />
+            <Link
+              to={urlParser("/movies/:id/update", {
+                id: record.id,
+              })}
+            >
+              <Button type="link" icon={<EditOutlined />} />
+            </Link>
+          </Flex>
+        );
+      },
+    },
+  ];
+
+  const trendingMovieColumns = [
+    {
+      dataIndex: "title",
+      key: "title",
+      title: "Title",
+      sorter: true,
+    },
+    {
+      dataIndex: "releaseDate",
+      title: "Release Date",
+      key: "releaseDate",
+      sorter: true,
+      render: (_, record) => {
+        return record.releaseDate ? dayjs(record.releaseDate).format("DD/MM/YYYY") : "-";
+      },
+    },
+    {
+      dataIndex: "director",
+      title: "Director",
+      key: "director",
+      sorter: true,
+    },
+    {
+      dataIndex: "viewsThisMonth",
+      title: "Views This Month",
+      key: "viewsThisMonth",
+      sorter: true,
+    },
+    {
+      dataIndex: "socialMentions",
+      title: "Social Mentions",
+      key: "socialMentions",
+      sorter: true,
+    },
+    {
+      dataIndex: "Action",
+      title: "Action",
+      key: "Action",
+      render: (_, record) => {
+        return (
+          <Flex>
+            <Link
+              to={urlParser("/movies/:id", {
+                id: record.id,
+              })}
+            >
+              <Button type="link" icon={<EyeOutlined style={{ color: "green" }} />} />
+            </Link>
+            <Button
+              type="link"
+              icon={<DeleteOutlined style={{ color: "red" }} />}
+              onClick={() => {
+                message.success("Movie successfully deleted");
               }}
             />
             <Link
@@ -213,115 +331,130 @@ export const Component = () => {
 
   return (
     <Page title="Movies" breadcrumbs={breadcrumbs} topActions={<TopAction />} noStyle>
-      <Datatable
-        filterComponents={[
-          {
-            label: "filter",
-            name: "filter",
-            type: "Group",
-            icon: <FilterOutlined />,
-            cols: 2,
-            filters: [
-              {
-                label: "Director",
-                name: "director",
-                type: "Select",
-                placeholder: "Select director",
-                defaultValue: filters.director,
-                options: [
-                  { label: "Christopher Nolan", value: "Christopher Nolan" },
-                  { label: "Quentin Tarantino", value: "Quentin Tarantino" },
-                  { label: "Frank Darabont", value: "Frank Darabont" },
-                  { label: "Robert Zemeckis", value: "Robert Zemeckis" },
-                  { label: "David Fincher", value: "David Fincher" },
-                  { label: "Francis Ford Coppola", value: "Francis Ford Coppola" },
-                  { label: "Martin Scorsese", value: "Martin Scorsese" },
-                ],
-              },
-              {
-                label: "Release Date",
-                name: "releaseDate",
-                type: "DateRangePicker",
-                defaultValue: filters.releaseDate,
-              },
-              {
-                label: "Total Copies",
-                name: "totalCopies",
-                type: "Select",
-                placeholder: "Select total copies range",
-                defaultValue: filters.totalCopies,
-                options: [
-                  { label: "0-25", value: "0-25" },
-                  { label: "26-50", value: "26-50" },
-                  { label: "51-75", value: "51-75" },
-                  { label: "76-100", value: "76-100" },
-                ],
-              },
-            ],
-          },
-          {
-            label: "Sort",
-            title: "Sort",
-            name: "sort",
-            type: "Group",
-            icon: <SortAscendingOutlined />,
-            cols: 2,
-            filters: [
-              {
-                label: "Field",
-                name: "sort_by",
-                type: "Select",
-                placeholder: "Choose field",
-                value: filters?.sort_by,
-                options: [
-                  { label: "Title", value: "title" },
-                  { label: "Director", value: "director" },
-                  { label: "Release Date", value: "releaseDate" },
-                  { label: "Total Copies", value: "totalCopies" },
-                ],
-              },
-              {
-                label: <span style={{ color: "white" }}>.</span>,
-                name: "order",
-                type: "Select",
-                placeholder: "Order",
-                value: filters?.order,
-                options: [
-                  { label: "Ascending", value: "asc" },
-                  { label: "Descending", value: "desc" },
-                ],
-              },
-            ],
-          },
-        ]}
-        batchActionMenus={[
-          {
-            key: "delete",
-            label: "Delete",
-            onClick: (_values, cb) => {
-              message.success("Movies berhasil dihapus");
-              cb.reset();
+      <Space direction="vertical" style={{ width: "100%" }}>
+        <ActionTable
+          filters={[
+            {
+              label: "filter",
+              name: "filter",
+              type: "Group",
+              icon: <FilterOutlined />,
+              cols: 2,
+              filters: [
+                {
+                  label: "Director",
+                  name: "director",
+                  type: "Select",
+                  placeholder: "Select director",
+                  defaultValue: filters.director,
+                  options: [
+                    { label: "Christopher Nolan", value: "Christopher Nolan" },
+                    { label: "Quentin Tarantino", value: "Quentin Tarantino" },
+                    { label: "Martin Scorsese", value: "Martin Scorsese" },
+                    { label: "David Fincher", value: "David Fincher" },
+                  ],
+                },
+                {
+                  label: "Release Date",
+                  name: "releaseDate",
+                  type: "DateRangePicker",
+                  defaultValue: filters.releaseDate,
+                },
+              ],
             },
-            danger: true,
-            icon: <DeleteOutlined />,
-          },
-          {
-            key: "download",
-            label: "Download",
-            onClick: (_values, cb) => {
-              message.success("Movies berhasil didownload");
-              cb.reset();
+            {
+              label: "Sort",
+              title: "Sort",
+              name: "sort",
+              type: "Group",
+              icon: <SortAscendingOutlined />,
+              cols: 2,
+              filters: [
+                {
+                  label: "Field",
+                  name: "sort_by",
+                  type: "Select",
+                  placeholder: "Choose field",
+                  value: filters?.sort_by,
+                  options: [
+                    { label: "Director", value: "director" },
+                    { label: "Release Date", value: "releaseDate" },
+                    { label: "Total Copies", value: "totalCopies" },
+                  ],
+                },
+                {
+                  label: <span style={{ color: "white" }}>.</span>,
+                  name: "order",
+                  type: "Select",
+                  placeholder: "Order",
+                  value: filters?.order,
+                  options: [
+                    { label: "Ascending", value: "asc" },
+                    { label: "Descending", value: "desc" },
+                  ],
+                },
+              ],
             },
-            icon: <DeleteOutlined />,
-          },
-        ]}
-        onChange={handleChange}
-        rowKey="id"
-        loading={movies.loading}
-        source={makeSource(movies.data)}
-        columns={columns}
-        search={filters.search}
-      />
+          ]}
+          selectedRows={selectedRowKeys}
+          batchActionMenus={[
+            {
+              key: "delete",
+              label: "Delete",
+              onClick: (_values, cb) => {
+                message.success("Selected movies successfully deleted");
+                cb.reset();
+                setSelectedRowKeys([]);
+              },
+              danger: true,
+              icon: <DeleteOutlined />,
+            },
+          ]}
+        />
+        <Tabs
+          type="bordered-card"
+          items={[
+            {
+              label: "All Movies",
+              key: "all",
+              children: (
+                <Datatable
+                  onChange={handleChange}
+                  rowKey="id"
+                  loading={allMovies.loading}
+                  source={makeSource(allMovies.data)}
+                  columns={allMovieColumns}
+                  search={filters.search}
+                  hideSearch
+                  rowSelection={{
+                    selectedRowKeys: selectedRowKeys,
+                    onChange: (selectedRows) => setSelectedRowKeys(selectedRows),
+                  }}
+                />
+              ),
+            },
+            {
+              label: "Trending",
+              key: "trending",
+              children: (
+                <Datatable
+                  onChange={handleChange}
+                  rowKey="id"
+                  loading={trendingMovies.loading}
+                  source={makeSource(trendingMovies.data)}
+                  columns={trendingMovieColumns}
+                  search={trendingMovies.search}
+                  hideSearch
+                  rowSelection={{
+                    selectedRowKeys: selectedRowKeys,
+                    onChange: (selectedRows) => setSelectedRowKeys(selectedRows),
+                  }}
+                />
+              ),
+            },
+          ]}
+        />
+      </Space>
     </Page>
   );
 };
