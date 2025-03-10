@@ -4,17 +4,25 @@ A web-based application to display and manage a list of **movies** in a table fo
 ## **Details**  
 
 ### **List Page**  
-- **Display**: The movie list should be presented in a table format.  
-- **Search Feature**: Users can search for movies by title.  
-- **Filter Feature**: Users can filter data by **director** and **release date**.  
-- **Sorting Feature**: Users can sort data by **director, release date, and total copies**.  
-- **Movie Properties**:  
+- **Display**: The movie list should be presented in a tab "All Movies" and "Trending". Each tab should have a table with the following properties:
+- **All Movie Properties**:  
   - Title  
   - Release Date  
   - Director  
   - Total Copies  
   - Created At  
   - Updated At  
+- **Trending Movie Properties**:  
+  - Title  
+  - Release Date  
+  - Director  
+  - View this month
+  - Social Mentions
+  - Created At  
+  - Updated At  
+- **Search Feature**: Users can search for movies by title.  
+- **Filter Feature**: Users can filter data by **director** and **release date**.  
+- **Sorting Feature**: Users can sort data by **director, release date, and total copies**.  
 - **Main Focus**: The functionality is limited to displaying the movie list with actions to **create, edit, and see details**.  
 - **Sample Data**: Provide at least **10 sample movies**.  
 
