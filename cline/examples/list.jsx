@@ -71,7 +71,7 @@ const roles = {
   loading: false,
 };
 
-export const Component = () => {
+const Component = () => {
   const { handleChange, filters } = useFilter();
 
   const columns = [

@@ -20,21 +20,12 @@ A web-based application to display and manage a list of **movies** in a table fo
 
 ### **Detail Page**  
 - Shows full details of a selected **movie**.  
-- **Back button**, return to the movie list.  
 
 ### **Edit Page**  
 - Allows users to update **movie** details.  
 - Fields should be pre-filled with existing movie data.  
 - Validation rules should be applied (**e.g., title and director cannot be empty**).  
-- **Actions**:  
-  - **Back button** (return to the movie list)  
-  - **Cancel button** (return to the movie list)  
-  - **Submit button** (save changes)  
 
 ### **Create Page**  
 - Allows users to create **movie** details.  
 - Validation rules should be applied (**e.g., title and director cannot be empty**).  
-- **Actions**:  
-  - **Back button** (return to the movie list)  
-  - **Cancel button** (return to the movie list)  
-  - **Submit button** (save changes)  

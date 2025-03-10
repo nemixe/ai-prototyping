@@ -1,5 +1,5 @@
 import { Page } from "admiral";
-import { Col, Row, message } from "antd";
+import { message } from "antd";
 import { useNavigate } from "react-router";
 import { urlParser } from "@/utils/url-parser";
 
@@ -31,7 +31,7 @@ const role = {
   loading: false,
 };
 
-export const Component = () => {
+const Component = () => {
   const navigate = useNavigate();
 
   const handleOnFinish = () => {

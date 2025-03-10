@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 import { FormRole } from "./form";
 
-export const Component = () => {
+const Component = () => {
   const navigate = useNavigate();
   const breadcrumb = [
     {
@@ -32,3 +32,4 @@ export const Component = () => {
     </Page>
   );
 };
+export default Component;
