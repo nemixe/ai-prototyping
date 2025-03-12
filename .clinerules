@@ -1,104 +1,124 @@
 # Modules Specification
 
-## NOTE
+A web-based application to manage a generic resource. Users can perform CRUD (Create, Read, Update, Delete) operations such as listing items, viewing details, creating new items, and editing or deleting existing items. The application leverages a modular routing structure based on React Router.
 
-- DONT MAKE the [resource].md file just understand it
-- Make dummy file with constant variable
-
-A web-based application to manage a generic resource. Users can perform CRUD (Create, Read, Update, Delete) operations such as listing items, viewing details, creating new items, and editing or deleting existing items. The application leverages file-based routing to automatically generate routes based on the file structure.
-
-## File-based Routing Structure
+## Routing Structure
 
 ### List Page (Read)
-
-- **File Path:** `/src/app/[resource]/page.jsx`
-- **Example File** `cline/examples/list.jsx`, `cline/examples/list-with-tabs.jsx`. Select variant list based on the specs
-- **Important Note** use all component describe in examples dont try make any other custom component
-- **Route:** `/[resource]`
-- **Features:**
-  - Displays a list of items for the resource.
-  - Provide examples reel data for the list
-  - Supports features like search, filtering, and sorting.
-  - Main focus is on listing items with navigation to create, edit, or view details.
-  - Sample data and data properties will be defined via prompt.
+- **File Path:** `src/app/[resource]/page.jsx`
+- **Example Files:** `cline/examples/list.jsx`, `cline/examples/list-with-tabs.jsx`
+- **Important Notes:**
+  - Use components from the examples; do not create custom components.
+  - **Route:** `[resource]`
+  - **Features:**
+    - Displays a list of resource items.
+    - Provides example real data for the list.
+    - Supports search, filtering, and sorting based on specifications.
+    - Ensure navigation options for creating, editing, and viewing details.
+    - **DO NOT** add extra fields not specified in resource specifications.
 
 ### Detail Page (Read)
-
-- **File Path:** `./src/app/[resource]/[id]/page.jsx`
-- **Example File** `./cline/examples/detail.jsx`
-- **Route:** `/[resource]/:id`
+- **File Path:** `src/app/[resource]/[id]/page.jsx`
+- **Example Files:** `cline/examples/detail.jsx`, `cline/examples/complex-detail.jsx`
+- **Route:** `[resource]/:id`
 - **Features:**
-  - Shows detailed information for a selected item.
+  - Displays detailed information about a selected item.
   - Includes a back button to return to the list page.
 
 ### Edit Page (Update)
-
-- **File Path:** `./src/app/[resource]/[id]/update/page.jsx`
-- **Example File** `./cline/examples/update.jsx`
-- **Route:** `/[resource]/:id/edit`
+- **File Path:** `src/app/[resource]/[id]/update/page.jsx`
+- **Example File:** `cline/examples/update.jsx`
+- **Route:** `[resource]/:id/edit`
 - **Features:**
   - Provides a form for updating an existing item.
-  - Pre-fills fields with the current item data.
-  - Includes validation rules (e.g., required fields).
-  - Contains actions such as a back button, cancel button, and submit button to save changes.
+  - Pre-fills fields with current item data.
+  - Implements validation rules.
+  - Includes back, cancel, and submit buttons.
 
 ### Create Page (Create)
-
-- **File Path:** `./src/app/[resource]/create/page.jsx`
-- **Example File** `./cline/examples/create.jsx`
-- **Route:** `/[resource]/create`
+- **File Path:** `src/app/[resource]/create/page.jsx`
+- **Example File:** `cline/examples/create.jsx`
+- **Route:** `[resource]/create`
 - **Features:**
-  - Provides a form to create a new item.
-  - Includes validation rules (e.g., required fields).
-  - Contains actions such as a back button, cancel button, and submit button to save the new item.
+  - Provides a form for creating a new item.
+  - Implements validation rules.
+  - Includes back, cancel, and submit buttons.
 
-## Additonal Note
-- Create the same form between create and update page
-  - **File Path:** `./src/app/[resource]/_components/form.jsx`
-  - **Example File** `./cline/examples/form.jsx`
-- Dont forget to add a section [resource] to SIDEBAR_ITEMS located on `./src/app/layout.jsx`
-- Import `MailOutlined` from `@ant-design/icons` as the default icon for the new [resource]. You can use this icon in the sidebar.
-- Correct imports must be used in all pages. Do **not** import components using relative paths like `'./_components/form.tsx'`. Instead, always use absolute imports that match the resource folder structure.
-- **Use real data examples** in all pages instead of placeholder names. Example:  
-  - **Do not:** `{ title: "Song 1", artist: "Artist 1" }`  
-  - **Correct:** `{ title: "Bohemian Rhapsody", artist: "Queen" }`  
+## Additional Notes
+- **Shared Form Component**
+  - **File Path:** `src/app/[resource]/_components/form.jsx`
+  - **Example File:** `cline/examples/form.jsx`
+  - Use the same form for Create and Update pages.
+- **Sidebar Navigation**
+  - Add `[resource]` to `SIDEBAR_ITEMS` in `src/app/layout.jsx`.
+- **Default Icon**
+  - Use `MailOutlined` from `@ant-design/icons` as the default sidebar icon.
+- **Import Rules**
+  - Use absolute imports matching the resource folder structure.
+  - **DO NOT** use relative imports.
+- **Example Data**
+  - Use real, meaningful data examples.
+  - **Incorrect:** `{ title: "Song 1", artist: "Artist 1" }`
+  - **Correct:** `{ title: "Bohemian Rhapsody", artist: "Queen" }`
+- **Date Format:** ISO 8601, formatted as `DD-MM-YYYY` with `dayjs`.
+- **Table Rules**
+  - Use `DataTable` from `admiral` instead of `table` from `antd`.
+  - Make sure to use data structure as specified below.
+    ```json
+    {
+      "data": {
+        "status_code": 200,
+        "version": "1.0.0",
+        "data": {
+          "items": [
+            { "id": 1, "name": "Item 1" }
+          ],
+          "meta": {
+            "total_page": 1,
+            "total": 10,
+            "page": 1,
+            "per_page": 10
+          }
+        }
+      },
+      "loading": false
+    }
+    ```
+- **Resource Rules**
+  - Use plural for resource names.
 
-# AI File-Based Routing Generation Rules
+# AI Routing Generation Rules
 
-# VERY IMPORTANT INFORMATION
+## VERY IMPORTANT INFORMATION
 
-DONT MAKE new FILE [resource].md inside cline/specs folder, just understand the file dont try to make any other file on `cline/specs`
+- **DO NOT** create a new `[resource].md` file inside `cline/specs`.
+- This project uses **Vite with React Router**.
+- Use **react-router**, **NOT** react-router-dom.
 
-THIS IS VITE with react-router dont act like this is NEXTJS APP
+## 1. Markdown File Scope
+- **Only** read markdown files in `cline/specs`.
+- **DO NOT** read files outside the `cline` folder.
 
-USE react-router instead of react-router-dom
-
-## 1. Scope of Markdown Files
-
-- **Only** read markdown files located in the `cline/specs` folder.
-- Do **not** read any files outside of the `cline` folder.
-
-## 2. Understanding User Requests
+## 2. Understanding Requests
 
 - **Full CRUD Request:**
-  - If a user says, "make me a [resource] page", it means they want a full CRUD implementation for that resource (i.e., Create, Read, Update, and Delete pages).
+  - If a user asks for a `[resource]` page, generate all CRUD pages.
 - **Specific Page Request:**
-  - If a user explicitly says, "make me just a [resource] create page" (or any other specific action), it means they want **only** that specific page (in this example, just the Create Page).
-  - In this case, only the specs for the corresponding section (e.g., Create) should be read and used.
+  - If a user requests a specific page, generate only that page.
 
 ## 3. Examples
 
 - **Full CRUD Example:**
-  - User Query: "make me a books page"
-  - Action: Generate full CRUD pages (List, Detail, Edit, Create, etc.) for the "books" resource.
+  - **User Query:** "Make me a books page."
+  - **Action:** Generate full CRUD pages for "books".
 - **Specific Page Example:**
-  - User Query: "make me just a books create page"
-  - Action: Generate only the Create Page for the "books" resource by reading the specs from the Create section.
+  - **User Query:** "Make me just a books create page."
+  - **Action:** Generate only the Create page for "books".
 
 ## 4. Working Apps
-- This code was a working app, dont change anything beside your task.
+- This is an existing, working app; do **not** modify beyond the assigned task.
 
-## 5. Dependency
-- Before using any dependencies, look at package.json file to check wether the dependency installed or not
+## 5. Dependencies
+- Check `package.json` before adding any dependency.
 
-Follow these rules to correctly interpret the user's needs and generate the appropriate file-based routing structure.
+Follow these rules to ensure proper implementation of the routing structure.
