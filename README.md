@@ -41,3 +41,15 @@ pnpm run build
 npm -g install serve (run once)
 serve -s dist
 ```
+
+## How to make a module
+
+```
+1. Open cline extension
+2. Make sure you have inserted openrouter key in cline setting (ask Mas Nugi or use personal key)
+4. Insert this prompt to chat box "Create CRUD 'user' based on @cline/module/user-module. Follow the examples code on @/cline/examples/"
+5. Please re-type word @cline/module/user-module and @/cline/examples/ to attach the file
+6. Submit the prompt
+7. Approve read or write extension until finish
+8. See the added module in browser
+```
