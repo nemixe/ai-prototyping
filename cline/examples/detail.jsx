@@ -109,7 +109,7 @@ const Component = () => {
             Delete
           </Button>
           <Link
-            to={urlParser("/roles/update/:id", {
+            to={urlParser("/roles/:id/update", {
               id: Number(role.data.data.id),
             })}
           >
