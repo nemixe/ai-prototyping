@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const { Step } = Steps;
 
-export const FormBook = ({ formProps, error, loading, isEdit }) => {
+export const FormWithMultiSectionStep = ({ formProps, error, loading, isEdit }) => {
   const [openModal, setOpenModal] = useState(false);
   const [data, setData] = useState([]);
   const [form] = Form.useForm();
