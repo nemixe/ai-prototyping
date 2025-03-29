@@ -1,4 +1,0 @@
-[submodule "admiral"]
-	path = admiral
-	url = git@gitlab.dot.co.id:design-system/admiral.git
-	branch = beta
