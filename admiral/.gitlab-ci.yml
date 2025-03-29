@@ -1,0 +1,31 @@
+stages:
+  - release
+
+release:
+  image: node:20.11.0
+  stage: release
+  tags:
+    - dot
+  only:
+    - main
+    - beta
+  script:
+    - npm install -g semantic-release@23.0.7 @semantic-release/gitlab@13.0.3 @semantic-release/changelog@6.0.3 @semantic-release/git@10.0.1 @semantic-release/npm@12.0.0
+    - semantic-release
+
+release:storybook_chromatic:
+  image: node:20.11.0
+  stage: release
+  tags: [dot]
+  only:
+    - main
+    - beta
+  cache:
+    key: "$CI_JOB_NAME"
+    paths:
+      - node_modules
+  before_script:
+    - npm install -g pnpm@8.14.1
+    - pnpm install --frozen-lockfile --ignore-scripts
+  script:
+    - pnpm chromatic --project-token=$CHROMATIC_PROJECT_TOKEN --zip

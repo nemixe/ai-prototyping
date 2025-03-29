@@ -1,0 +1,99 @@
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("./../asset/sf-pro-text.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.editor-container {
+  max-width: 480px;
+  margin: 0 auto;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: all 0.1s ease;
+}
+
+.editor-container.editor-focused {
+  border: 2px solid #1677ff;
+  box-shadow: 0 0 8px rgba(0, 0, 255, 0.3);
+}
+
+.editor-container:hover {
+  border: 2px solid var(--hover-border-color, #1677ff); /* Add a fallback value */
+}
+
+.menu-bar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ddd;
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+}
+
+.menu-bar button {
+  padding: 0 2px;
+  margin: 0 6px;
+  background-color: #fff;
+  color: #00000073;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.menu-bar button.is-active {
+  background-color: #ddd;
+}
+
+.menu-bar button:hover {
+  background-color: #f0f0f0;
+}
+
+.ProseMirror {
+  font-family: "SF Pro Text", sans-serif;
+  margin: 0;
+  min-height: 300px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  background-color: white;
+  outline: none;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3 {
+  color: #333;
+  margin-bottom: 2.5rem;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 1rem;
+  margin: 1.25rem 1rem 1.25rem 0.4rem;
+}
+
+.ProseMirror p {
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.ProseMirror mark {
+  background-color: #f9f9f9;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+.ProseMirror p[style*="text-align: center"] {
+  text-align: center;
+}
+
+.ProseMirror p[style*="text-align: right"] {
+  text-align: right;
+}
+
+.ProseMirror p[style*="text-align: justify"] {
+  text-align: justify;
+}

@@ -1,0 +1,29 @@
+.side-menu-layout-with-header {
+  padding: 20px 0px;
+  z-index: 10;
+  border-right: 0px;
+}
+
+.layout-with-header .ant-layout-sider {
+  overflow: hidden;
+}
+
+.layout-with-header .ant-layout-sider .ant-menu {
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  .layout-with-header .ant-layout-sider {
+    top: 0;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .layout-with-header .ant-layout-header {
+    padding: 0 4px;
+  }
+
+  .side-menu-layout-with-header {
+    position: relative;
+  }
+}

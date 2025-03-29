@@ -1,0 +1,38 @@
+.custom-bordered-card-with-top .ant-tabs-content-holder {
+  padding: 8px;
+  border: 1px solid #f0f0f0;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  background: white;
+}
+
+.custom-bordered-card-with-bottom .ant-tabs-content-holder {
+  padding: 8px;
+  border: 1px solid #f0f0f0;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  background: white;
+}
+
+.custom-bordered-card-with-right .ant-tabs-content-holder {
+  padding: 8px;
+  border: 1px solid #f0f0f0;
+  border-right: none;
+  border-radius: 8px 0 0 8px;
+  background: white;
+}
+
+.custom-bordered-card-with-left .ant-tabs-content-holder {
+  padding: 8px;
+  border: 1px solid #f0f0f0;
+  border-left: none;
+  border-radius: 0 8px 8px 0;
+  background: white;
+}
+
+.custom.ant-tabs-top > .ant-tabs-nav,
+.custom.ant-tabs-bottom > .ant-tabs-nav,
+.custom.ant-tabs-left > .ant-tabs-nav,
+.custom.ant-tabs-right > .ant-tabs-nav {
+  margin: 0;
+}
